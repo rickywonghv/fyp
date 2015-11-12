@@ -1,0 +1,44 @@
+
+#addModel{
+	padding-bottom: 10px;
+}
+
+#response{
+	padding-top: 5px;
+}
+.counthead{
+	text-align: center;
+}
+.iconCounter{
+	text-align: center;
+}
+.valCounter{
+	font-size: 40px;
+	text-align: center;
+}
+.glyphicon.glyphicon-user {
+    font-size: 75px;
+}
+.glyphicon.glyphicon-music{
+	font-size: 75px;
+}
+#callback{
+	padding-top: 10px;
+}
+#ashmsg{
+	max-width: 1000px;
+	margin:auto;
+}
+#shchmsg{
+	max-width: 500px;
+	margin:auto;
+}
+#chpwdcont{
+	max-width: 500px;
+	margin:auto;
+}
+#musicheader{
+	font-size: 30px;
+	font-family: fantasy;
+}
+
