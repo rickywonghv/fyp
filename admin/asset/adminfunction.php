@@ -1,4 +1,7 @@
 <?php
+require 'permission.php';
+session_start();
+
 
 	if($_GET['act']=='shadmin'){
 		shadmin();

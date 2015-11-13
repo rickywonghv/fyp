@@ -1,4 +1,5 @@
 <?php
+require 'permission.php';
 	function alluser(){
 		require 'db.php';
 		$sql="select * from user";

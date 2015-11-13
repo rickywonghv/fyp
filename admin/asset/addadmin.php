@@ -1,4 +1,5 @@
 <?php
+require 'permission.php';
 require 'db.php';
 	$user=$_POST['user'];
 	$pwd=$_POST['pwd'];

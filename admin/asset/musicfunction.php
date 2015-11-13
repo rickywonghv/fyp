@@ -1,4 +1,5 @@
 <?php
+require 'permission.php';
 if(isset($_GET['act'])){
 	if($_GET['act']=='shmusic'){
 		shmusic();

@@ -1,4 +1,5 @@
 <?php
+require 'permission.php';
 if(isset($_GET['msg'])){
 	if($_GET['msg']=='sendmsg'){
 		sendmsg();

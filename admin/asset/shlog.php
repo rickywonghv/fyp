@@ -1,7 +1,6 @@
 <?php
-if($_SESSION['type']!='superadmin'){
-	header('Location:index.php?msg=noper');
-}
+session_start();
+require 'permission.php';
 require 'asset/db.php';
 	$sql="select adminlog.id,adminlog.adminid,admin.username,adminlog.logdate,adminlog.logtime,adminlog.logip From adminlog INNER JOIN admin ON adminlog.adminid=admin.adminid ORDER BY adminlog.logdate DESC,adminlog.logtime DESC;";
 	$stmt=$conn->prepare($sql);
