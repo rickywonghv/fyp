@@ -1,5 +1,6 @@
 <?php
-require 'permission.php';
+//require 'permission.php';
+
 function countadmin(){
 	require 'db.php';
 	$sql="select username from admin";

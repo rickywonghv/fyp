@@ -4,7 +4,6 @@
 		header("Location:login.php");
 	}
 	require 'asset/count.php';
-	require 'asset/adminmsg.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -16,8 +15,8 @@
 		<link rel="stylesheet" type="text/css" href="asset/css/bootstrap-theme.min.css">
 		<link rel="stylesheet" type="text/css" href="asset/css/style.css">
 		<link rel="stylesheet" href="asset/css/nav.css">
+		<script src="asset/js/adminmsg.js"></script>
 		<title>Musix Cloud <?php echo $_SESSION['type'];?></title>
-		<script src="asset/js/admindelmsg.js"></script>
 	</head>
 	<body>
 		<nav class="navbar navbar-custom">
@@ -41,72 +40,102 @@
 		  </div>
 		</nav>
 		<div class="container">
-		<div id="delmsgmsg"></div>
-			<div id="amsgdetail"></div>
-		 	<div id="adminmsg">
-		 		<button class="btn btn-success" id="asendmsgbtn" data-toggle="modal" data-target="#amsgmodal">Send Message</button>
-		 		<div id="amsgform">
-					<div id="amsgmodal" class="modal fade" role="dialog">
-					  <div class="modal-dialog">
-					    <!--Message form content-->
-					    <div class="modal-content">
-					      <div class="modal-header">
-					        <button type="button" id="closebtn" class="close" data-dismiss="modal">&times;</button>
-					        <h4 class="modal-title">Send Message To Other Admin</h4>
-					      </div>
-					      <!--Msg form Start-->
-					      <form role="form" method="POST">
-					      <div class="modal-body">
-					      	<div id="fromUsername"><b>From:</b><?php echo $_SESSION['username'];?> <input type="hidden" id="fromAid" value=<?php echo $_SESSION['aid'];?> ><input type="hidden" id="fromAdmin" value=<?php echo $_SESSION['username'];?> ></div>
-					      	<div id="toUsername">
-								<div class="form-group">
-								  <label for="toadmin"><b>To:</b></label>
-								  <select class="form-control" id="toadmin">								   
-								    <?php listadmin();?>
-								  </select>
-								</div>
-					      	</div>
-					       	<div id="amsgtext">
-					       		<textarea class="form-control" id="msgarea" placeholder="Message"></textarea>
-					       	</div>
-					       	<div id="callback"></div>
-					      </div>
-					      <div class="modal-footer">
-					        <button type="submit" id="amsgbtn" class="btn btn-primary">Submit</button>
-					        <button type="reset" id="amsgrestbtn" class="btn btn-danger">Reset</button>
-					      </div>
-					      </form>
-					      <!--Msg form End-->
-					    </div>
-					  </div>
-					</div>
-		 		</div>
-		 	</div>
-		 	<!--Show Message-->
-		 	<div id="ashmsg">
-		 	<input type="hidden" id="hidusername" value=<?php echo $_SESSION['username'];?>>
-		 		<div class="table-responsive">
-				<table class="table table-hover table-striped">
-				    <thead>
-				      <tr>
-				      	<th>Message ID</th>
-				        <th>Send From</th>
-				        <th>Received Date</th>
-				        <th>Received Time</th>
-				        <th>Detail</th>
-				      </tr>
-				    </thead>
-				    <tbody id="listamsg">
-				      				     
-				    </tbody>
-				  </table>
+		<div id="msgmodalbtn"><button type="button" id="msgsendmodal" class="btn btn-success" data-toggle='modal' data-target="#sendmsgmodal">Send Message</button></div>
+		<!--Admin Message Table-->
+			<div id="amsgtable">
+				<div class="table-responsive">
+				<table class="table table-hover">
+			    <thead>
+			      <tr>
+			      	<th>Message ID</th>
+			        <th>From Admin</th>
+			        <th>To Admin</th>
+			        <th>Receive Date</th>
+			        <th>Receive Time</th>
+			        <th>Detail</th>
+			        <th>Delete Message</th>
+			      </tr>
+			    </thead>
+			    <tbody id="amsgbody">
+			      
+			      
+			    </tbody>
+			  </table>
+			  </div>
+			</div>
+		<!--End Admin Message Table-->
+		<!--Admin Message Detail Modal-->
+			<div id="amsgmodal">
+				<div id="msgmodal" class="modal fade" role="dialog">
+				  <div class="modal-dialog">
+
+				    <!-- Modal content-->
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal">&times;</button>
+				        <h4 class="modal-title">Message Detail</h4>
+				      </div>
+				      <div class="modal-body">
+				        <b>From Admin:</b><div id="fadmin"></div>
+				        <b>Message:</b><div id="msg"></div>
+				        <b>Receive Date:</b><div id="date"></div>
+				        <b>Receive Time:</b><div id="time"></div>
+				        <b>From IP:</b><div id="ip"></div>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				      </div>
+				    </div>
+
 				  </div>
-				  <!--Show Message Detail-->
-				  <div id="shmsgmodal"></div>
-				  <!--Show Message Detail End-->
-		 	</div>
-			<!--Show Message End-->
+				</div>
+			</div>
+			<!--End Admin Message Detail Modal-->
+
+			<!--Admin Message Add Modal-->
+			<div id="sendmsg">
+				<div id="sendmsgmodal" class="modal fade" role="dialog">
+				  <div class="modal-dialog">
+
+				    <!-- Modal content-->
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal">&times;</button>
+				        <h4 class="modal-title">Send Message</h4>
+				      </div>
+				      <div class="modal-body">
+					      <form method="post">
+					      <input type="hidden" value=<?php echo $_SESSION['username'];?> id="hiddenuser">
+							<ul class="list-group">
+							  <li class="list-group-item"><b>From Admin:</b><?php printf($_SESSION['username']);?></li>
+							  <li class="list-group-item">
+								<div class="form-group">
+								  <label for="toadmin"><b>To Admin:</b></label>
+								  <select class="form-control" id="toadmin" class="form-control"></select>
+								</div>
+							  </li>
+							  <li class="list-group-item">
+								  <div class="form-group">
+									  <label for="msgtext"><b>Message:</b></label>
+									  <textarea rows="4" id="msgtext" class="form-control"></textarea>
+								  </div>
+							  </li>
+							  <li class="list-group-item"><b>From IP:</b><?php printf($_SERVER["REMOTE_ADDR"])?></li>
+							</ul>
+							<div id="callbackmsg"></div>
+				      </div>
+				      <div class="modal-footer">
+				      	<button type="button" class="btn btn-success xlg" id="sendBtn">Send</button>
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				      </div>
+				      </form>
+				    </div>
+
+				  </div>
+				</div>
+			</div>
+			<!--End Admin Message Add Modal-->
 		</div>
-		<script src="asset/js/adminmsg.js"></script>
+		
 	</body>
 </html>

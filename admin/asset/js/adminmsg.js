@@ -1,63 +1,100 @@
 $(document).ready(function(){
 	$.ajax({
-					type:"GET",
-					dataType:"json",
-					url:"asset/adminmsg.php?msg=shmsg",
-					success:function(res){
-						json=res;
+		type:"GET",
+		url:"asset/amsg.php?act=amsgtable",
+		dataType:"json",
+		success:function(response){
+			json=response;
 						if(json==""){
-							$("#listamsg").html('<tr><td colspan=5><div class="alert alert-warning">You have no message! </div></td></tr>');
+							$("#amsgbody").html('<tr><td colspan=7><div class="alert alert-warning">No Message! </div></td></tr>');
 						}else{
-							var NumOfJData = json.length;							
+							var NumOfJData = json.length;		
 							for(var i = 0; i < NumOfJData; i++) {
-								$("#listamsg").append("<tr><td><div class='msgidd'>"+json[i]["msgid"]+"</div></td><td>"+json[i]["fromadmin"]+"</td><td>"+json[i]["date"]+"</td><td>"+json[i]["time"]+"</td><td><button class='btn btn-info' data-toggle='modal' type='button' data-target=#"+json[i]["msgid"]+">Detail</button><td><button type='button' class='btn btn-danger delbtn' onclick='del("+json[i]["msgid"]+")'>Delete</button></td></td><tr>");
-
-								$("#shmsgmodal").append('<div id='+json[i]["msgid"]+' class="modal fade" role="dialog"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Message Detail</h4></div><div class="modal-body"><p><b>From Admin:</b>'+json[i]["fromadmin"]+'</p><p><b>Message:</b>'+json[i]["msg"]+'</p><p><b>Receive Time: </b>'+json[i]["time"]+'</p><p><b>Receive Date: </b>'+json[i]["date"]+'<p><b>Sent from IP: </b>'+json[i]["ip"]+'</p></div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div>');							
-
+								$("#amsgbody").append("<tr><td>"+json[i]["msgid"]+"</td><td>"+json[i]["fromadmin"]+"</td><td>"+json[i]["toadmin"]+"</td><td>"+json[i]["date"]+"</td><td>"+json[i]["time"]+"</td><td><button class='btn btn-info' data-toggle='modal' data-target='#msgmodal' onclick='msgdetail("+json[i]["msgid"]+")'>Detail</button></td><td><button class='btn btn-danger' onclick='msgdel("+json[i]["msgid"]+")'>Delete</button></td></tr>");
 							}
 
 						}
-							
-					},
-					error:function(){
-						$("#listamsg").html('error');
-					}
-				});
+		}
+	})
+	$("#msgsendmodal").click(function(){
+		$.ajax({
+			url:"asset/amsg.php?act=shadmin",
+			type:"GET",
+			dataType:"json",
+			success:function(response){
+				json=response;
+				var NumOfJData = json.length;		
+							for(var i = 0; i < NumOfJData; i++) {
+								$("#toadmin").append('<option value='+json[i]["username"]+'>'+json[i]["username"]+'</option>');
+							}
+			}
+		})
+	})
 
-
-
-	$("#amsgbtn").click(function(){
-		var fromAdmin=$("#fromAdmin").val();
-		var fromAid=$("#fromAid").val();
-		var toadmin=$('#toadmin :selected').text();
-		var msg=$("textarea#msgarea").val();
+	$("#sendBtn").click(function(){
+		var fromadmin=$("#hiddenuser").val();
+		var toadmin=$("#toadmin").val();
+		var msg=$("#msgtext").val();
 		if(msg==""){
-			$("#callback").html('<div class="alert alert-warning"><strong>Warning!</strong>Please fill in message! </div>');
-			return false;
-		}else if(fromAdmin==toadmin){
-			$("#callback").html('<div class="alert alert-warning"><strong>Warning!</strong>You can not send message to yourself! </div>');
+			$("#callbackmsg").html('<div class="alert alert-danger"><strong>Error!</strong>Please enter before send! </div>');
 			return false;
 		}else{
 			$.ajax({
 				type:"POST",
-				data:"from="+fromAdmin+"&toadmin="+toadmin+"&msg="+msg,
-				url:"asset/adminmsg.php?msg=sendmsg",
+				url:"asset/amsg.php",
+				data:"fromadmin="+fromadmin+"&toadmin="+toadmin+"&msg="+msg+"&act=sendmsg",
 				success:function(response){
-					if(response=="true"){
-						$("#callback").html('<div class="alert alert-success"><strong>Success!</strong>Your message sent already! </div>');
-						$("#amsgbtn").attr('disabled','disabled');
-						$("#closebtn").click(function(){
-							window.location='adminmessage.php';
-						})
+					if(response=="success"){
+						$("#callbackmsg").html('<div class="alert alert-success"><strong>Success!</strong>Your Message sent! </div>');
+
 						return false;
-					}else{
-						$("#callback").html('<div class="alert alert-danger"><strong>Error!</strong>Your message not sent! </div>');
+					}else if(response=="error"){
+						$("#callbackmsg").html('<div class="alert alert-danger"><strong>Error!</strong></div>');
 						return false;
 					}
 				}
 			})
 			return false;
 		}
-	});
-	
+	})
 })
+
+function msgdetail(id){
+	$.ajax({
+		type:"GET",
+		url:"asset/amsg.php?act=detail&id="+id,
+		dataType:"json",
+		success:function(response){
+			json=response;
+			var NumOfJData = json.length;		
+							for(var i = 0; i < NumOfJData; i++) {
+								
+								$("#fadmin").html(json[i]["fromadmin"]);
+								$("#msg").html(json[i]["msg"]);
+								$("#date").html(json[i]["date"]);
+								$("#time").html(json[i]["time"]);
+								$("#ip").html(json[i]["ip"]);
+							}
+		}
+	})
+}
+
+function msgdel(id){
+	var a=confirm("Are you sure to delete the message that you selected!");
+	if(a==true){
+		$.ajax({
+			type:"POST",
+			url:"asset/amsg.php",
+			data:"act=del&msgid="+id,
+			success:function(response){
+				if(response=="success"){
+					alert("Delete successful");
+					window.location="adminmessage.php";
+				}else{
+					alert("Error");
+					window.location="adminmessage.php";
+				}
+			}
+		})
+	}
+}

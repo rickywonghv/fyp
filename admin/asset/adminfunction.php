@@ -1,6 +1,7 @@
 <?php
-require 'permission.php';
 session_start();
+require 'permission.php';
+
 
 
 	if($_GET['act']=='shadmin'){
@@ -21,7 +22,7 @@ session_start();
 
 function shadmin(){
 	require 'db.php';
-	session_start();
+
 	$sql="select adminid,username,type from admin";
 	$stmt=$conn->prepare($sql);
 	$stmt->execute();

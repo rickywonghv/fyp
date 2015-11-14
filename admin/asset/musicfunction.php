@@ -1,4 +1,5 @@
 <?php
+session_start();
 require 'permission.php';
 if(isset($_GET['act'])){
 	if($_GET['act']=='shmusic'){
