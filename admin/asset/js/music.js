@@ -4,7 +4,7 @@ $(document).ready(function(){
 		url:"asset/musicfunction.php?act=shmusic",
 		dataType:'json',
 		success:function(response){
-			json=response;
+					json=response;
 						if(json==""){
 							$("#listmusic").html('<tr><td colspan=7><div class="alert alert-warning">No Song! </div></td></tr>');
 						}else{

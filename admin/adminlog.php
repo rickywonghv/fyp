@@ -19,7 +19,7 @@
 		<link rel="stylesheet" type="text/css" href="asset/css/jquery-ui.min.css">
 		<link rel="stylesheet" type="text/css" href="asset/css/jquery-ui.structure.min.css">
 		<link rel="stylesheet" type="text/css" href="asset/css/jquery-ui.theme.min.css">
-		<script type="text/javascript" src="asset/js/adminscript.js"></script>
+		<script type="text/javascript" src="asset/js/log.js"></script>
 		<script type="text/javascript" src="asset/js/jquery-ui.min.js"></script>
 		<link rel="stylesheet" href="asset/css/nav.css">
 		<title>Musix Cloud <?php echo $_SESSION['type'];?></title>
@@ -70,10 +70,13 @@
 			        <th>Date</th>
 			        <th>Time</th>
 			        <th>IP Address</th>
+			        <th>Country Name</th>
+			        <th>Latitude</th>
+			        <th>Longitude</th>
 			      </tr>
 			    </thead>
-			    <tbody>
-					<?php require 'asset/shlog.php';?>
+			    <tbody id="listlog">
+					
 			    </tbody>
 			  </table>
 			</div>
