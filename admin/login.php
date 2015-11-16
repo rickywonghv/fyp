@@ -12,7 +12,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script type="text/javascript" src="asset/js/jquery-1.11.3.min.js"></script>
         <script type="text/javascript" src="asset/js/bootstrap.min.js"></script>
-        <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <!--<link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">-->
+        <script src="https://www.google.com/jsapi"></script>
         <link href="asset/css/login.css" rel="stylesheet" type="text/css">
         <script src="asset/js/login.js"></script>
         <title>Musix Cloud Admin Login</title>

@@ -1,14 +1,11 @@
 <?php
-session_start();
 if(isset($_POST['subex'])){
-
     if($_POST['format']=="xls"){
         xls($_POST['ename'],$_GET['table']);
     }
     if($_POST['format']=="csv"){
         csv($_POST['ename'],$_GET['table']);
     }
-    
 }
 
 function xls($ename,$table){
@@ -51,29 +48,29 @@ function xls($ename,$table){
 }
     
 function csv($ename,$table){
-ob_start();
-require 'db.php';
-$filename=$ename;
-$sql="select * from $table";
-$stmt=$conn->prepare($sql);
-$stmt->execute();
-    $data = $stmt->get_result();
-         $result = array();
-         while($row = $data->fetch_assoc()) {
-              $result[] = $row;
-          }
-        //print_r($result);
+        ob_start();
+        require 'db.php';
+        $filename=$ename;
+        $sql="select * from $table";
+        $stmt=$conn->prepare($sql);
+        $stmt->execute();
+            $data = $stmt->get_result();
+                 $result = array();
+                 while($row = $data->fetch_assoc()) {
+                      $result[] = $row;
+                  }
+                //print_r($result);
 
-$fp = fopen('php://output', 'w');
+        $fp = fopen('php://output', 'w');
 
-foreach ($result as $fields) {
-    fputcsv($fp, $fields);
-}
-    header('Content-Type: text/csv; charset=utf-8');
-    header("Content-Disposition: attachment; filename=$filename.csv");  
-    header("Pragma: no-cache"); 
-    header("Expires: 1");
-    ob_end_flush();
+        foreach ($result as $fields) {
+            fputcsv($fp, $fields);
+        }
+            header('Content-Type: text/csv; charset=utf-8');
+            header("Content-Disposition: attachment; filename=$filename.csv");  
+            header("Pragma: no-cache"); 
+            header("Expires: 1");
+            ob_end_flush();
 }
  
 
