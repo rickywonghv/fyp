@@ -54,37 +54,43 @@
 		</div>
 		<div id="dellog">
 		Delete records (4 days ago):
-		<button class="btn btn-danger xlg" id="delbtn" onclick=dellog()>Delete</button></div>
+			<button class="btn btn-danger xlg" id="delbtn" onclick=dellog()>Delete</button>
+			<button class="btn btn-success right" id="exbtn">Export Logging</button>
+		</div>
 		<div class="panel-group">
 					  <div class="panel panel-default">
 					    <div class="panel-heading" id="headhead">Musix Cloud Admin Logging</div>
      					 <div class="panel-body">
      					 	<div id="logtable">
-     		<div class="table-responsive">
-			<table class="table table-hover table-striped">
-			    <thead>
-			      <tr>
-			        <th>Log ID</th>
-			        <th>Admin ID</th>
-			        <th>Admin Username</th>
-			        <th>Date</th>
-			        <th>Time</th>
-			        <th>IP Address</th>
-			        <th>Country Name</th>
-			        <th>Latitude</th>
-			        <th>Longitude</th>
-			      </tr>
-			    </thead>
-			    <tbody id="listlog">
-					
-			    </tbody>
-			  </table>
-			</div>
-			</div>
+				     		<div class="table-responsive">
+							<table class="table table-hover table-striped">
+							    <thead>
+							      <tr>
+							        <th>Log ID</th>
+							        <th>Admin ID</th>
+							        <th>Admin Username</th>
+							        <th>Date</th>
+							        <th>Time</th>
+							        <th>IP Address</th>
+							        <th>Country Name</th>
+							        <th>Latitude</th>
+							        <th>Longitude</th>
+							      </tr>
+							    </thead>
+							    <tbody id="listlog">
+							    </tbody>
+							  </table>
+							</div>
+							</div>
      					 </div>
      					</div>
      				   </div>
-		
+			
+			<!--Export Modal-->
+			<div id="export">
+				
+			</div>
+			<!--Export Modal End-->
 		</div>
 
 	</body>
