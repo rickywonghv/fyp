@@ -88,7 +88,7 @@
 							  <li class="list-group-item"><b>Your IP Address: </b><?php echo $_SERVER['REMOTE_ADDR'];?></li>
 							  <li class="list-group-item"><b>Username: </b><?php echo $_SESSION['username'];?></li>
 							  <li class="list-group-item"><b>Admin Type: </b><?php echo $_SESSION['type'];?></li>
-							  <li class="list-group-item"><button class="btn btn-primary" data-toggle="modal" data-target="#chpwd">Change Password</button></li>
+							  <li class="list-group-item"><button class="btn btn-primary" data-toggle="modal" data-target="#chpwd"><span class="user glyphicon glyphicon-lock"></span> Change Password</button></li>
 							</ul>
      					 </div>
      					</div>
@@ -100,7 +100,7 @@
 					  <div class="panel panel-primary">
 					    <div class="panel-heading counthead">Number of Administrator</div>
      					 <div class="panel-body" class="counter">
-     					 <div class="iconCounter"><span class="glyphicon glyphicon-user"></span></div>
+     					 <div class="iconCounter"><span class="glyphicon glyphicon-user" id="user"></span></div>
      					 	<div class="valCounter"><?php countadmin();?></div>
      					 </div>
      					</div>
@@ -111,7 +111,7 @@
 					  <div class="panel panel-warning">
 					    <div class="panel-heading counthead">Number of User</div>
      					 <div class="panel-body" class="counter">
-     					 <div class="iconCounter"><span class="glyphicon glyphicon-user"></span></div>
+     					 <div class="iconCounter"><span class="glyphicon glyphicon-user" id="user"></span></div>
      					 	<div class="valCounter"><?php countuser();?></div>
      					 </div>
      					</div>

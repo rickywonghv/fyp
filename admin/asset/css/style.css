@@ -16,9 +16,11 @@
 	font-size: 40px;
 	text-align: center;
 }
-.glyphicon.glyphicon-user {
-    font-size: 75px;
+
+#user{
+	font-size: 75px;
 }
+
 .glyphicon.glyphicon-music{
 	font-size: 75px;
 }

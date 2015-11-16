@@ -27,7 +27,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand"><span class="glyphicon glyphicon-music"></span>Musix Cloud</a>
+                    <a class="navbar-brand"><span class="glyphicon glyphicon-headphones"></span>Musix Cloud</a>
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-ex-collapse">
                     <ul class="nav navbar-nav navbar-right">

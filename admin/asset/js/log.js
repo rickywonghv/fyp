@@ -12,3 +12,23 @@ $(document).ready(function(){
 		}
 	})
 })
+
+function dellog(){
+	var r=confirm("Sure to delete 4 days records? ");
+	if(r==true){
+		$.ajax({
+			url:"asset/adminfunction.php?act=dellog",
+			type:"GET",
+			data:"html",
+			success:function(response){
+				if(response=="success"){
+					alert("Delete Successful");
+					window.location="adminlog.php";
+				}else{
+					alert("error");
+					window.location="adminlog.php";
+				}
+			}
+		})
+	}
+}

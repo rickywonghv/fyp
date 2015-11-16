@@ -40,7 +40,11 @@
 		  </div>
 		</nav>
 		<div class="container">
-		<div id="msgmodalbtn"><button type="button" id="msgsendmodal" class="btn btn-success" data-toggle='modal' data-target="#sendmsgmodal">Send Message</button></div>
+		<div id="msgmodalbtn"><button type="button" id="msgsendmodal" class="btn btn-success" data-toggle='modal' data-target="#sendmsgmodal"><span class="glyphicon glyphicon-send"></span> Send Message</button> 
+			<?php require 'asset/exmodal.php';?>
+		
+		</div>
+
 		<!--Admin Message Table-->
 			<div id="amsgtable">
 				<div class="table-responsive">
@@ -135,6 +139,8 @@
 				</div>
 			</div>
 			<!--End Admin Message Add Modal-->
+
+			
 		</div>
 		
 	</body>
