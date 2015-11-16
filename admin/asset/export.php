@@ -12,6 +12,7 @@ if(isset($_POST['subex'])){
 }
 
 function xls($ename,$table){
+    ob_start();
     require 'config.php';
     $DB_TBLName = $table;
     $filename = $ename;       
@@ -46,9 +47,11 @@ function xls($ename,$table){
     header("Content-Disposition: attachment; filename=$filename.xls");  
     header("Pragma: no-cache"); 
     header("Expires: 1");
+    ob_end_flush();
 }
     
 function csv($ename,$table){
+ob_start();
 require 'db.php';
 $filename=$ename;
 $sql="select * from $table";
@@ -70,6 +73,7 @@ foreach ($result as $fields) {
     header("Content-Disposition: attachment; filename=$filename.csv");  
     header("Pragma: no-cache"); 
     header("Expires: 1");
+    ob_end_flush();
 }
  
 
