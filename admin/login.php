@@ -14,6 +14,7 @@
         <script type="text/javascript" src="asset/js/bootstrap.min.js"></script>
         <!--<link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">-->
         <script src="https://www.google.com/jsapi"></script>
+
         <link href="asset/css/login.css" rel="stylesheet" type="text/css">
         <script src="asset/js/login.js"></script>
         <title>Musix Cloud Admin Login</title>
@@ -32,7 +33,7 @@
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-ex-collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="active">
+                        <li>
                             <a href="#">Home</a>
                         </li>
                     </ul>
@@ -55,8 +56,9 @@
                                 <input class="form-control input-lg" id="pwd" placeholder="Password" type="password">
                             </div>
                             <button type="submit" class="btn btn-block btn-info btn-lg" id="loginbtn">Login</button>
-                            <div id="message"></div>
+                            
                         </form>
+                        <div id="message"></div>
                     </div>
                     <div class="col-md-6">
                         <img src="http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png" class="hidden-xs img-responsive">
