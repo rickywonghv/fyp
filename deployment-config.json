@@ -1,0 +1,9 @@
+{
+    "type": "sftp",
+    "host": "133.130.100.88",
+    "username": "serverpilot",
+    "password": "Petersys214",
+    "port": 22,
+    "remotePath": "apps/fyp/public",
+    "uploadOnSave": true
+}
