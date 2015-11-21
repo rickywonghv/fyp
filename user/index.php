@@ -1,9 +1,10 @@
 <?php
-  session_start();
-  //$username=$_SESSION['username'];
-  //$type=$_SESSION['type'];
-  //$uid=$_SESSION['uid'];
- ?>
+session_start();
+if(empty($_SESSION['email'])){
+   header("Location:../index.php");
+}
+?>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -43,7 +44,7 @@
         <div class="row">
           <div class="col-md-12">
             <div class="alert alert-dismissable alert-success">
-              <strong>Welcome</strong>Welcome back <?php echo $_SESSION['username'];?></div>
+              <strong>Welcome</strong>Welcome back <?php echo $_SESSION['email'];?></div>
           </div>
         </div>
       </div>
