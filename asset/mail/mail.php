@@ -28,8 +28,8 @@ function regmail($tomail,$url){   //tomail and the activate url
   }
 }
 
-function actmail($toemail,$pass){
-  require 'phpmailer/PHPMailerAutoload.php';
+function actmail($tomail,$pass){
+  include 'phpmailer/PHPMailerAutoload.php';
   //require('phpmailer/class.phpmailer.php');
   $mail = new PHPMailer();
   $mail->isSMTP();
