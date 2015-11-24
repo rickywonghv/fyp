@@ -43,15 +43,14 @@ function actmail($tomail,$pass){
   $mail->Password = "basa3aTR";
   $mail->SetFrom("musixcloudreg@gmail.com",'MusixCloud');
   $mail->AddAddress($tomail);
-  //$mail->Host = gethostbyname('smtp.gmail.com');
   //$mail->addReplyTo('replyto@example.com', 'First Last');
-  $mail->Subject = "MusixCloud membership comfirm email";
-  $mail->Body = "Your Account has been activate, please use this password to login and change the password after you login."."\n"."Password:".$pass;
+  $mail->Subject = "MusixCloud membership has activate. ";
+  $mail->Body = "Your Account has been activate, please use this password to login and change the password after you login. <a href='http://fyp.damonw.com'>Click to MusixCloud</a>"."\n"."Email:".$tomail." Password: ".$pass;
   if(!$mail->Send()){
         echo "Mailer Error: " . $mail->ErrorInfo;
         echo 'error';
   }else{
-        echo "success";
+        echo "Your account has already been activate, please click this link to login: <a href='http://fyp.damonw.com'>Click</a>";
   }
 }
 ?>

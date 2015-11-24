@@ -57,7 +57,7 @@
                   </div>
             </div>
             <!--Nav bar end-->
-            <div class="cover-image" style="background-image: url(https://unsplash.imgix.net/photo-1418065460487-3e41a6c84dc5?q=25&amp;fm=jpg&amp;s=127f3a3ccf4356b7f79594e05f6c840e);"></div>
+            <div class="cover-image" style="background-image: url(asset/img/bg.jpg);"></div>
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 text-center">

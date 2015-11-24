@@ -41,10 +41,6 @@ if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         }else{
           echo "notact";
         }
-
-          //MAIL
-          //"確認電郵已發送 請登入至".$email."的收件夾查詢。";
-
       }
 }
 ?>
