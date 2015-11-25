@@ -117,12 +117,27 @@ if(empty($_SESSION['email'])){
               <div class="modal-body">
                 <div class="list-group hover">
                   <form id="chpwdform" method="post" role="form">
-                    fjnv
-                  </form>
+                    <div class="input-group">
+                      <span class="input-group-addon">Old Password</span>
+                      <input type="password" class="form-control" id="opwd" placeholder="Enter your old password">
+                    </div>
+
+                    <div class="input-group">
+                      <span class="input-group-addon">New Password</span>
+                      <input type="password" class="form-control" id="npwd" placeholder="Enter your new password">
+                    </div>
+
+                    <div class="input-group">
+                      <span class="input-group-addon">Confirm New Password</span>
+                      <input type="password" class="form-control" id="conpwd" placeholder="Enter your old password">
+                    </div>
                 </div>
+                <div id="msg"></div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default backtoset">Back</button>
+                <button type="submit" id="chpwdbtn" class="btn btn-success " ><span class="glyphicon glyphicon-save" ></span> Save</button>
               </div>
+              </form>
             </div>
             </div>
           </div>
