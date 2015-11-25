@@ -1,3 +1,5 @@
+
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
@@ -36,7 +38,11 @@
                         <li>
                           <a href="#contact">Contact Us</a>
                         </li>
-                          <li class="dropdown" id="menuLogin">
+
+                        <?php
+                        session_start();
+                        if(empty($_SESSION['email'])){
+                          echo '<li class="dropdown" id="menuLogin">
                             <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="navLogin"><i class="fa fa-caret-down"></i>Login</a>
                             <div class="dropdown-menu" id="loginnav" style="padding:17px;">
                               <h4>User Login</h4>
@@ -47,11 +53,17 @@
                               <div class="form-group" for="loginpwd">
                                 <input id="loginpwd" class="form-control" type="password" placeholder="Password">
                               </div>
+
                                 <button type="submit" id="loginbtn" class="btn btn-info">Login</button>
                                 <div id="loginmsg"></div>
                               </form>
                             </div>
-                          </li>
+                          </li>';
+                        }else{
+                          echo "<li> <a href='user/index.php'>User Panel</a></li>";
+                        }
+                        ?>
+
                         </ul>
                     </div>
                   </div>
@@ -94,6 +106,7 @@
 
         <div class="section" id="contact"> <div class="container"> <div class="row"> <div class="col-md-12"> <h1 class="text-center">Contact Us</h1> </div></div><div class="row"> <div class="col-md-offset-3 col-md-6"> <form role="form"> <div class="form-group"> <div class="input-group"> <input type="text" class="form-control" placeholder="Enter your email"> <span class="input-group-btn"> <a class="btn btn-success" type="submit">Go</a> </span> </div></div></form> </div></div></div></div><footer class="section section-primary"> <div class="container"> <div class="row"> <div class="col-sm-6"> <h1>MusixCloud</h1> <p>Lorem ipsum dolor sit amet, consectetur adipisici elit, <br>sed eiusmod tempor incidunt ut labore et dolore magna aliqua. <br>Ut enim ad minim veniam, quis nostrud</p></div><div class="col-sm-6"> <p class="text-info text-right"> <br><br></p><div class="row"> <div class="col-md-12 hidden-lg hidden-md hidden-sm text-left"> <a href="#"><i class="fa fa-3x fa-fw fa-instagram text-inverse"></i></a> <a href="#"><i class="fa fa-3x fa-fw fa-twitter text-inverse"></i></a> <a href="#"><i class="fa fa-3x fa-fw fa-facebook text-inverse"></i></a> <a href="#"><i class="fa fa-3x fa-fw fa-github text-inverse"></i></a> </div></div><div class="row"> <div class="col-md-12 hidden-xs text-right">  <a href="#"><i class="fa fa-3x fa-fw fa-twitter text-inverse"></i></a> <a href="#"><i class="fa fa-3x fa-fw fa-facebook text-inverse"></i></a>  </div></div></div></div></div></footer>
 
+        <!--Register Modal start-->
         <div id="regmodal" class="modal fade" role="dialog">
           <div class="modal-dialog">
             <!-- Modal content-->
@@ -118,6 +131,7 @@
 
           </div>
         </div>
+        <!--End register Modal start-->
   </body>
 
 </html>

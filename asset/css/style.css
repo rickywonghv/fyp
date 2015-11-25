@@ -273,6 +273,7 @@ th {
 #loginnav{
   border-radius: 5px;
   background-color: #fff;
+  min-width:300px;
 }
 @font-face {
   font-family: 'Glyphicons Halflings';

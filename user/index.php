@@ -14,10 +14,12 @@ if(empty($_SESSION['email'])){
     <link href="../asset/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="../asset/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="asset/js/index.js"></script>
+    <link href="../asset/css/bootstrap.icon-large.min.css" rel="stylesheet">
     <title>MusixCloud User Panel</title>
   </head>
 
   <body>
+
     <div class="navbar navbar-default navbar-static-top">
       <div class="container">
         <div class="navbar-header">
@@ -32,11 +34,11 @@ if(empty($_SESSION['email'])){
         </div>
         <div class="collapse navbar-collapse" id="navbar-ex-collapse">
           <ul class="nav navbar-nav">
-            <li class="active">
-              <a href="#">Home</a>
+            <li class="">
+              <a href="../index.php">Home</a>
             </li>
             <li>
-              <a href="#">Profile</a>
+              <a href="" data-toggle="modal" data-target="viewpromodal"> <span class="glyphicon glyphicon-user"></span> Profile</a>
             </li>
             <li><a href="#upload">Upload</a></li>
             <li>
@@ -93,8 +95,9 @@ if(empty($_SESSION['email'])){
               </div>
               <div class="modal-body">
                 <div class="list-group hover">
-                  <li class="list-group-item"><span class="glyphicon glyphicon-lock"></span> Change Password <div class="pull-right"><button type="button" class="btn btn-success btn-sm"  id="settingchpwd">click</button>
+                  <li class="list-group-item"><span class="glyphicon glyphicon-lock"></span> Change Password <div class="pull-right"><button type="button" class="btn btn-success btn-xs"  id="settingchpwd">click</button>
                   </div> </li>
+                  <li class="list-group-item"><span class="glyphicon glyphicon-edit"></span> Edit Profile <div class="pull-right"><button type="button" class="btn btn-info btn-xs" id="seteditpro" data-toggle="modal" data-target="#editpromodal"><span class="glyphicon glyphicon-edit"></span>Edit</button></div></li>
                 </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -105,7 +108,7 @@ if(empty($_SESSION['email'])){
         </div>
       </div>
       <!--End setting modal-->
-
+<!--Change password Modal-->
       <div class="changepwd">
         <div id="chpwdmodal" class="modal fade" role="dialog">
           <div class="modal-dialog">
@@ -143,7 +146,11 @@ if(empty($_SESSION['email'])){
           </div>
         </div>
       </div>
+<!--End change password Modal-->
 
+<!--View Profile-->
+
+<!--End View Profile-->
     </div>
   </body>
 
