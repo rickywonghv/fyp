@@ -4,6 +4,7 @@ header("Content-Type:text/html; charset=utf-8");
 
   $email = $_POST['formemail'];
 
+
 if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
   $emailErr = "Invalid email format";
   echo "inv";
@@ -29,7 +30,7 @@ if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
           $code = md5($random);
           $to = $email;
           $message = "http://fyp.damonw.com/act.php?email=".$email."&code=".$code;
-
+          //$message ="google";
           $regid=null;
           $sql="insert into register values(?,?,?)";
           $stmt=$conn->prepare($sql);

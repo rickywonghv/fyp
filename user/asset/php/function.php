@@ -6,6 +6,8 @@ if(empty($_SESSION['email'])){
 
 if($_GET['act']=="chpwd"){
   chpwd($_POST['opwd'],$_POST['npwd'],$_POST['conpwd']);
+}elseif ($_GET['act']=="viewpro") {
+  viewprofile();
 }
 
 function chpwd($opwd,$npwd,$conpwd){
@@ -32,5 +34,10 @@ function chpwd($opwd,$npwd,$conpwd){
           echo 'success';
       }
   }
+}
+
+function viewprofile(){
+  include 'db.php';
+  
 }
  ?>

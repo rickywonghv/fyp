@@ -1,4 +1,4 @@
-
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,6 +12,9 @@
         <link href="asset/css/style.css" rel="stylesheet" type="text/css">
         <script type="text/javascript" src="asset/js/login.js"></script>
         <script type="text/javascript" src="asset/js/reg.js"></script>
+        <meta name="google-signin-scope" content="profile email">
+        <meta name="google-signin-client_id" content="164478380957-e9oa8rb33aee1342jvuaplfk6vciirrq.apps.googleusercontent.com">
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
         <!--<script type="text/javascript" src="https://google.com/jsapi"></script>-->
         <title>MusixCloud</title>
 
@@ -40,7 +43,7 @@
                         </li>
 
                         <?php
-                        session_start();
+
                         if(empty($_SESSION['email'])){
                           echo '<li class="dropdown" id="menuLogin">
                             <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="navLogin"><i class="fa fa-caret-down"></i>Login</a>
@@ -55,6 +58,7 @@
                               </div>
 
                                 <button type="submit" id="loginbtn" class="btn btn-info">Login</button>
+                                <div class="g-signin2" data-onsuccess="onSignIn"></div>
                                 <div id="loginmsg"></div>
                               </form>
                             </div>
@@ -63,7 +67,6 @@
                           echo "<li> <a href='user/index.php'>User Panel</a></li>";
                         }
                         ?>
-
                         </ul>
                     </div>
                   </div>
