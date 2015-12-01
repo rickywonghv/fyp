@@ -29,7 +29,7 @@ if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
           $random = rand();
           $code = md5($random);
           $to = $email;
-          $message = "http://fyp.damonw.com/act.php?email=".$email."&code=".$code;
+          $message = "http://musixcloud.xyz/act.php?email=".$email."&code=".$code;
           //$message ="google";
           $regid=null;
           $sql="insert into register values(?,?,?)";

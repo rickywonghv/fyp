@@ -1,4 +1,30 @@
-<?php session_start(); ?>
+<?php
+if(!session_id()) {
+    session_start();
+}
+include 'asset/php/facebook-php-sdk-v4-5.0.0/src/Facebook/autoload.php';
+$fb = new Facebook\Facebook([
+  'app_id' => '173558396322250',
+  'app_secret' => '700001a7c1f9a23f1216a6c237b98e7e',
+  'default_graph_version' => 'v2.5',
+  'default_access_token' => 'APP-ID|APP-SECRET'
+]);
+
+$helper = $fb->getRedirectLoginHelper();
+
+$permissions = ['email'];
+$loginUrl = $helper->getLoginUrl('http://musixcloud.xyz/asset/php/fb-callback.php', $permissions);
+foreach ($_SESSION as $k=>$v) {
+    if(strpos($k, "FBRLH_")!==FALSE) {
+        if(!setcookie($k, $v)) {
+            //what??
+        } else {
+            $_COOKIE[$k]=$v;
+        }
+    }
+}
+
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -7,14 +33,11 @@
         <script type="text/javascript" src="asset/js/jquery-1.11.3.min.js"></script>
         <script type="text/javascript" src="asset/js/bootstrap.min.js"></script>
         <!--<link href="asset/css/font.css" rel="stylesheet" type="text/css">-->
-        <link href="asset/css/bootstrap.css" rel="stylesheet" type="text/css">
+        <link href="asset/css/bootstrap.min.css" rel="stylesheet" type="text/css">
         <link href="asset/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
         <link href="asset/css/style.css" rel="stylesheet" type="text/css">
         <script type="text/javascript" src="asset/js/login.js"></script>
         <script type="text/javascript" src="asset/js/reg.js"></script>
-        <meta name="google-signin-scope" content="profile email">
-        <meta name="google-signin-client_id" content="164478380957-e9oa8rb33aee1342jvuaplfk6vciirrq.apps.googleusercontent.com">
-        <script src="https://apis.google.com/js/platform.js" async defer></script>
         <!--<script type="text/javascript" src="https://google.com/jsapi"></script>-->
         <title>MusixCloud</title>
 
@@ -44,25 +67,8 @@
 
                         <?php
 
-                        if(empty($_SESSION['email'])){
-                          echo '<li class="dropdown" id="menuLogin">
-                            <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="navLogin"><i class="fa fa-caret-down"></i>Login</a>
-                            <div class="dropdown-menu" id="loginnav" style="padding:17px;">
-                              <h4>User Login</h4>
-                              <form id="formLogin" method="post">
-                              <div class="form-group" for="loginemail">
-                                <input id="loginemail" class="form-control" type="email" placeholder="Email">
-                              </div>
-                              <div class="form-group" for="loginpwd">
-                                <input id="loginpwd" class="form-control" type="password" placeholder="Password">
-                              </div>
-
-                                <button type="submit" id="loginbtn" class="btn btn-info">Login</button>
-                                <div class="g-signin2" data-onsuccess="onSignIn"></div>
-                                <div id="loginmsg"></div>
-                              </form>
-                            </div>
-                          </li>';
+                        if(empty($_SESSION['facebook_access_token'])){
+                          echo '<li><a href='.htmlspecialchars($loginUrl).'><i class="fa fa-3x fa-fw fa-facebook text-inverse"></i>Login</a></li>';
                         }else{
                           echo "<li> <a href='user/index.php'>User Panel</a></li>";
                         }
@@ -80,7 +86,7 @@
                         <p class="text-inverse">Lorem ipsum dolor sit amet, consectetur adipisici eli.</p>
                         <br>
                         <br>
-                        <button class="btn btn-lg btn-primary" data-toggle="modal" data-target="#regmodal">Register</button>
+                        <?php echo '<a href='.htmlspecialchars($loginUrl).'>Login with Facebook</a>';?>
                     </div>
                 </div>
             </div>
@@ -109,32 +115,7 @@
 
         <div class="section" id="contact"> <div class="container"> <div class="row"> <div class="col-md-12"> <h1 class="text-center">Contact Us</h1> </div></div><div class="row"> <div class="col-md-offset-3 col-md-6"> <form role="form"> <div class="form-group"> <div class="input-group"> <input type="text" class="form-control" placeholder="Enter your email"> <span class="input-group-btn"> <a class="btn btn-success" type="submit">Go</a> </span> </div></div></form> </div></div></div></div><footer class="section section-primary"> <div class="container"> <div class="row"> <div class="col-sm-6"> <h1>MusixCloud</h1> <p>Lorem ipsum dolor sit amet, consectetur adipisici elit, <br>sed eiusmod tempor incidunt ut labore et dolore magna aliqua. <br>Ut enim ad minim veniam, quis nostrud</p></div><div class="col-sm-6"> <p class="text-info text-right"> <br><br></p><div class="row"> <div class="col-md-12 hidden-lg hidden-md hidden-sm text-left"> <a href="#"><i class="fa fa-3x fa-fw fa-instagram text-inverse"></i></a> <a href="#"><i class="fa fa-3x fa-fw fa-twitter text-inverse"></i></a> <a href="#"><i class="fa fa-3x fa-fw fa-facebook text-inverse"></i></a> <a href="#"><i class="fa fa-3x fa-fw fa-github text-inverse"></i></a> </div></div><div class="row"> <div class="col-md-12 hidden-xs text-right">  <a href="#"><i class="fa fa-3x fa-fw fa-twitter text-inverse"></i></a> <a href="#"><i class="fa fa-3x fa-fw fa-facebook text-inverse"></i></a>  </div></div></div></div></div></footer>
 
-        <!--Register Modal start-->
-        <div id="regmodal" class="modal fade" role="dialog">
-          <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">User Register</h4>
-              </div>
-              <div class="modal-body">
-                <form method="POST">
-                  <div class="form-group">
-                    <label for="regemail"> Email:</label>
-                    <input type="email" id="regemail" class="form-control" placeholder="Please enter your Email" required>
-                  </div>
-                  <div id="regmsg"></div>
-              </div>
-              <div class="modal-footer">
-                <button type="submit" class="btn btn-default" id="regbtn">Sign Up</button>
-              </div>
-              </form>
-            </div>
-
-          </div>
-        </div>
-        <!--End register Modal start-->
   </body>
 
 </html>
+<?php session_write_close() ?>

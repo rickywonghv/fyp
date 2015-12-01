@@ -13,6 +13,32 @@
  * }
 */
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
+
+/*http://stackoverflow.com/questions/18422223/bootstrap-3-modal-vertical-position-center*/
+.modal {
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+
+/*http://stackoverflow.com/questions/18422223/bootstrap-3-modal-vertical-position-center*/
+
+.fbloginbtn{
+  font-size: 50px;
+}
 html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;

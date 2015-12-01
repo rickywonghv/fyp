@@ -50,7 +50,7 @@ function actmail($tomail,$pass){
         echo "Mailer Error: " . $mail->ErrorInfo;
         echo 'error';
   }else{
-        echo "Your account has already been activate, please click this link to login: <a href='http://fyp.damonw.com'>Click</a>";
+        echo "Your account has already been activate, please click this link to login: <a href='http://musixcloud.xyz'>Click</a>";
   }
 }
 
@@ -71,7 +71,7 @@ function oauthreg($tomail,$pass){
   $mail->AddAddress($tomail);
   //$mail->addReplyTo('replyto@example.com', 'First Last');
   $mail->Subject = "MusixCloud membership has activate. ";
-  $mail->Body = "Your Account has been activate, please use this password to login and change the password after you login. <a href='http://fyp.damonw.com'>Click to MusixCloud</a>"."\n"."Email:".$tomail." Password: ".$pass;
+  $mail->Body = "Your Account has been activate, please use this password to login and change the password after you login. <a href='http://musixcloud.xyz'>Click to MusixCloud</a>"."\n"."Email:".$tomail." Password: ".$pass;
   if(!$mail->Send()){
         echo "Mailer Error: " . $mail->ErrorInfo;
         echo 'error';
