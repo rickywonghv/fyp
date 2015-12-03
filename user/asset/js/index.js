@@ -47,43 +47,4 @@ $(document).ready(function(){
       return false;
     }
   })
-
-
-
-
 })
-function signOut() {
-  $.ajax({
-    url:'asset/php/logout.php',
-    type:'GET',
-    dataType:"html",
-    success:function(response){
-      if(response=="success"){
-        FB.logout(function(response) {
-            // Person is now logged out
-            window.location="../index.php";
-        });
-      }
-    }
-  })
-
-
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-      alert('User signed out.');
-      window.location="../index.php";
-    });
-}
-
-function vpro(uid){
-  alert('abc');
-  $.ajax({
-    url:'asset/php/function.php',
-    type:'POST',
-    //data:'act=viewpro&uid='+,
-    dataType:'json',
-    success:function(response){
-
-    }
-  })
-}

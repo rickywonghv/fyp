@@ -5,7 +5,6 @@ foreach ($_COOKIE as $k=>$v) {
         $_SESSION[$k]=$v;
     }
 }
-
 include 'facebook-php-sdk-v4-5.0.0/src/Facebook/autoload.php';
 $fb = new Facebook\Facebook([
   'app_id' => '173558396322250',
@@ -18,7 +17,7 @@ $fb = new Facebook\Facebook([
 
   try {
     $accessToken = $helper->getAccessToken();
-    $response = $fb->get('/me?fields=id,name,email,gender', $accessToken);
+    $response = $fb->get('/me?fields=id,name,email,gender,picture', $accessToken);
   } catch(Facebook\Exceptions\FacebookResponseException $e) {
     echo 'Graph returned an error: ' . $e->getMessage();
   } catch(Facebook\Exceptions\FacebookSDKException $e) {
@@ -34,6 +33,7 @@ if (isset($accessToken)) {
   $email=$user['email'];
   $name=$user['name'];
   $fbgender=$user['gender'];
+  $_SESSION['picture']=$user['picture'];
   //if($user['email']==null){header("Location:");}
   //check new user
       include '../config/db.php';
@@ -77,6 +77,7 @@ if (isset($accessToken)) {
   } elseif ($helper->getError()) {
 
   }
-  header('Location:http://musixcloud.xyz/user/index.php');
+
+  header('Location:http://musixcloud.xyz/user/index.php?code=');
   session_write_close();
  ?>

@@ -4,40 +4,44 @@ if(empty($_SESSION['email'])){
    header("Location:../../index.php");
 }
 
-if($_GET['act']=="chpwd"){
-  chpwd($_POST['opwd'],$_POST['npwd'],$_POST['conpwd']);
-}elseif ($_GET['act']=="viewpro") {
-  viewprofile();
+if($_GET['act']=="cpwd"){
+  cpwd($_POST['npwd'],$_POST['conpwd']);
+}elseif($_GET['act']=="viewpro") {
+  viewprofile($_GET['uid']);
 }
 
-function chpwd($opwd,$npwd,$conpwd){
+function cpwd($npwd,$conpwd){
   include 'db.php';
-  if(empty($opwd)||empty($npwd)||empty($conpwd)){
+  if(empty($npwd)||empty($conpwd)){
     echo 'null';
   }else{
-      include 'db.php';
-      $sql="select password from user where email=?";
-      $stmt=$conn->prepare($sql);
-      $stmt->bind_param("s",$_SESSION['email']);
-      $stmt->execute();
-      $stmt->bind_result($pass);
-      $stmt->fetch();
-      if($pass!=md5($opwd)){
-        echo "wrongpwd";
-      }else{
         include 'db.php';
         $mpwd=md5($npwd);
-        $del="UPDATE user SET password=? where email=?";
+        $del="UPDATE user SET password=? where userid=?";
         $stmt=$conn->prepare($del);
-          $stmt->bind_param("ss",$mpwd,$_SESSION['email']);
+          $stmt->bind_param("ss",$mpwd,$_SESSION['uid']);
           $stmt->execute();
           echo 'success';
       }
   }
-}
 
-function viewprofile(){
+
+function viewprofile($uid){
   include 'db.php';
-  
+  session_start();
+  $sql="select userid,fbuid,email,fullname,type,gender,intro,expDate,regDate from user where userid=?";
+  if($stmt=$conn->prepare($sql)){
+    $stmt->bind_param('i',$uid);
+    $stmt->execute();
+    $data = $stmt->get_result();
+  	     $result = array();
+  	     while($row = $data->fetch_assoc()) {
+           
+  	          $result[] = $row;
+              echo json_encode($result);
+  	      }
+
+  }
+
 }
  ?>

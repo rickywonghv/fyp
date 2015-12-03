@@ -1,5 +1,5 @@
 <?php
-$row = exec('ls -ls',$output,$error);
+$row = exec('ls -l',$output,$error);
 while(list(,$row) = each($output)){
 echo $row, "<BR>\n";
 }

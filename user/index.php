@@ -10,6 +10,9 @@ $fb = new Facebook\Facebook([
   'default_graph_version' => 'v2.5',
   'default_access_token' => 'APP-ID|APP-SECRET'
   ]);
+$response = $fb->get('/me?fields=id,name,email,gender,picture',$_SESSION['access_token']);
+$user = $response->getGraphUser();
+$token=$_SESSION['access_token'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -20,14 +23,12 @@ $fb = new Facebook\Facebook([
     <script type="text/javascript" src="../asset/js/bootstrap.min.js"></script>
     <link href="../asset/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="../asset/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
-
+    <script type="text/javascript" src="asset/js/profile.js"></script>
     <link href="../asset/css/bootstrap.icon-large.min.css" rel="stylesheet">
-
-
+    <script type="text/javascript" src="asset/js/index.js"></script>
     <title>MusixCloud User Panel</title>
   </head>
   <body>
-
     <div class="navbar navbar-default navbar-static-top">
       <div class="container">
         <div class="navbar-header">
@@ -47,15 +48,14 @@ $fb = new Facebook\Facebook([
             <li>
               <a href="" data-toggle="modal" data-target="#viewpromodal" onclick='vpro(<?php echo $_SESSION["uid"]?>);' > <span class="glyphicon glyphicon-user"></span> Profile</a>
             </li>
-            <li><a href="#upload">Upload</a></li>
+            <li><a data-toggle="modal" data-target="#uploadmodal">Upload</a></li>
             <li>
               <a href="" data-toggle="modal" data-target="#settingmodal"><span class="glyphicon glyphicon-list-alt"></span> Setting</a>
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right" >
             <li id="logoutdiv">
-              <!--<a href="asset/php/logout.php" onclick="signOut();"><button type="button" id="logoutbtn" class="btn btn-danger btn-xs">Sign out</button></a>-->
-              <?php include 'asset/php/logout.php'; echo '<a href='.$logoutUrl.'>Logout</a>';?>
+               <span><img src=<?php echo $user['picture']['url'] ?> alt="" class="img img-circle img-xs" /> <a href="asset/php/logout.php">Logout</a>
             </li>
           </ul>
         </div>
@@ -156,24 +156,44 @@ $fb = new Facebook\Facebook([
         <h4 class="modal-title"><span class="glyphicon glyphicon-user"></span>View Profile</h4>
       </div>
       <div class="modal-body">
+        <style media="screen">#fbproimg{text-align: center;margin: auto;padding-bottom: 5px;}</style>
           <ul class="list-group">
-            <li class="list-group-item">User ID:<span id="vprouserid"></span></li>
-            <li class="list-group-item">Email:<span id="vproemail"></span></li>
-            <li class="list-group-item">Full Name:<span id="vproname"></span></li>
-            <li class="list-group-item">Account Type:<span id="type"></span></li>
-            <li class="list-group-item">Gender:<span id="gender"></span></li>
-            <li class="list-group-item">Expire Date:<span id="expdate"></span></li>
-            <li class="list-group-item">Register Date:<span id="regdate"></span></li>
-            <li class="list-group-item">Register IP:<span id="regip"></span></li>
+            <li class="list-group-item" id="fbproimg"><img id="fbproimg" src=<?php echo $user['picture']['url'] ?> alt="profilepic" class="img img-thumbnail" /></li>
+            <li class="list-group-item"><b>User ID: </b><span id="vprouserid"></span></li>
+            <li class="list-group-item"><b>Facebook ID: </b><span id="vprofbuid"></span></li>
+            <li class="list-group-item"><b>Email: </b><span id="vproemail"></span></li>
+            <li class="list-group-item"><b>Full Name: </b><span id="vproname"></span></li>
+            <li class="list-group-item"><b>Account Type: </b><span id="protype"></span></li>
+            <li class="list-group-item"><b>Gender: </b><span id="vprogender"></span></li>
+            <li class="list-group-item"><b>Expire Date: </b><span id="vproexp"></span></li>
+            <li class="list-group-item"><b>Register Date: </b><span id="vproreg"></span></li>
           </ul>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-info" id="editpro">Edit Profile</button>
       </div>
     </div>
   </div>
   </div>
   <!--End View Profile-->
+  <!--Upload-->
+  <div id="uploadmodal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"><span class="glyphicon glyphicon-music"></span>Upload Music</h4>
+      </div>
+      <div class="modal-body">
+        <style media="screen">#fbuploadimg{text-align: center;margin: auto;padding-bottom: 5px;}</style>
+        <form class="" action="index.html" method="post">
+          <ul class="list-group">
+            <li class="list-group-item" id="fbuploadimg"><img id="fbproimg" src=<?php echo $user['picture']['url'] ?> alt="profilepic" class="img img-thumbnail" /></li>
+            <li class="list-group-item-info">Select music</li>
+          </ul>
+        </form>
+      </div>
+    </div>
+  </div>
+  </div>
+  <!--End Upload-->
     </div>
   </body>
 

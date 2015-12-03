@@ -38,11 +38,22 @@ foreach ($_SESSION as $k=>$v) {
         <link href="asset/css/style.css" rel="stylesheet" type="text/css">
         <script type="text/javascript" src="asset/js/login.js"></script>
         <script type="text/javascript" src="asset/js/reg.js"></script>
-        <!--<script type="text/javascript" src="https://google.com/jsapi"></script>-->
+        <script type='text/javascript' src='https://www.google.com/jsapi'></script>
         <title>MusixCloud</title>
 
     </head>
     <body>
+      <script type="text/javascript">
+        if(google.loader.ClientLocation){
+          var countryname=google.loader.ClientLocation.address.country;
+    			var latitude=google.loader.ClientLocation.latitude;
+    			var longitude=google.loader.ClientLocation.longitude;
+        }else{
+          var countryname=null;
+    			var latitude=null;
+    			var longitude=null;
+        }
+      </script>
         <div class="cover">
           <!--Nav bar-->
             <div class="navbar navbar-fixed-top">
