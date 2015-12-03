@@ -39,6 +39,8 @@ foreach ($_SESSION as $k=>$v) {
         <script type="text/javascript" src="asset/js/login.js"></script>
         <script type="text/javascript" src="asset/js/reg.js"></script>
         <script type='text/javascript' src='https://www.google.com/jsapi'></script>
+        <link href="asset/bootstrap-social.css" rel="stylesheet" type="text/css">
+        <!--<link href="asset/css/font-awesome.css" rel="stylesheet" type="text/css">-->
         <title>MusixCloud</title>
 
     </head>
@@ -97,7 +99,7 @@ foreach ($_SESSION as $k=>$v) {
                         <p class="text-inverse">Lorem ipsum dolor sit amet, consectetur adipisici eli.</p>
                         <br>
                         <br>
-                        <?php echo '<a href='.htmlspecialchars($loginUrl).'>Login with Facebook</a>';?>
+                        <?php echo '<a class="btn btn-block btn-social btn-facebook" href='.htmlspecialchars($loginUrl).'><span class="fa fa-facebook"></span> Sign in with Facebook</a>';?>
                     </div>
                 </div>
             </div>

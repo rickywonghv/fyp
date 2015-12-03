@@ -44,7 +44,7 @@ if (isset($accessToken)) {
       $stmt->bind_result($reuid,$rfbuid,$remail);
       $stmt->fetch();
       if($rfbuid==""){
-        $uid=rand(1,999999);
+        $uid=null;
         $dob=null;
         $intro=null;
         $type=1;
