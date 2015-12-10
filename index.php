@@ -23,24 +23,20 @@ foreach ($_SESSION as $k=>$v) {
         }
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="asset/css/style.css" rel="stylesheet" type="text/css">
         <script type="text/javascript" src="asset/js/jquery-1.11.3.min.js"></script>
         <script type="text/javascript" src="asset/js/bootstrap.min.js"></script>
-        <!--<link href="asset/css/font.css" rel="stylesheet" type="text/css">-->
         <link href="asset/css/bootstrap.min.css" rel="stylesheet" type="text/css">
         <link href="asset/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
-        <link href="asset/css/style.css" rel="stylesheet" type="text/css">
-        <script type="text/javascript" src="asset/js/login.js"></script>
-        <script type="text/javascript" src="asset/js/reg.js"></script>
         <script type='text/javascript' src='https://www.google.com/jsapi'></script>
         <link href="asset/bootstrap-social.css" rel="stylesheet" type="text/css">
-        <!--<link href="asset/css/font-awesome.css" rel="stylesheet" type="text/css">-->
+
         <title>MusixCloud</title>
 
     </head>
@@ -81,7 +77,7 @@ foreach ($_SESSION as $k=>$v) {
                         <?php
 
                         if(empty($_SESSION['facebook_access_token'])){
-                          echo '<li><a href='.htmlspecialchars($loginUrl).'><i class="fa fa-3x fa-fw fa-facebook text-inverse"></i>Login</a></li>';
+                          echo '<li><a href='.htmlspecialchars($loginUrl).'><i class="fa fa-fw fa-facebook text-inverse"></i>Login</a></li>';
                         }else{
                           echo "<li> <a href='user/index.php'>User Panel</a></li>";
                         }
@@ -99,7 +95,9 @@ foreach ($_SESSION as $k=>$v) {
                         <p class="text-inverse">Lorem ipsum dolor sit amet, consectetur adipisici eli.</p>
                         <br>
                         <br>
-                        <?php echo '<a class="btn btn-block btn-social btn-facebook" href='.htmlspecialchars($loginUrl).'><span class="fa fa-facebook"></span> Sign in with Facebook</a>';?>
+                        <span class="spanfbBtn">
+                          <?php echo '<a class="btn btn-block btn-social btn-facebook fbBtnspan" href='.htmlspecialchars($loginUrl).'><span class="fa fa-facebook"></span> Sign in with Facebook</a>';?>
+                        </span>
                     </div>
                 </div>
             </div>

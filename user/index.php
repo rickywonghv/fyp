@@ -17,7 +17,7 @@ $token=$_SESSION['access_token'];
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript" src="../asset/js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="../asset/js/bootstrap.min.js"></script>
@@ -25,10 +25,11 @@ $token=$_SESSION['access_token'];
     <link href="../asset/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="asset/js/profile.js"></script>
     <link href="../asset/css/bootstrap.icon-large.min.css" rel="stylesheet">
-    <script type="text/javascript" src="asset/js/index.js"></script>
+    <script type="text/javascript" src="asset/js/index.js" charset="UTF-8"></script>
     <title>MusixCloud User Panel</title>
   </head>
   <body>
+    <input type="hidden" id="genuid" value="<?php echo $_SESSION["uid"]?>">
     <div class="navbar navbar-default navbar-static-top">
       <div class="container">
         <div class="navbar-header">
@@ -48,7 +49,7 @@ $token=$_SESSION['access_token'];
             <li>
               <a href="" data-toggle="modal" data-target="#viewpromodal" onclick='vpro(<?php echo $_SESSION["uid"]?>);' > <span class="glyphicon glyphicon-user"></span> Profile</a>
             </li>
-            <li><a data-toggle="modal" data-target="#uploadmodal">Upload</a></li>
+            <li><a onclick='vpro(<?php echo $_SESSION["uid"]?>);' data-toggle="modal" data-target="#uploadmodal">Upload</a></li>
             <li>
               <a href="" data-toggle="modal" data-target="#settingmodal"><span class="glyphicon glyphicon-list-alt"></span> Setting</a>
             </li>
@@ -72,18 +73,14 @@ $token=$_SESSION['access_token'];
         <div class="col-md-4">
           <div class = "panel panel-info">
              <div class = "panel-heading">
-                <h2 class = "panel-title">Top 10</h2>
+                <h2 class = "panel-title"><span class="glyphicon glyphicon-music"></span>Your Uploaded Music</h2>
              </div>
              <div class = "panel-body">
-               <div id="top10">
                 <ul class="list-group">
-                  <div class="topsong">
                     <li class="list-group-item">Song1</li>
                     <li class="list-group-item">Song2</li>
                     <li class="list-group-item">Third item</li>
-                  </div>
                 </ul>
-               </div>
              </div>
           </div>
         </div>
@@ -173,6 +170,7 @@ $token=$_SESSION['access_token'];
   </div>
   </div>
   <!--End View Profile-->
+
   <!--Upload-->
   <div id="uploadmodal" class="modal fade" role="dialog">
   <div class="modal-dialog">
@@ -183,10 +181,27 @@ $token=$_SESSION['access_token'];
       </div>
       <div class="modal-body">
         <style media="screen">#fbuploadimg{text-align: center;margin: auto;padding-bottom: 5px;}</style>
-        <form class="" action="index.html" method="post">
+        <form class="" method="post" id="songuploadform" enctype="multipart/form-data" accept-charset="utf-8">
+          <input type="hidden" id="uid" value="<?php echo $_SESSION["uid"]?>">
           <ul class="list-group">
-            <li class="list-group-item" id="fbuploadimg"><img id="fbproimg" src=<?php echo $user['picture']['url'] ?> alt="profilepic" class="img img-thumbnail" /></li>
-            <li class="list-group-item-info">Select music</li>
+            <li class="list-group-item">
+              <div class="input-group">
+                <span class="input-group-addon">Title</span>
+                <input type="text" class="form-control" placeholder="Enter the song title" id="title">
+              </div>
+              <div class="input-group">
+                <span class="input-group-addon">Singer</span>
+                <input type="text" class="form-control" id="singer" placeholder="Enter Singer">
+              </div>
+              <div class="input-group">
+                <span class="input-group-addon">Genre</span>
+                <input type="text" class="form-control" placeholder="Enter genre">
+              </div>
+              Select music to upload: <input type="file" class="form-control" name="file" id="uploadsong" accept="audio/mpeg" >
+              <div class="uploaddiv">
+                <button type="submit" class="btn btn-success" id="uploadBtn"><span class="glyphicon glyphicon-upload"></span>Upload</button>
+              </div>
+            <div id="uploadmsg"></div> </li>
           </ul>
         </form>
       </div>
@@ -194,6 +209,7 @@ $token=$_SESSION['access_token'];
   </div>
   </div>
   <!--End Upload-->
+
     </div>
   </body>
 

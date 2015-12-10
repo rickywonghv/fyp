@@ -1,0 +1,9 @@
+$(document).ready(function(){
+  $.ajax({
+    url:"asset/userfunction.php?act=shuser",
+    dataType:"json",
+    success:function(response){
+      console.log(response);
+    }
+  })
+})

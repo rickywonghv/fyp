@@ -17,7 +17,7 @@ $fb = new Facebook\Facebook([
 
   try {
     $accessToken = $helper->getAccessToken();
-    $response = $fb->get('/me?fields=id,name,email,gender,picture', $accessToken);
+    $response = $fb->get('/me?fields=id,name,email,gender,picture.type(large)', $accessToken);
   } catch(Facebook\Exceptions\FacebookResponseException $e) {
     echo 'Graph returned an error: ' . $e->getMessage();
   } catch(Facebook\Exceptions\FacebookSDKException $e) {

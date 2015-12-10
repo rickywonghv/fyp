@@ -1,4 +1,14 @@
 $(document).ready(function(){
+  var genuid=$("#genuid").val();
+  $.ajax({
+    url:"asset/php/function.php?act=shownsong",
+    type:"POST",
+    data:"uid="+genuid,
+    success:function(response){
+      console.log(response);
+    }
+  });
+
   $("#settingchpwd").click(function(){
     $("#settingmodal").modal("hide");
     $("#chpwdmodal").modal("show");
@@ -47,4 +57,53 @@ $(document).ready(function(){
       return false;
     }
   })
+
+  $('#uploadBtn').on('click', function() {
+    filename=$("#uploadsong").val();
+    singer=$("#singer").val();
+    title=$("#title").val();
+    uid=$("#uid").val();
+    if(filename==""){
+      $("#uploadmsg").html('<div class="alert alert-dismissable alert-danger"><strong>Error! </strong> Please choose a song to upload!</div>');
+      return false;
+    }else if(singer==""){
+      $("#uploadmsg").html('<div class="alert alert-dismissable alert-danger"><strong>Error! </strong> Please enter a singer </div>');
+      return false;
+    }else if(title==""){
+      $("#uploadmsg").html('<div class="alert alert-dismissable alert-danger"><strong>Error! </strong> Please enter a title </div>');
+      return false;
+    }
+    else{
+      var file_data = $('#uploadsong').prop('files')[0];
+      var form_data = new FormData();
+      form_data.append('file', file_data);
+      $.ajax({
+                  url: 'upload/show.php',
+                  dataType: 'json',
+                  cache: false,
+                  contentType: false,
+                  processData: false,
+                  data: form_data,
+                  type: 'post',
+                  before:function(){
+                    $("#processstatus").prop('aria-valuenow',0);
+                  },success: function(response){
+                    console.log(response);
+                    var resfilename=response.refilename;
+                    $.ajax({
+                      url:"asset/php/uploadid.php",
+                      type:"POST",
+                      data:"title="+title+"&singer="+singer+"&uid="+uid+"&path="+resfilename,
+                      success:function(res){
+                        $("#uploadmsg").html('<div class="alert alert-dismissable alert-success"><strong>Upload Successful! </strong>  has been upload! </div>');
+                        return false;
+                      }
+                    })
+
+                  }
+       });
+       return false;
+    }
+  });
+
 })

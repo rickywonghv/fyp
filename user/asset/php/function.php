@@ -8,6 +8,8 @@ if($_GET['act']=="cpwd"){
   cpwd($_POST['npwd'],$_POST['conpwd']);
 }elseif($_GET['act']=="viewpro") {
   viewprofile($_GET['uid']);
+}elseif($_GET['act']=="shownsong"){
+  shownsong($_POST['uid']);
 }
 
 function cpwd($npwd,$conpwd){
@@ -36,12 +38,18 @@ function viewprofile($uid){
     $data = $stmt->get_result();
   	     $result = array();
   	     while($row = $data->fetch_assoc()) {
-           
+
   	          $result[] = $row;
               echo json_encode($result);
   	      }
-
   }
-
 }
+
+
+function shownsong($uid){
+  include 'db.php';
+  $sql="select * from music where userid=?";
+  //$stmt->
+}
+
  ?>

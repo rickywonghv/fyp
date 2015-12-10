@@ -5,10 +5,13 @@ $email=$_POST['email'];
 $name=$_POST['name'];
 $fbgender=$_POST['gender'];
 $mobtoken=$_POST['token'];
-if($fbuid==null){
-  $error="false";
-  printf(json_encode(array('error'=>$error)));
+if($_POST['action']==md5('profile')){
+  viewprofile($mobtoken);
 }
+//if($fbuid==null){
+//  $error="false";
+//  printf(json_encode(array('error'=>$error)));
+//}
 elseif($_POST['action']==md5('login')){
   login($fbuid,$email,$name,$fbgender,$mobtoken);
 }
@@ -38,13 +41,10 @@ function login($fbuid,$email,$name,$fbgender,$mobtoken){
             $stmt->bind_param("isssissssssss",$uid,$fbuid,$email,$pwd,$type,$name,$fbgender,$dob,$intro,$expdate,$regdate,$regip,$token);
             $stmt->execute();
             $status='true';
-            //echo $status;
 
             $profile = array('uid'=>$uid,'fbuid'=>$fbuid,'email'=>$email,'name'=>$name,'type'=>$type,'gender'=>$fbgender,'dob'=>$dob,'intro'=>$intro,'expdate'=>$expdate,'regdate'=>$regdate);
-            //printf($stmt->error);
             $result = array('status' => $status,'error'=>$stmt->error,'profile'=>$profile);
             printf(json_encode($result));
-
           }else{
             $status="false";
             $result = array('status' => $status,'error'=>$stmt->error);
@@ -78,6 +78,23 @@ function login($fbuid,$email,$name,$fbgender,$mobtoken){
           printf($stmt->error);
         }
       }
+}
+
+function viewprofile($mobtoken){
+  include '../config/db.php';
+  session_start();
+  $sql="select * from user where uToken=?";
+  if($stmt=$conn->prepare($sql)){
+    $stmt->bind_param('s',$mobtoken);
+    $stmt->execute();
+    $data = $stmt->get_result();
+  	     $result = array();
+  	     while($row = $data->fetch_assoc()) {
+  	          $result = $row;
+              $res = array('status' => 'true', 'profile'=>$result);
+              echo json_encode($res);
+  	      }
+  }
 }
 
  ?>

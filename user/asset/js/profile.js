@@ -1,6 +1,4 @@
-$(document).ready(function(){
 
-})
 function vpro(uid){
   $.ajax({
       url:"asset/php/function.php?act=viewpro&uid="+uid,
@@ -27,6 +25,7 @@ function vpro(uid){
         $("#vprogender").html(response[0]['gender']);
         $("#vproexp").html(texpDate);
         $("#vproreg").html(response[0]['regDate']);
+        $("#singer").val(response[0]['fullname']);
         return false;
       }
   });

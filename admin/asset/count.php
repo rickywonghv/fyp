@@ -1,8 +1,8 @@
 <?php
 //require 'permission.php';
-
+include 'db.php';
 function countadmin(){
-	require 'db.php';
+	include 'db.php';
 	$sql="select username from admin";
 	$stmt=$conn->prepare($sql);
 	$stmt->execute();
@@ -11,7 +11,7 @@ function countadmin(){
 
 }
 function countuser(){
-	require 'db.php';
+	include 'db.php';
 	$sql="select username from user";
 	$stmt=$conn->prepare($sql);
 	$stmt->execute();
@@ -19,7 +19,7 @@ function countuser(){
 	printf($stmt->num_rows);
 }
 function countmusic(){
-	require 'db.php';
+	include 'db.php';
 	$sql="select * from music";
 	$stmt=$conn->prepare($sql);
 	$stmt->execute();

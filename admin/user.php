@@ -24,6 +24,7 @@
 		<script type="text/javascript" src="asset/js/adminscript.js"></script>
 		<script type="text/javascript" src="asset/js/jquery-ui.min.js"></script>
 		<link rel="stylesheet" href="asset/css/nav.css">
+		<script type="text/javascript" src="asset/js/shuser.js"></script>
 		<title>Musix Cloud <?php echo $_SESSION['type'];?></title>
 	</head>
 	<body>
@@ -33,7 +34,7 @@
 		    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navmenu">
         		<span class="icon-bar"></span>
         		<span class="icon-bar"></span>
-        		<span class="icon-bar"></span>                        
+        		<span class="icon-bar"></span>
      		</button>
 		      <a class="navbar-brand">Musix Cloud <?php echo $_SESSION['type'];?> Panel</a>
 		    </div>
@@ -48,7 +49,7 @@
 		  </div>
 		</nav>
 
-		<div class="container"> 
+		<div class="container">
 			 <div id='showuser'>
 			 <div class="panel-group">
 					  <div class="panel panel-default">
@@ -59,14 +60,12 @@
 				    <thead>
 				      <tr>
 				        <th>User ID</th>
-				        <th>Username</th>
+				        <th>Email</th>
 				        <th>Fullname</th>
 				      </tr>
 				    </thead>
 				    <tbody>
-				      
-				        <?php alluser();?>
-				      
+				      <tr><td><span class="uid"></span></td><td><span class="email"></span></td><td><span class="full"></span></td></tr>
 				    </tbody>
 				  </table>
 				  </div>
