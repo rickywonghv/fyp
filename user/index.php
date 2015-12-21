@@ -2,7 +2,13 @@
 session_start();
 if(empty($_SESSION['access_token'])||empty($_SESSION['uid'])){
    header("Location:../index.php");
+}else{
+  $token=$_SESSION['access_token'];
+  $uid=$_SESSION['uid'];
+  setcookie('uid',$uid,time() + (86400), "/");
+  setcookie('type',$_SESSION['type'],time() + (86400), "/");
 }
+
 include '../asset/php/facebook-php-sdk-v4-5.0.0/src/Facebook/autoload.php';
 $fb = new Facebook\Facebook([
   'app_id' => '173558396322250',
@@ -13,10 +19,12 @@ $fb = new Facebook\Facebook([
 $response = $fb->get('/me?fields=id,name,email,gender,picture',$_SESSION['access_token']);
 $user = $response->getGraphUser();
 $token=$_SESSION['access_token'];
+
 ?>
 <!DOCTYPE html>
 <html>
   <head>
+
     <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript" src="../asset/js/jquery-1.11.3.min.js"></script>
@@ -26,11 +34,19 @@ $token=$_SESSION['access_token'];
     <script type="text/javascript" src="asset/js/profile.js"></script>
     <link href="../asset/css/bootstrap.icon-large.min.css" rel="stylesheet">
     <script type="text/javascript" src="asset/js/index.js" charset="UTF-8"></script>
+    <link rel="stylesheet" href="asset/css/style.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="asset/player/css/style.css" media="screen" title="no title" charset="utf-8">
+    <script type="text/javascript" src="asset/jplayer/jquery.jplayer.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jplayer/2.9.2/add-on/jplayer.playlist.js" charset="UTF-8"></script>
+    <script src="asset/js/player.js" charset="utf-8"></script>
+    <script type="text/javascript">
+    </script>
     <title>MusixCloud User Panel</title>
   </head>
-  <body>
+  <body oncontextmenu="false" oncopy="return false" oncut="return false">
+
     <input type="hidden" id="genuid" value="<?php echo $_SESSION["uid"]?>">
-    <div class="navbar navbar-default navbar-static-top">
+    <div class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
@@ -39,7 +55,7 @@ $token=$_SESSION['access_token'];
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand"><img height="40" alt="Brand" src="../asset/img/logo.png"></a>
+          <a class="navbar-brand" style="padding-top:0px"><img height="50" alt="Brand" src="../asset/img/logo.png"></a>
         </div>
         <div class="collapse navbar-collapse" id="navbar-ex-collapse">
           <ul class="nav navbar-nav">
@@ -50,9 +66,11 @@ $token=$_SESSION['access_token'];
               <a href="" data-toggle="modal" data-target="#viewpromodal" onclick='vpro(<?php echo $_SESSION["uid"]?>);' > <span class="glyphicon glyphicon-user"></span> Profile</a>
             </li>
             <li><a onclick='vpro(<?php echo $_SESSION["uid"]?>);' data-toggle="modal" data-target="#uploadmodal">Upload</a></li>
+            <?php if($_SESSION['type']==2){echo '<li><a href="editor">Audio Editor</a></li>';} ?>
             <li>
               <a href="" data-toggle="modal" data-target="#settingmodal"><span class="glyphicon glyphicon-list-alt"></span> Setting</a>
             </li>
+            <li><a href="#adminmsg">Message to Admin</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right" >
             <li id="logoutdiv">
@@ -62,30 +80,81 @@ $token=$_SESSION['access_token'];
         </div>
       </div>
     </div>
-    <div class="section" >
-      <div class="container">
+
+      <div class="container" style="padding-bottom:25px; margin-bottom:25px;">
         <div class="row">
           <div class="col-md-12">
-            <div class="alert alert-dismissable alert-success">
-              <strong>Welcome</strong>Welcome back <?php echo $_SESSION['name'];?></div>
+            <?php
+              if($_GET['code']=='5989af7ca9ff467db6dfaaceb8a4c2dd630049fb'){
+                echo '<div class="welcome alert alert-dismissable alert-warning"><strong></strong>'. $_SESSION["name"].' you do not have permission to download, please upgrade to Premium User and get more privilege. For more detail please click here to get more information or paid for <strong>Premium User</strong>. </div>';
+              }else{
+                echo '<div class="welcome alert alert-dismissable alert-success"><strong></strong>Welcome back '. $_SESSION["name"].'</div>';
+              }
+            ?>
+
+
+
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4" id="testplayer">
           <div class = "panel panel-info">
              <div class = "panel-heading">
                 <h2 class = "panel-title"><span class="glyphicon glyphicon-music"></span>Your Uploaded Music</h2>
              </div>
              <div class = "panel-body">
-                <ul class="list-group">
-                    <li class="list-group-item">Song1</li>
-                    <li class="list-group-item">Song2</li>
-                    <li class="list-group-item">Third item</li>
-                </ul>
+             <ul id="playlist" class="list-group">
+
+
+               <script type="text/javascript" src="asset/js/shown.js"></script>
+             </ul>
              </div>
           </div>
         </div>
+        <div class="col-md-8">
+          <div class="pubmusic">
+            <table class="table">
+              <tr><th class="info" colspan="2"><span class="glyphicon glyphicon-music"></span> Public Music</th></tr>
+              <tr><th>Music</th><td>Singer</td></tr>
+              <tr><td>Music</td><td>Singer</td></tr>
+              <span id="pubmusic"></span>
+            </table>
+          </div>
+        </div>
       </div>
+      <!--player-->
+      <div class="nav  navbar-fixed-bottom">
+        <div class="col-xl-12">
+          <div class="player" >
+            <div id="jquery_jplayer_1" class="jp-jplayer"></div>
+            <div id="jp_container_1" class="jp-audio" role="application" aria-label="media player">
+            <div class="jp-gui jp-interface">
+              <a class="jp-play glyphicon jcontrol glyphicon-play-circle" id="playbtn" role="button" tabindex="0"></a>
+              <a class="jp-stop glyphicon jcontrol glyphicon-stop" role="button" tabindex="0"></a>
+              <a class="jp-mute glyphicon jcontrol glyphicon-volume-off" role="button" tabindex="0"></a>
+              <a class="jp-volume-max glyphicon jcontrol glyphicon-volume-up" role="button" tabindex="0"></a>
+              <a class="jp-repeat glyphicon jcontrol glyphicon-repeat" role="button" tabindex="0"></a>
 
+              <span class="jp-title" aria-label="title">&nbsp;</span>
+              <span class="jp-current-time" role="timer" aria-label="time">&nbsp;</span>
+              <span class="jp-duration" role="timer" aria-label="duration">&nbsp;</span>
+              <div class="jp-progress-bar">
+                <div class="jp-seek-bar">
+                  <div class="jp-play-bar"></div>
+                </div>
+              </div>
+        <div class="jp-volume-bar">
+          <div class="jp-volume-bar-value"></div>
+        </div>
+              <div class="jp-no-solution">
+                <span>Error Update Require! </span>
+                To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+      <!--End Player-->
       <!--setting modal-->
       <div class="setting">
         <div id="settingmodal" class="modal fade" role="dialog">
@@ -176,7 +245,7 @@ $token=$_SESSION['access_token'];
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" id="closeupload" data-dismiss="modal">&times;</button>
         <h4 class="modal-title"><span class="glyphicon glyphicon-music"></span>Upload Music</h4>
       </div>
       <div class="modal-body">
@@ -210,7 +279,6 @@ $token=$_SESSION['access_token'];
   </div>
   <!--End Upload-->
 
-    </div>
   </body>
 
 </html>

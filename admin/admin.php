@@ -32,7 +32,7 @@
 		    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navmenu">
         		<span class="icon-bar"></span>
         		<span class="icon-bar"></span>
-        		<span class="icon-bar"></span>                        
+        		<span class="icon-bar"></span>
      		</button>
 		      <a class="navbar-brand">Musix Cloud <?php echo $_SESSION['type'];?> Panel</a>
 		    </div>
@@ -94,7 +94,7 @@
 									   </label>
 									</div>
 								  <button type="submit" id="addAdminBtn" class="btn btn-primary btn-lg">Add</button>
-								  
+
 					        </form>
 					        <div id="response"></div>
 					      </div>
@@ -124,6 +124,6 @@
 					}?>
 				</div>
 		</div>
-		<script src="asset/js/editform.js"></script>
+		<!--<script src="asset/js/editform.js"></script>-->
 	</body>
 </html>

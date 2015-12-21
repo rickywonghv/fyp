@@ -24,7 +24,7 @@
 		    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navmenu">
         		<span class="icon-bar"></span>
         		<span class="icon-bar"></span>
-        		<span class="icon-bar"></span>                        
+        		<span class="icon-bar"></span>
      		</button>
 		      <a class="navbar-brand">Musix Cloud <?php echo $_SESSION['type'];?> Panel</a>
 		    </div>
@@ -93,7 +93,7 @@
      					 </div>
      					</div>
      				   </div>
- 
+
 			 </div>
 			 <div class="col-sm-4">
 			 		<div class="panel-group">
@@ -128,8 +128,8 @@
      					</div>
      				   </div>
 			 </div>
-			 
-		</div>     			
+
+		</div>
  		<script src="asset/js/chpwd.js"></script>
 	</body>
 </html>

@@ -8,9 +8,9 @@ $(document).ready(function(){
 						if(json==""){
 							$("#listmusic").html('<tr><td colspan=7><div class="alert alert-warning">No Song! </div></td></tr>');
 						}else{
-							var NumOfJData = json.length;							
+							var NumOfJData = json.length;
 							for(var i = 0; i < NumOfJData; i++) {
-								$("#listmusic").append("<tr><td>"+json[i]["songid"]+"</td><td>"+json[i]["title"]+"</td><td>"+json[i]["singer"]+"</td><td>"+json[i]["upload_time"]+"</td><td>"+json[i]["total_play"]+"</td><td>"+json[i]["total_download"]+"</td><td><button id='mdetailbtn' class='btn btn-info' data-toggle='modal' data-target='#mdetailmodal' onclick=mdetail("+json[i]["songid"]+")>Detail</button></td><td><button id='musicdelbtn' class='btn btn-danger' onclick='musicdel("+json[i]["songid"]+")'>Delete</button></td><tr>");		
+								$("#listmusic").append("<tr><td>"+json[i]["songid"]+"</td><td>"+json[i]["title"]+"</td><td>"+json[i]["singer"]+"</td><td>"+json[i]["uploadDateTime"]+"</td><td>"+json[i]["totalPlay"]+"</td><td>"+json[i]["totalDownload"]+"</td><td><button id='mdetailbtn' class='btn btn-info' data-toggle='modal' data-target='#mdetailmodal' onclick=mdetail("+json[i]["songid"]+")>Detail</button></td><td><button id='musicdelbtn' class='btn btn-danger' onclick='musicdel("+json[i]["songid"]+")'>Delete</button></td><tr>");
 							}
 						}
 		}
@@ -36,7 +36,7 @@ function musicdel(id){
 						alert("Error");
 						window.location="music.php";
 					}
-					
+
 				}
 			})
 		}
@@ -54,7 +54,7 @@ function mdetail(id){
 						if(json==""){
 							$("#listmusic").html('<tr><td colspan=7><div class="alert alert-warning">No Song! </div></td></tr>');
 						}else{
-							var NumOfJData = json.length;							
+							var NumOfJData = json.length;
 							for(var i = 0; i < NumOfJData; i++) {
 								$("#songid").html(json[i]["songid"]);
 								$("#songname").html(json[i]["title"]);
@@ -65,12 +65,14 @@ function mdetail(id){
 								$("#track").html(json[i]["track"]);
 								$("#year").html(json[i]["year"]);
 								$("#copyright").html(json[i]["copyright"]);
-								$("#artpath").html(json[i]["art_path"]);
+								$("#artpath").html(json[i]["artPath"]);
 								$("#lyrics").html(json[i]["lyrics"]);
-								$("#uploadtime").html(json[i]["upload_time"]);
-								$("#totalplay").html(json[i]["total_play"]);
-								$("#totaldownload").html(json[i]["total_download"]);
-								$("#songpath").html(json[i]["song_path"]);		
+								$("#uploadtime").html(json[i]["uploadDateTime"]);
+								$("#totalplay").html(json[i]["totalPlay"]);
+								$("#totaldownload").html(json[i]["totalDownload"]);
+								$("#songpath").html(json[i]["songPath"]);
+								$("#uploadUser").html(json[i]["userid"]);
+
 							}
 
 						}

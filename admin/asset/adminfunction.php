@@ -98,6 +98,7 @@ function deladmin($aid){
 	$stmt->bind_param('i',$aid);
 	$stmt->execute();
 	echo "success";
+	printf($stmt->error);
 }
 function sheditadmin($aid){
 	require 'db.php';

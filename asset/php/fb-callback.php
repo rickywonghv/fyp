@@ -37,11 +37,12 @@ if (isset($accessToken)) {
   //if($user['email']==null){header("Location:");}
   //check new user
       include '../config/db.php';
-      $sql="select userid,fbuid,email from user where fbuid=?";
+      $sql="select userid,fbuid,email,type from user where fbuid=?";
+      $stmt=mysqli_query($conn,"SET NAMES UTF8");
       $stmt=$conn->prepare($sql);
       $stmt->bind_param('s',$fbuid);
       $stmt->execute();
-      $stmt->bind_result($reuid,$rfbuid,$remail);
+      $stmt->bind_result($reuid,$rfbuid,$remail,$retype);
       $stmt->fetch();
       if($rfbuid==""){
         $uid=null;
@@ -63,6 +64,8 @@ if (isset($accessToken)) {
             $_SESSION['access_token'] = (string) $accessToken;
             $_SESSION['fbuid']=$user['id'];
             $_SESSION['email']=$user['email'];
+            $_SESSION['type']=$type;
+            header('Location:http://musixcloud.xyz/user');
             printf($stmt->error);
           }else{
             printf("Error: %s.\n", $stmt->error);
@@ -73,11 +76,12 @@ if (isset($accessToken)) {
       $_SESSION['fbuid']=$user['id'];
       $_SESSION['uid']=$reuid;
       $_SESSION['email']=$user['email'];
+      $_SESSION['type']=$retype;
     }
   } elseif ($helper->getError()) {
 
   }
+header('Location:http://musixcloud.xyz/user');
 
-  header('Location:http://musixcloud.xyz/user/index.php?code=');
   session_write_close();
  ?>

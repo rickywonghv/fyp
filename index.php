@@ -1,7 +1,9 @@
 <?php
-if(!session_id()) {
-    session_start();
+session_start();
+if(isset($_SESSION['access_token'])&&isset($_SESSION['uid'])){
+   header("Location:user");
 }
+
 include 'asset/php/facebook-php-sdk-v4-5.0.0/src/Facebook/autoload.php';
 $fb = new Facebook\Facebook([
   'app_id' => '173558396322250',
@@ -70,6 +72,7 @@ foreach ($_SESSION as $k=>$v) {
                             <li>
                                 <a href="#aboutus">About Us</a>
                             </li>
+                            <li><a href="#price"><i class="fa fa-usd"></i> Pricing</a></li>
                         <li>
                           <a href="#contact">Contact Us</a>
                         </li>
@@ -110,7 +113,7 @@ foreach ($_SESSION as $k=>$v) {
                     </div>
                     <div class="col-md-6">
                         <h1 class="text-primary">About Us</h1>
-                        <h3>About us</h3>
+
                         <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
                             ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
                             dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies
@@ -121,8 +124,76 @@ foreach ($_SESSION as $k=>$v) {
                             elementum semper nisi.</p>
                     </div>
                 </div>
+
             </div>
         </div>
+
+        <div class="section" id="price">
+          <style media="screen">
+          .pricebtn {
+            -webkit-box-shadow: 0px 1px 3px #666666;
+            -moz-box-shadow: 0px 1px 3px #666666;
+            box-shadow: 0px 1px 3px #666666;
+            font-family: Arial;
+            color: #ffffff;
+            font-size: 20px;
+            background: #3498db;
+            padding: 10px 70px 10px 70px;
+            text-decoration: none;
+          }
+
+          .pricebtn:hover {
+            background: #3cb0fd;
+            text-decoration: none;
+          }
+          </style>
+          <!--Pay-->
+          <div class="container">
+          <div class="row">
+            <div class="col-md-12"> <h1 class="text-center primary"><i class="fa fa-usd"></i> Pricing</h1> </div>
+            <div class="col-md-6">
+              <div class="free">
+                <div class="price success">
+                  <div class="list-group">
+                      <ul>
+                        <li class="list-group-item list-group-item-success pricehead"><strong><h2>FREE</h2></strong><br><h4><i class="fa fa-usd"></i>0</h4></li>
+                        <li class="list-group-item plandel"><i class="fa fa-headphones"></i> Play Music (Free music only)</li>
+                        <li class="list-group-item plandel"><i class="fa fa-cloud-upload"></i> Upload Music * (Free music only)</li>
+                        <li class="list-group-item plandel"><i class="fa fa-cloud-download"></i> Download Music * (Free music only)</li>
+                        <li class="list-group-item plandel"><i class="fa fa-android"></i> Support Android App</li>
+                        <li class="list-group-item plandel"><i class="fa fa-life-ring"></i> Admin Support</li>
+                        <li class="list-group-item plandel">Download music with CDN *</li>
+                        <li class="list-group-item plandel"><a class="pricebtn">Detail</a></li>
+                      </ul>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="per">
+                <div class="price success">
+                  <div class="list-group">
+                      <ul>
+                        <li class="list-group-item list-group-item-danger  pricehead"><strong><h2>PERMIUM</h2></strong><br><h4><i class="fa fa-usd"></i>10</h4></li>
+                        <li class="list-group-item plandel"><i class="fa fa-headphones"></i> Play Music (Free & Permium music)</li>
+                        <li class="list-group-item plandel"><i class="fa fa-cloud-upload"></i>Upload Music * (Unlimited Music)</li>
+                        <li class="list-group-item plandel"><i class="fa fa-cloud-download"></i> Download Music * (All Music)</li>
+                        <li class="list-group-item plandel"><i class="fa fa-android"></i> Support Android App</li>
+                        <li class="list-group-item plandel"><i class="fa fa-pencil-square-o"></i> Audio Editor</li>
+                        <li class="list-group-item plandel"><span class="glyphicon glyphicon-user"></span> All Free Account function</li>
+                        <li class="list-group-item plandel"><a class="pricebtn">Detail</a></li>
+                      </ul>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12"><div class="alert alert-info text-center">We are accept <i class="fa fa-paypal"></i> Paypal only</div></div>
+          </div>
+        <!--End Pay-->
+        </div>
+</div>
 
         <div class="section" id="contact"> <div class="container"> <div class="row"> <div class="col-md-12"> <h1 class="text-center">Contact Us</h1> </div></div><div class="row"> <div class="col-md-offset-3 col-md-6"> <form role="form"> <div class="form-group"> <div class="input-group"> <input type="text" class="form-control" placeholder="Enter your email"> <span class="input-group-btn"> <a class="btn btn-success" type="submit">Go</a> </span> </div></div></form> </div></div></div></div><footer class="section section-primary"> <div class="container"> <div class="row"> <div class="col-sm-6"> <h1>MusixCloud</h1> <p>Lorem ipsum dolor sit amet, consectetur adipisici elit, <br>sed eiusmod tempor incidunt ut labore et dolore magna aliqua. <br>Ut enim ad minim veniam, quis nostrud</p></div><div class="col-sm-6"> <p class="text-info text-right"> <br><br></p><div class="row"> <div class="col-md-12 hidden-lg hidden-md hidden-sm text-left"> <a href="#"><i class="fa fa-3x fa-fw fa-instagram text-inverse"></i></a> <a href="#"><i class="fa fa-3x fa-fw fa-twitter text-inverse"></i></a> <a href="#"><i class="fa fa-3x fa-fw fa-facebook text-inverse"></i></a> <a href="#"><i class="fa fa-3x fa-fw fa-github text-inverse"></i></a> </div></div><div class="row"> <div class="col-md-12 hidden-xs text-right">  <a href="#"><i class="fa fa-3x fa-fw fa-twitter text-inverse"></i></a> <a href="#"><i class="fa fa-3x fa-fw fa-facebook text-inverse"></i></a>  </div></div></div></div></div></footer>
 

@@ -15,7 +15,7 @@
 		<link rel="stylesheet" href="asset/css/nav.css">
 		<link rel="stylesheet" type="text/css" href="asset/css/bootstrap-theme.min.css">
 		<link rel="stylesheet" type="text/css" href="asset/css/style.css">
-		
+
 		<title>Musix Cloud <?php echo $_SESSION['type'];?></title>
 	</head>
 	<body>
@@ -25,7 +25,7 @@
 		    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navmenu">
         		<span class="icon-bar"></span>
         		<span class="icon-bar"></span>
-        		<span class="icon-bar"></span>                        
+        		<span class="icon-bar"></span>
      		</button>
 		      <a class="navbar-brand">Musix Cloud <?php echo $_SESSION['type'];?> Panel</a>
 		    </div>
@@ -56,7 +56,7 @@
 				      </tr>
 				    </thead>
 				    <tbody id="listmusic">
-				      	  
+
 				    </tbody>
 				  </table>
 				  </div>
@@ -73,21 +73,22 @@
 					      <div class="modal-body">
 
 					<div class="list-group">
-					    <a href="#" class="list-group-item">Song ID:<div id="songid"></div></a>
-					    <a href="#" class="list-group-item">Song Name:<div id="songname"></div></a>
-					    <a href="#" class="list-group-item">Lyricist:<div id="lyricist"></div></a>
-					    <a href="#" class="list-group-item">Singer:<div id="singer"></div></a>
-					    <a href="#" class="list-group-item">Composer:<div id="composer"></div></a>
-					    <a href="#" class="list-group-item">Album:<div id="album"></div></a>
-					    <a href="#" class="list-group-item">Track:<div id="track"></div></a>
-					    <a href="#" class="list-group-item">Year:<div id="year"></div></a>
-					    <a href="#" class="list-group-item">Copyright:<div id="copyright"></div></a>
-					    <a href="#" class="list-group-item">Art Path:<div id="artpath"></div></a>
-					    <a href="#" class="list-group-item">Lyrics:<div id="lyrics"></div></a>
-					    <a href="#" class="list-group-item">Song Path:<div id="songpath"></div></a>
-					    <a href="#" class="list-group-item">Upload Time:<div id="uploadtime"></div></a>
-					    <a href="#" class="list-group-item">Total Play:<div id="totalplay"></div></a>
-					    <a href="#" class="list-group-item">Total Download:<div id="totaldownload"></div></a>
+					    <a href="#" class="list-group-item"><b>Song ID:</b><span id="songid"></span></a>
+					    <a href="#" class="list-group-item"><b>Song Name:</b><span id="songname"></span></a>
+							<a href="#" class="list-group-item"><b>Upload User:</b><span id="uploadUser"></span></a>
+					    <a href="#" class="list-group-item"><b>Lyricist:</b><span id="lyricist"></span></a>
+					    <a href="#" class="list-group-item"><b>Singer:</b><span id="singer"></span></a>
+					    <a href="#" class="list-group-item"><b>Composer:</b><span id="composer"></span></a>
+					    <a href="#" class="list-group-item"><b>Album:</b><span id="album"></span></a>
+					    <a href="#" class="list-group-item"><b>Track:</b><span id="track"></span></a>
+					    <a href="#" class="list-group-item"><b>Year:</b><span id="year"></span></a>
+					    <a href="#" class="list-group-item"><b>Copyright:</b><span id="copyright"></span></a>
+					    <a href="#" class="list-group-item"><b>Art Path:</b><span id="artpath"></span></a>
+					    <a href="#" class="list-group-item"><b>Lyrics:</b><span id="lyrics"></span></a>
+					    <a href="#" class="list-group-item"><b>Song Path:</b><span id="songpath"></span></a>
+					    <a href="#" class="list-group-item"><b>Upload Time:</b><span id="uploadtime"></span></a>
+					    <a href="#" class="list-group-item"><b>Total Play:</b><span id="totalplay"></span></a>
+					    <a href="#" class="list-group-item"><b>Total Download:</b><span id="totaldownload"></span></a>
 					</div>
 					      </div>
 					      <div class="modal-footer">

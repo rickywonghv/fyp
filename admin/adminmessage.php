@@ -25,7 +25,7 @@
 		    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navmenu">
         		<span class="icon-bar"></span>
         		<span class="icon-bar"></span>
-        		<span class="icon-bar"></span>                        
+        		<span class="icon-bar"></span>
      		</button>
 		      <a class="navbar-brand">Musix Cloud <?php echo $_SESSION['type'];?> Panel</a>
 		    </div>
@@ -40,9 +40,9 @@
 		  </div>
 		</nav>
 		<div class="container">
-		<div id="msgmodalbtn"><button type="button" id="msgsendmodal" class="btn btn-success" data-toggle='modal' data-target="#sendmsgmodal"><span class="glyphicon glyphicon-send"></span> Send Message</button> 
+		<div id="msgmodalbtn"><button type="button" id="msgsendmodal" class="btn btn-success" data-toggle='modal' data-target="#sendmsgmodal"><span class="glyphicon glyphicon-send"></span> Send Message</button>
 			<?php require 'asset/exmodal.php';?>
-		
+
 		</div>
 
 		<!--Admin Message Table-->
@@ -61,8 +61,8 @@
 			      </tr>
 			    </thead>
 			    <tbody id="amsgbody">
-			      
-			      
+
+
 			    </tbody>
 			  </table>
 			  </div>
@@ -140,8 +140,8 @@
 			</div>
 			<!--End Admin Message Add Modal-->
 
-			
+
 		</div>
-		
+
 	</body>
 </html>

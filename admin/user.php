@@ -53,7 +53,7 @@
 			 <div id='showuser'>
 			 <div class="panel-group">
 					  <div class="panel panel-default">
-					    <div class="panel-heading" id="headhead">Musix Cloud User List <span class="badge"><?php countuser();?></span></div>
+					    <div class="panel-heading" id="headhead">Musix Cloud User List <span class="badge"></span></div>
      					 <div class="panel-body">
 				<div class="table-responsive">
 				<table class="table table-hover" id="shusertable">
@@ -62,10 +62,10 @@
 				        <th>User ID</th>
 				        <th>Email</th>
 				        <th>Fullname</th>
+								<th>View</th>
 				      </tr>
 				    </thead>
-				    <tbody>
-				      <tr><td><span class="uid"></span></td><td><span class="email"></span></td><td><span class="full"></span></td></tr>
+				    <tbody id="userlist">
 				    </tbody>
 				  </table>
 				  </div>
@@ -74,5 +74,35 @@
      				   </div>
 			 </div>
 		</div>
+
+		<!--User View Modal-->
+		<div class="modal fade" id="userviewmodal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		        <h4 class="modal-title" id=""><span class="viewuid"></span> <span class="viewfullname"></span> -- View User</h4>
+		      </div>
+		      <div class="modal-body">
+						<div class="list-item">
+							<ul class="list-group">
+							  <li class="list-group-item"><b>User ID: </b> <span class="viewuid"></span></li>
+								<li class="list-group-item"><b>Facebook ID: </b><span class="viewfbid"></span></li>
+								<li class="list-group-item"><b>Fullname: </b><span class="viewfullname"></span></li>
+								<li class="list-group-item"><b>Email: </b><span class="viewemail"></span></li>
+								<li class="list-group-item"><b>Type: </b><span class="viewtype"></span></li>
+								<li class="list-group-item"><b>Gender: </b><span class="viewgender"></span></li>
+								<li class="list-group-item"><b>Date of birth: </b><span class="viewdob"></span></li>
+								<li class="list-group-item"><b>Expiry Date: </b><span class="viewexp"></span></li>
+								<li class="list-group-item"><b>Register Date: </b><span class="viewregdate"></span></li>
+								<li class="list-group-item"><b>Register IP: </b><span class="viewregip"></span></li>
+								<li class="list-group-item"><b>Token: </b><span class="viewtoken"></span></li>
+							</ul>
+						</div>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		<!--End User View Modal-->
 	</body>
 </html>

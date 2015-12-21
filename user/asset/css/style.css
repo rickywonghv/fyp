@@ -1,1 +1,38 @@
+.list-group-item.active{
+  background: rgba(47, 147, 41, 0.55);
+  font-size: 18px;
+  color:rgb(255, 255, 255);
+}
+.list-group-item.active.border{
+  background: rgba(47, 147, 41, 0.55);
+  color:rgb(255, 255, 255);
+}
+.list-group-item.active:hover{
+  background: rgba(47, 147, 11, 0.55);
+  font-size: 18px;
 
+}
+.list-group-item.active a{
+  color:rgb(255, 255, 255);
+}
+html {
+      min-height: 100%;
+      position: relative;
+}
+body > .container {
+  padding: 60px 20px 10px;
+}
+.player{
+  padding: 4px;
+  background: rgb(53, 48, 55);
+  color:#fff;
+}
+#playbtn{
+  font-size: 40px;
+}
+.jcontrol{
+  font-size: 30px;
+}
+.download{
+  float:right;
+}

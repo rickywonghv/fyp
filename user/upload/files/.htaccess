@@ -1,0 +1,4 @@
+RewriteEngine on
+RewriteCond %{HTTP_REFERER} !^http://musixcloud.xyz/.*$ [NC]
+RewriteRule \.(jpg|jpeg|gif|png|bmp|rar|zip|exe|mp3)$ - [F]
+Options All -Indexes

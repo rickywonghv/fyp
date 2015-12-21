@@ -1,8 +1,10 @@
 <?php
+header("Content-Type: text/html;charset=utf-8");
 session_start();
-if(empty($_SESSION['email'])){
+if(empty($_SESSION['uid'])){
    header("Location:../../index.php");
 }
+
 
 if($_GET['act']=="cpwd"){
   cpwd($_POST['npwd'],$_POST['conpwd']);
@@ -46,10 +48,20 @@ function viewprofile($uid){
 }
 
 
-function shownsong($uid){
+function shownsong($userid){
   include 'db.php';
-  $sql="select * from music where userid=?";
-  //$stmt->
+  session_start();
+  $sql="select title,songPath from music where userid=?";
+  //$stmt=mysqli_query($conn,"SET NAMES UTF8");
+  $stmt=$conn->prepare($sql);
+  $stmt->bind_param("i",$userid);
+  $stmt->execute();
+  $data = $stmt->get_result();
+     $result = array();
+     while($row = $data->fetch_assoc()) {
+          $result[] = $row;
+      }
+      echo json_encode($result);
 }
 
  ?>

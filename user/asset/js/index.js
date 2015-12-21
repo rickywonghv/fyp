@@ -1,13 +1,14 @@
 $(document).ready(function(){
-  var genuid=$("#genuid").val();
-  $.ajax({
-    url:"asset/php/function.php?act=shownsong",
-    type:"POST",
-    data:"uid="+genuid,
-    success:function(response){
-      console.log(response);
-    }
-  });
+  $("body").on("contextmenu",function(){
+           return false;
+        });
+  $("audio").on("contextmenu",function(){
+           return false;
+        });
+
+$('a').bind('copy paste ', function (e) {
+       e.preventDefault();
+});
 
   $("#settingchpwd").click(function(){
     $("#settingmodal").modal("hide");
@@ -96,6 +97,10 @@ $(document).ready(function(){
                       data:"title="+title+"&singer="+singer+"&uid="+uid+"&path="+resfilename,
                       success:function(res){
                         $("#uploadmsg").html('<div class="alert alert-dismissable alert-success"><strong>Upload Successful! </strong>  has been upload! </div>');
+
+                        $("#closeupload").click(function(){
+                          window.location='index.php';
+                        });
                         return false;
                       }
                     })
@@ -106,4 +111,32 @@ $(document).ready(function(){
     }
   });
 
+$('[data-toggle="tooltip"]').tooltip();
+
+
 })
+
+document.onkeypress = function (event) {
+  event = (event || window.event);
+if (event.keyCode == 123) {
+  return true;
+}
+}
+document.onmousedown = function (event) {
+event = (event || window.event);
+if (event.keyCode == 123) {
+return true;
+}
+}
+document.onkeydown = function (event) {
+event = (event || window.event);
+if (event.keyCode == 123) {
+return true;
+}
+}
+
+function unloadJS(scriptName) {
+  var head = document.getElementsByTagName('head').item(0);
+  var js = document.getElementById(scriptName);
+  js.parentNode.removeChild(js);
+}

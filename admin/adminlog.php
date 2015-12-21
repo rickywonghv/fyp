@@ -26,20 +26,20 @@
 		<title>Musix Cloud <?php echo $_SESSION['type'];?></title>
 	</head>
 	<body>
-		
+
 		<nav class="navbar navbar-custom">
 		  <div class="container-fluid">
 		    <div class="navbar-header">
 		    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navmenu">
         		<span class="icon-bar"></span>
         		<span class="icon-bar"></span>
-        		<span class="icon-bar"></span>                        
+        		<span class="icon-bar"></span>
      		</button>
 		      <a class="navbar-brand">Musix Cloud <?php echo $_SESSION['type'];?> Panel</a>
 		    </div>
 		    <div class="collapse navbar-collapse" id="navmenu">
 		      <ul class="nav navbar-nav">
-		        
+
 		        <?php require 'asset/navbar.php';?>
 		      </ul>
 				<ul class="nav navbar-nav navbar-right">
@@ -86,7 +86,7 @@
      					 </div>
      					</div>
      				   </div>
-			
+
 			<!--Export Modal-->
 			<div id="export">
 			<div id="exmodal" class="modal fade" role="dialog">

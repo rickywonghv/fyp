@@ -58,13 +58,13 @@ function deladmin(id,aid){
 						alert("Already Delete");
 						window.location="admin.php";
 					}else{
-						alert("Error");
-						window.location="admin.php";
+						alert(response);
+						console.log(response);
+						//window.location="admin.php";
 					}
 				}
 			})
 		}
 	}
-	
-}
 
+}
