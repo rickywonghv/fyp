@@ -1,6 +1,6 @@
 <?php
 header("Content-Type: text/html;charset=utf-8");
-date_default_timezone_set("Asia/Hong_Kong"); 
+date_default_timezone_set("Asia/Hong_Kong");
   session_start();
   include 'db.php';
   $sql="INSERT INTO music (songid, title, userid, lyricist, singer, composer, album, track, year, genre, comment, copyright, artPath, lyrics, songPath, uploadDateTime, totalPlay, totalDownload, totalShare, totalLike) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
@@ -10,7 +10,7 @@ date_default_timezone_set("Asia/Hong_Kong");
   $singer=$_POST['singer'];
   $lyricist=null;
   $composer=$_POST['composer'];
-  $album=null;
+  $album=$_POST['album'];
   $track=1;
   $year=date("Y");
   $genre=$_POST['genre'];
@@ -26,7 +26,7 @@ date_default_timezone_set("Asia/Hong_Kong");
   $totalLike=0;
   $stmt=mysqli_query($conn,"SET NAMES UTF8");
   $stmt=$conn->prepare($sql);
-  $stmt->bind_param("isissssissssssssiiii",$songid,$title,$userid,$lyricist,$sinsinger,$composer,$album,$track,$year,$genre,$comment,$copyright,$artPath,$lyrics,$songPath,$uploadDateTime,$totalPlay,$totalDownload,$totalShare,$totalLike);
+  $stmt->bind_param("isissssissssssssiiii",$songid,$title,$userid,$lyricist,$singer,$composer,$album,$track,$year,$genre,$comment,$copyright,$artPath,$lyrics,$songPath,$uploadDateTime,$totalPlay,$totalDownload,$totalShare,$totalLike);
   $stmt->execute();
   printf($stmt->error);
   echo 'success';

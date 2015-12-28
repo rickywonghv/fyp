@@ -12,7 +12,7 @@ function countadmin(){
 }
 function countuser(){
 	include 'db.php';
-	$sql="select username from user";
+	$sql="select userid from user";
 	$stmt=$conn->prepare($sql);
 	$stmt->execute();
 	$stmt->store_result();

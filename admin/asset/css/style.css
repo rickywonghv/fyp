@@ -1,4 +1,8 @@
-
+.searchBar{
+	max-width: 500px;
+	float: right;
+	padding-bottom: 3px;
+}
 #addModel{
 	padding-bottom: 10px;
 }

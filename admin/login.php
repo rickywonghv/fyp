@@ -4,8 +4,9 @@
     if(isset($_SESSION['username'])&&isset($_SESSION['type'])){
             header('Location:index.php');
     }
-    
+
 ?>
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
@@ -14,10 +15,11 @@
         <script type="text/javascript" src="asset/js/bootstrap.min.js"></script>
         <!--<link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">-->
         <script src="https://www.google.com/jsapi"></script>
-
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
         <link href="asset/css/login.css" rel="stylesheet" type="text/css">
         <script src="asset/js/login.js"></script>
-        <title>Musix Cloud Admin Login</title>
+        <link rel="icon" href="favicon.ico">
+        <title>MusixCloud Dashboard Login</title>
     </head>
     <body>
         <div class="navbar navbar-default navbar-static-top">
@@ -29,7 +31,8 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand"><span class="glyphicon glyphicon-headphones"></span>Musix Cloud</a>
+                    <a class="navbar-brand" style="padding-top:0px"><img height="50" alt="Brand" src="asset/img/logo.png"></span></a>
+
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-ex-collapse">
                     <ul class="nav navbar-nav navbar-right">
@@ -44,24 +47,24 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
-                        <h1 class="text-muted">Musix Cloud</h1>
-                        <h3 class="text-muted">Admin Panel Login</h3>
+                        <h1 class="text-muted"><i class="fa fa-tachometer"></i> Musix Cloud</h1>
+                        <h3 class="text-muted">Admin Dashboard Login</h3>
                         <form role="form">
                             <div class="form-group has-feedback">
-                                
+
                                 <input class="form-control input-lg" id="username"  placeholder="Username" type="text">
                             </div>
                             <div class="form-group">
-                                
+
                                 <input class="form-control input-lg" id="pwd" placeholder="Password" type="password">
                             </div>
                             <button type="submit" class="btn btn-block btn-info btn-lg" id="loginbtn">Login</button>
-                            
+
                         </form>
                         <div id="message"></div>
                     </div>
                     <div class="col-md-6">
-                        <img src="http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png" class="hidden-xs img-responsive">
+                        <img src="http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png" class="hidden-xs hidden-sm img-responsive">
                     </div>
                 </div>
             </div>
@@ -83,7 +86,7 @@
                                 <a href="#"><i class="fa fa-3x fa-fw fa-instagram text-inverse"></i></a>
                                 <a href="#"><i class="fa fa-3x fa-fw fa-twitter text-inverse"></i></a>
                                 <a href="#"><i class="fa fa-3x fa-fw fa-facebook text-inverse"></i></a>
-                                
+
                             </div>
                         </div>
                         <div class="row">
@@ -91,13 +94,13 @@
                                 <a href="#"><i class="fa fa-3x fa-fw fa-instagram text-inverse"></i></a>
                                 <a href="#"><i class="fa fa-3x fa-fw fa-twitter text-inverse"></i></a>
                                 <a href="#"><i class="fa fa-3x fa-fw fa-facebook text-inverse"></i></a>
-                                
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </footer>
-    
+
 
 </body></html>

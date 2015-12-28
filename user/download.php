@@ -15,11 +15,14 @@ if(!isset($_SESSION['type'])&&!isset($_SESSION['uid'])){
       header('Expires: 0');
       header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
       header('Pragma: public');
+      header('X-Pad: avoid browser bug');
       header('Content-Length: ' . filesize($file));
       ob_clean();
       flush();
       readfile($file);
       exit;
+  }else{
+    echo "Not Existing";
   }
 }
  ?>

@@ -1,15 +1,27 @@
 $(document).ready(function(){
+/*
   $("body").on("contextmenu",function(){
            return false;
         });
   $("audio").on("contextmenu",function(){
            return false;
         });
-
+*/
 $('a').bind('copy paste ', function (e) {
        e.preventDefault();
 });
 
+  $("#hideuploaded").click(function(){
+    $("#testplayer").hide();
+    $("#freeplay").prop('class','col-md-8');
+    $(".welcome").html('<span id="openuploaded" onclick=openuploaded(); >Click to open your uploaded</span>');
+  })
+
+
+  if($("#gentype").val()!=2){
+    $("#permium").hide();
+    $("#freeplay").prop('class','col-md-8');
+  }
   $("#settingchpwd").click(function(){
     $("#settingmodal").modal("hide");
     $("#chpwdmodal").modal("show");
@@ -64,6 +76,7 @@ $('a').bind('copy paste ', function (e) {
     singer=$("#singer").val();
     title=$("#title").val();
     uid=$("#uid").val();
+    /*
     if(filename==""){
       $("#uploadmsg").html('<div class="alert alert-dismissable alert-danger"><strong>Error! </strong> Please choose a song to upload!</div>');
       return false;
@@ -75,11 +88,12 @@ $('a').bind('copy paste ', function (e) {
       return false;
     }
     else{
+      */
       var file_data = $('#uploadsong').prop('files')[0];
       var form_data = new FormData();
       form_data.append('file', file_data);
       $.ajax({
-                  url: 'upload/show.php',
+                  url: 'upload/upload.php',
                   dataType: 'json',
                   cache: false,
                   contentType: false,
@@ -90,28 +104,61 @@ $('a').bind('copy paste ', function (e) {
                     $("#processstatus").prop('aria-valuenow',0);
                   },success: function(response){
                     console.log(response);
-                    var resfilename=response.refilename;
-                    $.ajax({
-                      url:"asset/php/uploadid.php",
-                      type:"POST",
-                      data:"title="+title+"&singer="+singer+"&uid="+uid+"&path="+resfilename,
-                      success:function(res){
-                        $("#uploadmsg").html('<div class="alert alert-dismissable alert-success"><strong>Upload Successful! </strong>  has been upload! </div>');
+                    //var resfilename=response.refilename;
+                    $("#uploadmodal").modal("hide");
+                    $("#musicinfomodal").modal({backdrop: 'static',keyboard: false,show:true});
 
-                        $("#closeupload").click(function(){
-                          window.location='index.php';
-                        });
-                        return false;
-                      }
-                    })
-
+                    $("#title").val(response.Title);
+                    $("#singer").val(response.Artist);
+                    $("#album").val(response.Album);
+                    $("#infofilename").val(response.FileName);
+                    if(response.Artist==null){
+                      var name=$("#genname").val();
+                      $("#singer").val(name);
+                    }
                   }
        });
        return false;
-    }
+  // }
   });
 
+  $("#musicinfoBtn").click(function(){
+    var retitle=$("#title").val();
+    var resinger=$("#singer").val();
+    var realbum=$("#album").val();
+    var filename=$("#infofilename").val();
+    var uid=$("#uid").val();
+
+    if(resinger==""){
+      $(".musicinfomsg").html('<div class="alert alert-dismissable alert-danger"><strong>Error! </strong> Please enter a singer </div>');
+      return false;
+    }else if(retitle==""){
+      $(".musicinfomsg").html('<div class="alert alert-dismissable alert-danger"><strong>Error! </strong> Please enter a title </div>');
+      return false;
+    }else{
+      $.ajax({
+        url:"asset/php/uploadid.php",
+        type:"POST",
+        data:"title="+retitle+"&singer="+resinger+"&uid="+uid+"&path="+filename+"&album="+realbum,
+        success:function(res){
+          $("#musicinfomsg").html('<div class="alert alert-dismissable alert-success"><strong>Upload Successful! </strong>  has been upload! </div>');
+          $("#musicinfoBtn").hide();
+          $("#infofooter").html('<button type="button" class="btn btn-default infomusicclose" data-dismiss="modal">Close</button>');
+          $(".infomusicclose").click(function(){
+            window.location='index.php';
+          })
+          return false;
+        }
+      })
+      return false;
+    }
+
+  })
+
+
+
 $('[data-toggle="tooltip"]').tooltip();
+
 
 
 })
@@ -139,4 +186,45 @@ function unloadJS(scriptName) {
   var head = document.getElementsByTagName('head').item(0);
   var js = document.getElementById(scriptName);
   js.parentNode.removeChild(js);
+}
+
+function openuploaded(){
+  var name=$("#genname").val();
+  var type=$("#gentype").val();
+  $("#testplayer").show();
+  if(type==1){
+    $("#freeplay").prop('class','col-md-8');
+  }else{
+    $("#freeplay").prop('class','col-md-4');
+  }
+
+  $(".welcome").html('Welcome back '+name);
+}
+function musicdet(songid){
+
+  $.ajax({
+    url:"asset/php/function.php",
+    type:"POST",
+    data:"act=musicdet&songid="+songid,
+    dataType:"json",
+    success:function(response){
+      var json=response[0]
+      $("#musicinfotitle").html(json["title"]);
+      $("#infosongid").html(json["songid"]);
+      $("#infosongname").html(json["title"]);
+      $("#infolyricist").html(json["lyricist"]);
+      $("#infosinger").html(json["singer"]);
+      $("#infocomposer").html(json["composer"]);
+      $("#infoalbum").html(json["album"]);
+      $("#infotrack").html(json["track"]);
+      $("#infoyear").html(json["year"]);
+      $("#infocopyright").html(json["copyright"]);
+      $("#infolyrics").html(json["lyrics"]);
+      $("#infouploadtime").html(json["uploadDateTime"]);
+      $("#infototalplay").html(json["totalPlay"]);
+      $("#infototaldownload").html(json["totalDownload"]);
+      $("#infouploadUser").html(json["fullname"]);
+
+    }
+  })
 }

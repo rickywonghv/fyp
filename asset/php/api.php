@@ -15,6 +15,9 @@ if($_POST['action']==md5('profile')){
 elseif($_POST['action']==md5('login')){
   login($fbuid,$email,$name,$fbgender,$mobtoken);
 }
+elseif ($_POST['action']==md5('albumlist')) {
+  albumlist($mobtoken);
+}
 function login($fbuid,$email,$name,$fbgender,$mobtoken){
   session_start();
       $status;
@@ -97,4 +100,20 @@ function viewprofile($mobtoken){
   }
 }
 
+function albumlist($mobtoken){
+  include '../config/db.php';
+  $sql="select type from user where uToken=?";
+  if($stmt=$conn->prepare($sql)){
+    $stmt->bind_param('s',$mobtoken);
+    $stmt->execute();
+    $stmt->bind_result($retype);
+    $stmt->fetch();
+    if($retype==1){
+      $sql="SELECT music.title, music.songPath,music.album  FROM music INNER JOIN user ON music.userid=user.userid WHERE user.type=1 and music.album!=''";
+      $stmt=$conn->prepare($sql);
+      $stmt->execute();
+
+    }
+  }
+}
  ?>

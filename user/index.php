@@ -39,13 +39,17 @@ $token=$_SESSION['access_token'];
     <script type="text/javascript" src="asset/jplayer/jquery.jplayer.js" charset="UTF-8"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jplayer/2.9.2/add-on/jplayer.playlist.js" charset="UTF-8"></script>
     <script src="asset/js/player.js" charset="utf-8"></script>
-    <script type="text/javascript">
-    </script>
+    <script type="text/javascript" src="asset/js/public.js"></script>
+    <link rel="icon" href="../asset/img/favicon.ico">
+    <script src="asset/ckeditor/ckeditor.js" charset="utf-8"></script>
     <title>MusixCloud User Panel</title>
   </head>
   <body oncontextmenu="false" oncopy="return false" oncut="return false">
-
+    <input type="hidden" id="gentoken" value="<?php echo $_SESSION["access_token"]?>">
+    <input type="hidden" id="genname" value="<?php echo $_SESSION["name"]?>">
+    <input type="hidden" id="gentype" value="<?php echo $_SESSION["type"]?>">
     <input type="hidden" id="genuid" value="<?php echo $_SESSION["uid"]?>">
+    <input type="hidden" id="genios">
     <div class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -55,17 +59,15 @@ $token=$_SESSION['access_token'];
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" style="padding-top:0px"><img height="50" alt="Brand" src="../asset/img/logo.png"></a>
+          <a class="navbar-brand" href="../index.php" style="padding-top:0px"><img height="50" alt="Brand" src="../asset/img/logo.png"></a>
         </div>
         <div class="collapse navbar-collapse" id="navbar-ex-collapse">
           <ul class="nav navbar-nav">
-            <li class="">
-              <a href="../index.php">Home</a>
-            </li>
+
             <li>
               <a href="" data-toggle="modal" data-target="#viewpromodal" onclick='vpro(<?php echo $_SESSION["uid"]?>);' > <span class="glyphicon glyphicon-user"></span> Profile</a>
             </li>
-            <li><a onclick='vpro(<?php echo $_SESSION["uid"]?>);' data-toggle="modal" data-target="#uploadmodal">Upload</a></li>
+            <li><a onclick='vpro(<?php echo $_SESSION["uid"]?>);' data-toggle="modal" data-target="#uploadmodal"><span class="glyphicon glyphicon-cloud-upload"></span> Upload</a></li>
             <?php if($_SESSION['type']==2){echo '<li><a href="editor">Audio Editor</a></li>';} ?>
             <li>
               <a href="" data-toggle="modal" data-target="#settingmodal"><span class="glyphicon glyphicon-list-alt"></span> Setting</a>
@@ -74,7 +76,7 @@ $token=$_SESSION['access_token'];
           </ul>
           <ul class="nav navbar-nav navbar-right" >
             <li id="logoutdiv">
-               <span><img src=<?php echo $user['picture']['url'] ?> alt="" class="img img-circle img-xs" /> <a href="asset/php/logout.php">Logout</a>
+               <span><a data-toggle="modal" data-target="#viewpromodal" onclick='vpro(<?php echo $_SESSION["uid"]?>);' ><img src=<?php echo $user['picture']['url'] ?> alt="" class="img img-circle img-xs" /></a> <a href="asset/php/logout.php">Logout</a>
             </li>
           </ul>
         </div>
@@ -91,33 +93,27 @@ $token=$_SESSION['access_token'];
                 echo '<div class="welcome alert alert-dismissable alert-success"><strong></strong>Welcome back '. $_SESSION["name"].'</div>';
               }
             ?>
-
-
-
           </div>
         </div>
         <div class="col-md-4" id="testplayer">
-          <div class = "panel panel-info">
-             <div class = "panel-heading">
-                <h2 class = "panel-title"><span class="glyphicon glyphicon-music"></span>Your Uploaded Music</h2>
-             </div>
-             <div class = "panel-body">
              <ul id="playlist" class="list-group">
-
-
+               <li class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-music"></span> Your uploaded Music <button type="button" class="close" id="hideuploaded">&times;</button></li>
                <script type="text/javascript" src="asset/js/shown.js"></script>
              </ul>
-             </div>
-          </div>
+
         </div>
-        <div class="col-md-8">
+        <div class="col-md-4">
+          <ul class="list-group" id='permium'>
+            <li class="list-group-item list-group-item-danger"><span class="glyphicon glyphicon-music"></span> Permium Music  </li>
+            <span id="premusic"></span>
+          </ul>
+        </div>
+        <div class="col-md-4" id="freeplay">
           <div class="pubmusic">
-            <table class="table">
-              <tr><th class="info" colspan="2"><span class="glyphicon glyphicon-music"></span> Public Music</th></tr>
-              <tr><th>Music</th><td>Singer</td></tr>
-              <tr><td>Music</td><td>Singer</td></tr>
+            <ul id="playlist" class="list-group">
+              <li class="list-group-item list-group-item-warning">Free Music</li>
               <span id="pubmusic"></span>
-            </table>
+            </ul>
           </div>
         </div>
       </div>
@@ -128,11 +124,15 @@ $token=$_SESSION['access_token'];
             <div id="jquery_jplayer_1" class="jp-jplayer"></div>
             <div id="jp_container_1" class="jp-audio" role="application" aria-label="media player">
             <div class="jp-gui jp-interface">
-              <a class="jp-play glyphicon jcontrol glyphicon-play-circle" id="playbtn" role="button" tabindex="0"></a>
-              <a class="jp-stop glyphicon jcontrol glyphicon-stop" role="button" tabindex="0"></a>
-              <a class="jp-mute glyphicon jcontrol glyphicon-volume-off" role="button" tabindex="0"></a>
-              <a class="jp-volume-max glyphicon jcontrol glyphicon-volume-up" role="button" tabindex="0"></a>
-              <a class="jp-repeat glyphicon jcontrol glyphicon-repeat" role="button" tabindex="0"></a>
+              <span class="jp-play glyphicon glyphicon-play-circle" id="playbtn" role="button" tabindex="0"></span>
+              <span class="jp-stop jcontrol glyphicon glyphicon-stop" role="button" tabindex="0"></span>
+              <span class="jp-mute glyphicon jcontrol glyphicon-volume-off" role="button" tabindex="0"></span>
+              <span class="jp-volume-max glyphicon jcontrol glyphicon-volume-up" role="button" tabindex="0"></span>
+              <span class="jp-repeat glyphicon jcontrol glyphicon-repeat" role="button" tabindex="0"></span>
+
+              <span class="jp-volume-bar">
+                  <span class="jp-volume-bar-value"></span>
+              </span>
 
               <span class="jp-title" aria-label="title">&nbsp;</span>
               <span class="jp-current-time" role="timer" aria-label="time">&nbsp;</span>
@@ -142,9 +142,9 @@ $token=$_SESSION['access_token'];
                   <div class="jp-play-bar"></div>
                 </div>
               </div>
-        <div class="jp-volume-bar">
-          <div class="jp-volume-bar-value"></div>
-        </div>
+              <div class="jp-volume-bar">
+                <div class="jp-volume-bar-value"></div>
+              </div>
               <div class="jp-no-solution">
                 <span>Error Update Require! </span>
                 To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
@@ -254,18 +254,7 @@ $token=$_SESSION['access_token'];
           <input type="hidden" id="uid" value="<?php echo $_SESSION["uid"]?>">
           <ul class="list-group">
             <li class="list-group-item">
-              <div class="input-group">
-                <span class="input-group-addon">Title</span>
-                <input type="text" class="form-control" placeholder="Enter the song title" id="title">
-              </div>
-              <div class="input-group">
-                <span class="input-group-addon">Singer</span>
-                <input type="text" class="form-control" id="singer" placeholder="Enter Singer">
-              </div>
-              <div class="input-group">
-                <span class="input-group-addon">Genre</span>
-                <input type="text" class="form-control" placeholder="Enter genre">
-              </div>
+
               Select music to upload: <input type="file" class="form-control" name="file" id="uploadsong" accept="audio/mpeg" >
               <div class="uploaddiv">
                 <button type="submit" class="btn btn-success" id="uploadBtn"><span class="glyphicon glyphicon-upload"></span>Upload</button>
@@ -278,6 +267,75 @@ $token=$_SESSION['access_token'];
   </div>
   </div>
   <!--End Upload-->
+  <!--music info-->
+
+  <div class="modal fade" id="musicinfomodal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="">Music Information</h4>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="uid" value="<?php echo $_SESSION["uid"]?>">
+          <input type="hidden" id="album" value="">
+          <input type="hidden" id="infofilename" value="">
+          <div class="input-group">
+            <span class="input-group-addon">Title</span>
+            <input type="text" class="form-control" placeholder="Enter the song title" id="title">
+          </div>
+          <div class="input-group">
+            <span class="input-group-addon">Singer</span>
+            <input type="text" class="form-control" id="singer" placeholder="Enter Singer">
+          </div>
+          <div class="input-group">
+            <span class="input-group-addon">Genre</span>
+            <input type="text" class="form-control" placeholder="Enter genre">
+          </div>
+          <div class="musicinfomsg">
+
+          </div>
+        </div>
+        <div class="modal-footer" id="infofooter">
+
+          <button type="button" class="btn btn-primary" id="musicinfoBtn">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="shmusicinfo" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="musicinfotitle"></h4>
+        </div>
+        <div class="modal-body">
+          <div class="list-group">
+					    <a  class="list-group-item"><b>Song ID:</b><span id="infosongid"></span></a>
+					    <a  class="list-group-item"><b>Song Name:</b><span id="infosongname"></span></a>
+							<a  class="list-group-item"><b>Upload User:</b><span id="infouploadUser"></span></a>
+              <a  class="list-group-item"><b>Singer:</b><span id="infosinger"></span></a>
+              <a  class="list-group-item"><b>Album:</b><span id="infoalbum"></span></a>
+					    <a  class="list-group-item"><b>Lyricist:</b><span id="infolyricist"></span></a>
+					    <a  class="list-group-item"><b>Composer:</b><span id="infocomposer"></span></a>
+					    <a  class="list-group-item"><b>Track:</b><span id="infotrack"></span></a>
+					    <a  class="list-group-item"><b>Year:</b><span id="infoyear"></span></a>
+					    <a  class="list-group-item"><b>Copyright:</b><span id="infocopyright"></span></a>
+					    <a  class="list-group-item"><b>Lyrics:</b><span id="infolyrics"></span></a>
+					    <a  class="list-group-item"><b>Upload Time:</b><span id="infouploadtime"></span></a>
+					    <a  class="list-group-item"><b>Total Play:</b><span id="infototalplay"></span></a>
+					    <a  class="list-group-item"><b>Total Download:</b><span id="infototaldownload"></span></a>
+					</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 
   </body>
 

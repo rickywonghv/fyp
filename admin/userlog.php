@@ -12,6 +12,7 @@
 <html>
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="icon" href="favicon.ico">
 		<script src="asset/js/jquery-1.11.3.min.js"></script>
 		<script src="asset/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="asset/css/bootstrap.min.css">
@@ -23,7 +24,7 @@
 		<script type="text/javascript" src="asset/js/userlog.js"></script>
 		<script type="text/javascript" src="asset/js/jquery-ui.min.js"></script>
 		<link rel="stylesheet" href="asset/css/nav.css">
-		<title>Musix Cloud <?php echo $_SESSION['type'];?></title>
+		<title>MusixCloud <?php echo $_SESSION['type'];?></title>
 	</head>
 	<body>
 
@@ -35,7 +36,7 @@
         		<span class="icon-bar"></span>
         		<span class="icon-bar"></span>
      		</button>
-		      <a class="navbar-brand">Musix Cloud <?php echo $_SESSION['type'];?> Panel</a>
+		      <a class="navbar-brand"><i class="fa fa-tachometer"></i> MusixCloud <span class="hidden-xs"><?php echo $_SESSION['type'];?></span> dashboard</a>
 		    </div>
 		    <div class="collapse navbar-collapse" id="navmenu">
 		      <ul class="nav navbar-nav">

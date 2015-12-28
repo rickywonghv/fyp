@@ -33,6 +33,23 @@ body > .container {
 .jcontrol{
   font-size: 30px;
 }
+.art{
+  float:center;
+}
 .download{
   float:right;
+}
+.musicdbtn{
+  float:right;
+}
+
+.song.btn{
+  color: #000;
+  background: #fff;
+  text-decoration: none;
+}
+
+.song.btn:hover {
+  background: #fff;
+  text-decoration: none;
 }

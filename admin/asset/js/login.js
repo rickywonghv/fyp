@@ -11,8 +11,11 @@ $(document).ready(function(){
 					success:function(html){
 						if(html=='true'){
 								window.location='index.php';
+						}else if(html=="block"){
+							$("#message").html('<div class="alert alert-danger"><strong>Error!</strong>Your account has been blocked! </div>');
+							return false;
 						}else{
-							$("#message").html('<div class="alert alert-danger"><strong>Error!</strong>Wrong Username or Password</div>');
+							$("#message").html('<div class="alert alert-warning"><strong>Error!</strong>Wrong Username or Password</div>');
 							return false;
 						}
 					}
@@ -21,7 +24,7 @@ $(document).ready(function(){
 			}else{
 				$("#message").html('<div class="alert alert-danger"><strong>Error!</strong> Please fill in Username and Password!</div>');
 				return false;
-			}	
+			}
 		}else{
 			if(user.length>0&&pass.length>0){
 			var countryname=google.loader.ClientLocation.address.country;
@@ -44,8 +47,8 @@ $(document).ready(function(){
 		}else{
 			$("#message").html('<div class="alert alert-danger"><strong>Error!</strong> Please fill in Username and Password!</div>');
 			return false;
-		}	
 		}
-		
+		}
+
 	})
 })

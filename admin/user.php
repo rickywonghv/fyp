@@ -13,6 +13,7 @@
 <html>
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="icon" href="favicon.ico">
 		<script src="asset/js/jquery-1.11.3.min.js"></script>
 		<script src="asset/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="asset/css/bootstrap.min.css">
@@ -25,7 +26,8 @@
 		<script type="text/javascript" src="asset/js/jquery-ui.min.js"></script>
 		<link rel="stylesheet" href="asset/css/nav.css">
 		<script type="text/javascript" src="asset/js/shuser.js"></script>
-		<title>Musix Cloud <?php echo $_SESSION['type'];?></title>
+		<script src="asset/js/search.js" charset="utf-8"></script>
+		<title>MusixCloud <?php echo $_SESSION['type'];?></title>
 	</head>
 	<body>
 		<nav class="navbar navbar-custom">
@@ -36,7 +38,7 @@
         		<span class="icon-bar"></span>
         		<span class="icon-bar"></span>
      		</button>
-		      <a class="navbar-brand">Musix Cloud <?php echo $_SESSION['type'];?> Panel</a>
+		      <a class="navbar-brand"><i class="fa fa-tachometer"></i> MusixCloud <span class="hidden-xs"><?php echo $_SESSION['type'];?></span> dashboard</a>
 		    </div>
 		    <div class="collapse navbar-collapse" id="navmenu">
 		      <ul class="nav navbar-nav">
@@ -51,11 +53,19 @@
 
 		<div class="container">
 			 <div id='showuser'>
-			 <div class="panel-group">
-					  <div class="panel panel-default">
-					    <div class="panel-heading" id="headhead">Musix Cloud User List <span class="badge"></span></div>
-     					 <div class="panel-body">
+
+
+
 				<div class="table-responsive">
+					<span class="" id="headhead"><h3>Musix Cloud User List <span class="badge"></span></h3></span>
+					<span style="max-width:500px; float:right;" id="searchbar">
+						<div class="form-group">
+							<div class="input-group">
+								<span class="input-group-addon glyphicon glyphicon-search"></span>
+								<input type="text" class="form-control" id="searchinput" placeholder=" Search for...">
+							</div>
+						</div>
+					</span>
 				<table class="table table-hover" id="shusertable">
 				    <thead>
 				      <tr>
@@ -65,13 +75,11 @@
 								<th>View</th>
 				      </tr>
 				    </thead>
-				    <tbody id="userlist">
+				    <tbody id="userlist" class="searchdata">
 				    </tbody>
 				  </table>
 				  </div>
-				  		</div>
-     					</div>
-     				   </div>
+
 			 </div>
 		</div>
 

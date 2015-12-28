@@ -11,11 +11,14 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<script src="asset/js/jquery-1.11.3.min.js"></script>
 		<script src="asset/js/bootstrap.min.js"></script>
+		<script src="asset/js/info.js" charset="utf-8"></script>
 		<link rel="stylesheet" href="asset/css/bootstrap.min.css">
 		<link rel="stylesheet" href="asset/css/nav.css">
 		<link rel="stylesheet" type="text/css" href="asset/css/bootstrap-theme.min.css">
 		<link rel="stylesheet" type="text/css" href="asset/css/style.css">
-		<title>Musix Cloud <?php echo $_SESSION['type'];?></title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+		<link rel="icon" href="favicon.ico">
+		<title>MusixCloud <?php echo $_SESSION['type'];?></title>
 	</head>
 	<body>
 		<nav class="navbar navbar-custom">
@@ -26,7 +29,7 @@
         		<span class="icon-bar"></span>
         		<span class="icon-bar"></span>
      		</button>
-		      <a class="navbar-brand">Musix Cloud <?php echo $_SESSION['type'];?> Panel</a>
+		      <a class="navbar-brand"><i class="fa fa-tachometer"></i> MusixCloud <span class="hidden-xs"><?php echo $_SESSION['type'];?></span> dashboard</a>
 		    </div>
 		    <div class="collapse navbar-collapse" id="navmenu">
 		      <ul class="nav navbar-nav">
@@ -97,11 +100,20 @@
 			 </div>
 			 <div class="col-sm-4">
 			 		<div class="panel-group">
-					  <div class="panel panel-primary">
-					    <div class="panel-heading counthead">Number of Administrator</div>
-     					 <div class="panel-body" class="counter">
-     					 <div class="iconCounter"><span class="glyphicon glyphicon-user" id="user"></span></div>
-     					 	<div class="valCounter"><?php countadmin();?></div>
+					  <div class="panel panel-primary" id="shdisk">
+					    <div class="panel-heading counthead"><i class="fa fa-hdd-o"></i> Disk Information</div>
+     					 <div class="panel-body">
+								 <label for=""><i class="" id="diskicon"></i> Used Storage: </label>
+								 <div class="progress">
+								   <div class="progress-bar" id="diskinfo" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style=";">
+								     <span id="diskinfotext" class="sr-only"></span>
+								   </div>
+								 </div>
+								 <ul class="list-group">
+								 	<li class="list-group-item"><b>Total Storage:</b> <span id="shdisktotal"></span></li>
+									<li class="list-group-item"><b>Used Storage:</b> <span id="shdiskused"></span></li>
+									<li class="list-group-item"><b>Free Storage:</b> <span id="shdiskfree"></span></li>
+								 </ul>
      					 </div>
      					</div>
      				   </div>

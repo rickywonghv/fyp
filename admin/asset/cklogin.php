@@ -15,8 +15,8 @@
 			$stmt->bind_result($adminid,$reuser, $repwd,$type);
 			$stmt->fetch();
 			try{
-				if(($user==$reuser)&&(md5($pwd)==$repwd)){
-					
+				if(($user==$reuser)&&(md5($pwd)==$repwd)&&($type!="block")){
+
 					//admin login logging
 					require 'db.php';
 					$id=rand(1,9999999);
@@ -28,15 +28,17 @@
 					$stmt->bind_param("iissssss",$id,$adminid,$logtime,$logdate,$logip,$country,$latitude,$longitude);
 					$stmt->execute();
 					//end Admin Login Logging
-					
+
 					echo 'true';
 					$_SESSION['username']=$reuser;
 					$_SESSION['aid']=$adminid;
 					$_SESSION['type']=$type;
+				}elseif($type=="block"){
+					echo 'block';
 				}
 			}
 			catch(Exception $e){
 				printf($e->getMessage());
 			}
-	
+
 ?>

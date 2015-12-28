@@ -9,14 +9,15 @@
 <html>
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="icon" href="favicon.ico">
 		<script src="asset/js/jquery-1.11.3.min.js"></script>
 		<script src="asset/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="asset/css/bootstrap.min.css">
 		<link rel="stylesheet" href="asset/css/nav.css">
 		<link rel="stylesheet" type="text/css" href="asset/css/bootstrap-theme.min.css">
 		<link rel="stylesheet" type="text/css" href="asset/css/style.css">
-
-		<title>Musix Cloud <?php echo $_SESSION['type'];?></title>
+		<script src="asset/js/search.js" charset="utf-8"></script>
+		<title>MusixCloud <?php echo $_SESSION['type'];?></title>
 	</head>
 	<body>
 		<nav class="navbar navbar-custom">
@@ -27,7 +28,7 @@
         		<span class="icon-bar"></span>
         		<span class="icon-bar"></span>
      		</button>
-		      <a class="navbar-brand">Musix Cloud <?php echo $_SESSION['type'];?> Panel</a>
+		      <a class="navbar-brand"><i class="fa fa-tachometer"></i> MusixCloud <span class="hidden-xs"><?php echo $_SESSION['type'];?></span> dashboard</a>
 		    </div>
 		    <div class="collapse navbar-collapse" id="navmenu">
 		      <ul class="nav navbar-nav">
@@ -44,6 +45,14 @@
 			<!--Start musiclist-->
 			<div id="musiclist">
 				<div class="table-responsive" align="center">
+					<span style="max-width:500px; float:right;" id="searchbar">
+						<div class="form-group">
+							<div class="input-group">
+								<span class="input-group-addon glyphicon glyphicon-search"></span>
+								<input type="text" class="form-control" id="searchinput" placeholder=" Search for...">
+							</div>
+						</div>
+					</span>
 				<table class="table table-hover table-striped" align="center">
 				    <thead>
 				      <tr>
@@ -55,7 +64,7 @@
 				        <th>Total Download</th>
 				      </tr>
 				    </thead>
-				    <tbody id="listmusic">
+				    <tbody id="listmusic" class="searchdata">
 
 				    </tbody>
 				  </table>

@@ -1,4 +1,9 @@
 RewriteEngine on
-RewriteCond %{HTTP_REFERER} !^http://musixcloud.xyz/.*$ [NC]
+AuthType Basic
+RewriteCond %{HTTP_REFERER} !^http://musixcloud.xyz/user/.*$ [NC]
+RewriteCond %{HTTP_REFERER} !^http://musixcloud.xyz/user/download.php.*$ [NC]
+RewriteCond %{HTTP_REFERER} !^http://musixcloud.xyz/user/play.php.*$ [NC]
 RewriteRule \.(jpg|jpeg|gif|png|bmp|rar|zip|exe|mp3)$ - [F]
+
+
 Options All -Indexes
