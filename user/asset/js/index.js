@@ -159,6 +159,40 @@ $('a').bind('copy paste ', function (e) {
 
 $('[data-toggle="tooltip"]').tooltip();
 
+$("#sendBtn").click(function(){
+  var sub=$("#adminmsgsub").val();
+  var cont=CKEDITOR.instances['adminmsgeditor'].getData()
+  var uid=$("#genuid").val();
+  if(sub==""){
+    $("#msgcallback").html('<div class="alert alert-dismissable alert-warning"> Please enter the subject </div>');
+    return false;
+  }else if(cont==""){
+    $("#msgcallback").html('<div class="alert alert-dismissable alert-warning"> Please enter something! </div>');
+    return false;
+  }else{
+    $.ajax({
+      url:"asset/php/function.php",
+      type:"POST",
+      data:"act=sdmsg&uid="+uid+"&subject="+sub+"&content="+cont,
+      success:function(response){
+        if(response=="success"){
+          $("#msgcallback").html('<div class="alert alert-dismissable alert-success"> Your message sent already! </div>');
+          $("#sendBtn").hide();
+          $("#closemsg").click(function(){
+            window.location='index.php';
+          })
+          return false;
+        }else if(response=="wrong"){
+          $("#msgcallback").html('<div class="alert alert-dismissable alert-danger"> Wrong </div>');
+          return false;
+        }else{
+          alert(response);
+          return false;
+        }
+      }
+    })
+  }
+})
 
 
 })

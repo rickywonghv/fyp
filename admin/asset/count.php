@@ -26,4 +26,23 @@ function countmusic(){
 	$stmt->store_result();
 	printf($stmt->num_rows);
 }
+function unreadusermsg(){
+	include 'db.php';
+	$sql="SELECT COUNT(reada) FROM usermsg where reada=1";
+	$stmt=$conn->prepare($sql);
+	$stmt->execute();
+	$stmt->bind_result($result);
+	$stmt->fetch();
+	printf($result);
+}
+function unreadadminmsg($toadmin){
+	include 'db.php';
+	$sql="SELECT COUNT(reada) FROM adminmsg where reada=1 and toadmin=?";
+	$stmt=$conn->prepare($sql);
+	$stmt->bind_param('s',$toadmin);
+	$stmt->execute();
+	$stmt->bind_result($result);
+	$stmt->fetch();
+	printf($result);
+}
 ?>

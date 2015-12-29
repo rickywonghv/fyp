@@ -5,6 +5,7 @@ if(empty($_SESSION['uid'])){
    header("Location:../../index.php");
 }
 
+//"uid="+uid+"&subject="+sub+"&content="+cont,
 
 if($_GET['act']=="cpwd"){
   cpwd($_POST['npwd'],$_POST['conpwd']);
@@ -18,6 +19,8 @@ if($_GET['act']=="cpwd"){
   presong();
 }elseif($_POST['act']=="musicdet"){
   musicinfo($_POST['songid']);
+}elseif($_POST['act']=="sdmsg"){
+  sdmsg($_SESSION['uid'],$_POST['subject'],$_POST['content']);
 }
 
 function cpwd($npwd,$conpwd){
@@ -116,5 +119,24 @@ function musicinfo($id){
       }
       echo json_encode($result);
 
+}
+
+function sdmsg($uid,$sub,$con){
+  if(empty($uid)||empty($sub)||empty($con)){
+    printf('wrong');
+  }else{
+  require 'db.php';
+  $msgid=null;
+  $ipaddr=$_SERVER['REMOTE_ADDR'];
+  $date=date('Y-m-d');
+  $time=date('H:i:s');
+  $sql="insert into usermsg (usermsgid, userid, title, msg, ipadd, date, time) values(?,?,?,?,?,?,?)";
+  $stmt=mysqli_query($conn,"SET NAMES UTF8");
+  $stmt=$conn->prepare($sql);
+  $stmt->bind_param("iisssss",$msgid,$uid,$sub,$con,$ipaddr,$date,$time);
+  $stmt->execute();
+  printf('success');
+  printf($stmt->error);
+  }
 }
  ?>

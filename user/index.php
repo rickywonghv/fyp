@@ -41,7 +41,7 @@ $token=$_SESSION['access_token'];
     <script src="asset/js/player.js" charset="utf-8"></script>
     <script type="text/javascript" src="asset/js/public.js"></script>
     <link rel="icon" href="../asset/img/favicon.ico">
-    <script src="asset/ckeditor/ckeditor.js" charset="utf-8"></script>
+    <script src="ckeditor/ckeditor.js" charset="utf-8"></script>
     <title>MusixCloud User Panel</title>
   </head>
   <body oncontextmenu="false" oncopy="return false" oncut="return false">
@@ -72,7 +72,7 @@ $token=$_SESSION['access_token'];
             <li>
               <a href="" data-toggle="modal" data-target="#settingmodal"><span class="glyphicon glyphicon-list-alt"></span> Setting</a>
             </li>
-            <li><a href="#adminmsg">Message to Admin</a></li>
+            <li><a data-toggle="modal" data-target="#adminmsg">Message to Admin</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right" >
             <li id="logoutdiv">
@@ -335,7 +335,41 @@ $token=$_SESSION['access_token'];
     </div>
   </div>
 
+<div class="modal fade" id="adminmsg" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="">Message to Admin</h4>
+      </div>
+      <div class="modal-body">
+        <div class="msg">
+          <form class="" method="post">
+          <div class="subject">
+            <div class="input-group">
+              <span class="input-group-addon">Subject</span>
+              <input type="text" class="form-control" id="adminmsgsub" placeholder="Enter Subject">
+            </div>
+          </div>
+          <div class="cont">
+            <textarea name="editor1" id="adminmsgeditor" rows="10" cols="80"></textarea>
+            <script>
+                CKEDITOR.replace( 'adminmsgeditor' );
+            </script>
+          </div>
+          <div id="msgcallback">
 
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" id="closemsg">Close</button>
+        <button type="button" id="sendBtn" class="btn btn-primary">Send</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
 
   </body>
 

@@ -8,9 +8,13 @@ $(document).ready(function(){
 						if(json==""){
 							$("#amsgbody").html('<tr><td colspan=7><div class="alert alert-warning">No Message! </div></td></tr>');
 						}else{
-							var NumOfJData = json.length;		
+							var NumOfJData = json.length;
 							for(var i = 0; i < NumOfJData; i++) {
+								if(json[i]["reada"]==1){
+								$("#amsgbody").append("<tr><td><b>"+json[i]["msgid"]+"</b></td><td><b>"+json[i]["fromadmin"]+"</b></td><td><b>"+json[i]["toadmin"]+"</b></td><td><b>"+json[i]["date"]+"</b></td><td><b>"+json[i]["time"]+"</b></td><td><button class='btn btn-info' data-toggle='modal' data-target='#msgmodal' onclick='msgdetail("+json[i]["msgid"]+")'>Detail</button></td><td><button class='btn btn-danger' onclick='msgdel("+json[i]["msgid"]+")'>Delete</button></td></tr>");
+							}else{
 								$("#amsgbody").append("<tr><td>"+json[i]["msgid"]+"</td><td>"+json[i]["fromadmin"]+"</td><td>"+json[i]["toadmin"]+"</td><td>"+json[i]["date"]+"</td><td>"+json[i]["time"]+"</td><td><button class='btn btn-info' data-toggle='modal' data-target='#msgmodal' onclick='msgdetail("+json[i]["msgid"]+")'>Detail</button></td><td><button class='btn btn-danger' onclick='msgdel("+json[i]["msgid"]+")'>Delete</button></td></tr>");
+							}
 							}
 
 						}
@@ -23,7 +27,7 @@ $(document).ready(function(){
 			dataType:"json",
 			success:function(response){
 				json=response;
-				var NumOfJData = json.length;		
+				var NumOfJData = json.length;
 							for(var i = 0; i < NumOfJData; i++) {
 								$("#toadmin").append('<option value='+json[i]["username"]+'>'+json[i]["username"]+'</option>');
 							}
@@ -60,20 +64,24 @@ $(document).ready(function(){
 })
 
 function msgdetail(id){
+
 	$.ajax({
 		type:"GET",
 		url:"asset/amsg.php?act=detail&id="+id,
 		dataType:"json",
 		success:function(response){
 			json=response;
-			var NumOfJData = json.length;		
+			var NumOfJData = json.length;
 							for(var i = 0; i < NumOfJData; i++) {
-								
+
 								$("#fadmin").html(json[i]["fromadmin"]);
 								$("#msg").html(json[i]["msg"]);
 								$("#date").html(json[i]["date"]);
 								$("#time").html(json[i]["time"]);
 								$("#ip").html(json[i]["ip"]);
+								$("#adminclosemsg").click(function(){
+									window.location="adminmessage.php";
+								})
 							}
 		}
 	})

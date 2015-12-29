@@ -24,7 +24,14 @@
 		}
 	}
 
-
+	function read($msgid){
+		require 'db.php';
+		$sql="update adminmsg set reada=? where msgid=?";
+		$read=0;
+		$stmt=$conn->prepare($sql);
+		$stmt->bind_param("ii",$read,$msgid);
+		$stmt->execute();
+	}
 function amsgtable($user){
 		require 'db.php';
 		$sql="select * from adminmsg where toadmin=?";
@@ -41,6 +48,7 @@ function amsgtable($user){
 
 function detail($id){
 	require 'db.php';
+	read($id);
 		$sql="select * from adminmsg where msgid=?";
 		$stmt=$conn->prepare($sql);
 		$stmt->bind_param('i',$id);

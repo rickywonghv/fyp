@@ -21,8 +21,15 @@
 	text-align: center;
 }
 
-#user{
+.sendicon{
 	font-size: 75px;
+}
+
+.tit{
+	margin:auto;
+	padding:auto;
+	text-align: center;
+	font-size: 20px;
 }
 
 .glyphicon.glyphicon-music{

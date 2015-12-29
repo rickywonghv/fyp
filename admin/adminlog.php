@@ -7,6 +7,7 @@
 		header("Location:login.php?usermsg=permission");
 	}
 	require 'asset/export.php';
+	require 'asset/count.php';
 ?>
 <!DOCTYPE html>
 <html>
