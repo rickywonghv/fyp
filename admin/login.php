@@ -3,8 +3,10 @@
 
     if(isset($_SESSION['username'])&&isset($_SESSION['type'])){
             header('Location:index.php');
+    }else{
+      session_destroy();
+    	session_unset();
     }
-
 ?>
 <!DOCTYPE html>
 <html>

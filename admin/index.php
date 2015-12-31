@@ -18,6 +18,7 @@
 		<link rel="stylesheet" type="text/css" href="asset/css/style.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 		<link rel="icon" href="favicon.ico">
+		<script src="asset/js/auth.js"></script>
 		<title>MusixCloud <?php echo $_SESSION['type'];?></title>
 	</head>
 	<body>
@@ -88,10 +89,12 @@
 					    <div class="panel-heading counthead">Your Profile</div>
      					 <div class="panel-body">
 							<ul class="list-group">
+								<li class="list-group-item"><b>Server IP Address: </b><span id="serverip"></span></li>
 							  <li class="list-group-item"><b>Your IP Address: </b><?php echo $_SERVER['REMOTE_ADDR'];?></li>
 							  <li class="list-group-item"><b>Username: </b><?php echo $_SESSION['username'];?></li>
 							  <li class="list-group-item"><b>Admin Type: </b><?php echo $_SESSION['type'];?></li>
 							  <li class="list-group-item"><button class="btn btn-primary" data-toggle="modal" data-target="#chpwd"><span class="user glyphicon glyphicon-lock"></span> Change Password</button></li>
+								<li class="list-group-item"><button class="btn btn-primary" data-toggle="modal" data-target="#auth"><span class="glyphicon glyphicon"></span> 2 Factor Auth</button></li>
 							</ul>
      					 </div>
      					</div>
@@ -101,7 +104,7 @@
 			 <div class="col-sm-4">
 			 		<div class="panel-group">
 					  <div class="panel panel-primary" id="shdisk">
-					    <div class="panel-heading counthead"><i class="fa fa-hdd-o"></i> Disk Information</div>
+					    <div class="panel-heading counthead"><i class="fa fa-hdd-o"></i> Disk Information <span style="float:right" class="btn" id="refreshdisk"><i class="fa fa-refresh"></i></span></div>
      					 <div class="panel-body">
 								 <label for=""><i class="" id="diskicon"></i> Used Storage: </label>
 								 <div class="progress">
@@ -150,7 +153,55 @@
      					</div>
      				   </div>
 			 </div>
+			 <div class="modal fade" id="auth" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+			   <div class="modal-dialog">
+			     <div class="modal-content">
+			       <div class="modal-header">
+			         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			         <h4 class="modal-title" id="">2 Factor Authentication</h4>
+			       </div>
+			       <div class="modal-body">
+							 <button type="button" class="btn btn-danger" id="distwofa" onclick="distwofa(<? echo $_SESSION['aid'] ?>)">Disable 2FA</button>
+			       </div>
+			       <div class="modal-footer">
+			         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			         <button type="button" class="btn btn-primary" id='startauth'>Start</button>
+			       </div>
+			     </div>
+			   </div>
+			 </div>
 
+			 <div class="modal fade" id="authreg" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+			   <div class="modal-dialog">
+			     <div class="modal-content">
+			       <div class="modal-header">
+			         <h4 class="modal-title" id="">Your Code</h4>
+			       </div>
+			       <div class="modal-body" id="shregqr">
+							 <table class='table table-condensed'>
+							   <tbody>
+							     <tr>
+							       <td><img src="" id="regqrimg" alt="" /></td>
+							     </tr>
+									 <tr>
+									 	<td>
+									 		Your Secret key: <span id="regsecret"></span>
+
+									 	</td>
+									 </tr>
+							   </tbody>
+							 </table>
+							 <div class="twoauthmsg">
+
+							 </div>
+			       </div>
+			       <div class="modal-footer">
+							 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			         <button type="button" class="btn btn-primary" id="authregbtn">Confirm</button>
+			       </div>
+			     </div>
+			   </div>
+			 </div>
 		</div>
  		<script src="asset/js/chpwd.js"></script>
 	</body>

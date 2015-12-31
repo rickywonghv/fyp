@@ -14,7 +14,10 @@ $(document).ready(function(){
 						}else if(html=="block"){
 							$("#message").html('<div class="alert alert-danger"><strong>Error!</strong>Your account has been blocked! </div>');
 							return false;
-						}else{
+						}else if (html=='auth') {
+							window.location='asset/auth.php';
+						}
+						else{
 							$("#message").html('<div class="alert alert-warning"><strong>Error!</strong>Wrong Username or Password</div>');
 							return false;
 						}
@@ -37,7 +40,14 @@ $(document).ready(function(){
 					success:function(html){
 						if(html=='true'){
 								window.location='index.php';
-						}else{
+						}else if(html=="block"){
+							$("#message").html('<div class="alert alert-danger"><strong>Error!</strong>Your account has been blocked! </div>');
+							return false;
+						}
+						else if (html=='auth') {
+							window.location='auth.php';
+						}
+						else{
 							$("#message").html('<div class="alert alert-danger"><strong>Error!</strong>Wrong Username or Password</div>');
 							return false;
 						}

@@ -6,7 +6,6 @@ $(document).ready(function() {
      data:"act=shusermsg",
      dataType:"json",
      success:function(response){
-       console.log(response);
        json=response;
        var NumOfJData = json.length;
        for(var i = 0; i < NumOfJData; i++) {
@@ -24,13 +23,16 @@ $(document).ready(function() {
 });
 function msgmore(msgid){
   //$("#msgdeltitle").html(uid);
+
   $.ajax({
     url:"asset/userfunction.php",
     type:"POST",
     data:"act=usermsg&msgid="+msgid,
     dataType:"json",
     success:function(response){
+      console.log(response);
       json=response;
+        $("#msgname").html(json[0]["fullname"]);
         $("#moremsgid").html(json[0]["usermsgid"]);
         $("#moremsgtitle").html(json[0]["title"]);
         $("#moremsgip").html(json[0]["ipadd"]);

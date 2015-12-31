@@ -25,14 +25,21 @@ require 'permission.php';
 	if($_GET['act']=="serverinfo"){
 		serverinfo();
 	}
+	if($_GET['act']=="twoauthreg"){
+		twoauthreg($_POST['secret'],$_SESSION['aid']);
+	}
+	if($_GET['act']=="distwoauthreg"){
+		distwoauthreg($_SESSION['aid']);
+	}
 
 function serverinfo(){
 	$ds = disk_total_space("/");
 	$fds = disk_free_space("/");
 	$uds=$ds-$fds;
 
-	$servip=$_SERVER['REMOTE_HOST'];
-	$result = array('total' =>$ds/1024/1024 , 'free'=>$fds/1024/1024,'used'=>$uds/1024/1024,'servip'=>$servip);
+	$exip=exec('curl icanhazip.com');
+	$result = array('total' =>$ds/1024/1024 , 'free'=>$fds/1024/1024,'used'=>$uds/1024/1024,'servip'=>$exip);
+
 	echo json_encode($result);
 }
 
@@ -119,4 +126,24 @@ function dellog(){
 	echo "success";
 }
 
+function twoauthreg($secret,$aid){
+	require 'db.php';
+	$sql="update admin set auth=? where adminid=?";
+	$stmt=$conn->prepare($sql);
+	$stmt->bind_param('si',$secret,$aid);
+	$stmt->execute();
+	echo "success";
+	printf($stmt->error);
+}
+
+function distwoauthreg($aid){
+	require 'db.php';
+	$secret=null;
+	$sql="update admin set auth=? where adminid=?";
+	$stmt=$conn->prepare($sql);
+	$stmt->bind_param('si',$secret,$aid);
+	$stmt->execute();
+	echo "success";
+	printf($stmt->error);
+}
 ?>
