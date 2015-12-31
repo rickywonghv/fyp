@@ -19,9 +19,21 @@ $(document).ready(function() {
          e && e.preventDefault();
          var tit=$(this).text();
          var abc=$(this).val();
+         $(this).jPlayer("progress");
+
+         $(this).jPlayer("volume");
+         $(this).addClass('glyphicon glyphicon-play');
          $("#jquery_jplayer_1").jPlayer("setMedia", {m4a: $(this).val(),title:tit});
          $("#jquery_jplayer_1").jPlayer("play");
 
+         $('.song').click(function(){
+           $('.song').removeClass('glyphicon glyphicon-play');
+         });
+
+        $('.jp-stop').on('click',this,function(){
+           $('.song').removeClass('glyphicon glyphicon-play');
         });
+        });
+
 
 });

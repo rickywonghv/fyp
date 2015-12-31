@@ -7,6 +7,7 @@ $(document).ready(function(){
            return false;
         });
 */
+
 $('a').bind('copy paste ', function (e) {
        e.preventDefault();
 });
@@ -101,8 +102,11 @@ $('a').bind('copy paste ', function (e) {
                   data: form_data,
                   type: 'post',
                   before:function(){
-                    $("#processstatus").prop('aria-valuenow',0);
-                  },success: function(response){
+                    $("#uploadpro").prop('aria-valuenow',0);
+                  },progress:function(per){
+                    $("#uploadpro").prop('aria-valuenow',per);
+                  }
+                  ,success: function(response){
                     console.log(response);
                     //var resfilename=response.refilename;
                     $("#uploadmodal").modal("hide");

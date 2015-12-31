@@ -72,7 +72,7 @@ $token=$_SESSION['access_token'];
             <li>
               <a href="" data-toggle="modal" data-target="#settingmodal"><span class="glyphicon glyphicon-list-alt"></span> Setting</a>
             </li>
-            <li><a data-toggle="modal" data-target="#adminmsg">Message to Admin</a></li>
+            <li><a href="" data-toggle="modal" data-target="#adminmsg">Message to Admin</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right" >
             <li id="logoutdiv">
@@ -83,9 +83,9 @@ $token=$_SESSION['access_token'];
       </div>
     </div>
 
-      <div class="container" style="padding-bottom:25px; margin-bottom:25px;">
+      <div class="container" style="padding-bottom:30px; margin-bottom:30px;">
         <div class="row">
-          <div class="col-md-12">
+          <div class="">
             <?php
               if($_GET['code']=='5989af7ca9ff467db6dfaaceb8a4c2dd630049fb'){
                 echo '<div class="welcome alert alert-dismissable alert-warning"><strong></strong>'. $_SESSION["name"].' you do not have permission to download, please upgrade to Premium User and get more privilege. For more detail please click here to get more information or paid for <strong>Premium User</strong>. </div>';
@@ -118,37 +118,53 @@ $token=$_SESSION['access_token'];
         </div>
       </div>
       <!--player-->
-      <div class="nav  navbar-fixed-bottom">
-        <div class="col-xl-12">
+      <div class="nav  navbar-fixed-bottom col-xl-12 player">
+        <div class="player">
           <div class="player" >
             <div id="jquery_jplayer_1" class="jp-jplayer"></div>
             <div id="jp_container_1" class="jp-audio" role="application" aria-label="media player">
             <div class="jp-gui jp-interface">
-              <span class="jp-play glyphicon glyphicon-play-circle" id="playbtn" role="button" tabindex="0"></span>
-              <span class="jp-stop jcontrol glyphicon glyphicon-stop" role="button" tabindex="0"></span>
-              <span class="jp-mute glyphicon jcontrol glyphicon-volume-off" role="button" tabindex="0"></span>
-              <span class="jp-volume-max glyphicon jcontrol glyphicon-volume-up" role="button" tabindex="0"></span>
-              <span class="jp-repeat glyphicon jcontrol glyphicon-repeat" role="button" tabindex="0"></span>
+              <div class="jp-controls-holder">
+              <span class="player col-xs-12 col-sm-4 col-md-4">
 
-              <span class="jp-volume-bar">
-                  <span class="jp-volume-bar-value"></span>
-              </span>
+                <span class="jp-play jcontrol glyphicon glyphicon-play-circle" role="button" tabindex="0"></span>
+                <span class="jp-stop jcontrol glyphicon glyphicon-stop" role="button" tabindex="0"></span>
+                <span class="jp-mute glyphicon jcontrol glyphicon-volume-off" role="button" tabindex="0"></span>
+                <span class="jp-repeat glyphicon jcontrol glyphicon-repeat" role="button" tabindex="0"></span>
+                <span class="jp-current-time"></span>
+                <span class="time-sep">/</span>
+                <span class="jp-duration"></span>
+                <span class="jp-title" aria-label="title">&nbsp;</span>
+                </span>
 
-              <span class="jp-title" aria-label="title">&nbsp;</span>
-              <span class="jp-current-time" role="timer" aria-label="time">&nbsp;</span>
-              <span class="jp-duration" role="timer" aria-label="duration">&nbsp;</span>
-              <div class="jp-progress-bar">
-                <div class="jp-seek-bar">
-                  <div class="jp-play-bar"></div>
-                </div>
+
+              <div class="player hidden-xs col-sm-4 col-md-5 " style="">
+                <span class="jp-progress-bar">
+                  <span class="jp-seek-bar">
+                      <span class="jp-play-bar"><span class="handle"></span></span>
+                  </span>
+                </span>
+            </div>
+
+            <div class="hidden-xs" style="float:right;">
+
+              <div class="glyphicon glyphicon-volume-up" ></div>
+              <div class="jp-volume-bar ">
+                  <div class="jp-volume-bar-value"><span class="handle"></span></div>
               </div>
-              <div class="jp-volume-bar">
-                <div class="jp-volume-bar-value"></div>
-              </div>
+            </div>
+
+
+              <!--<span class="jp-duration" role="timer" aria-label="duration">&nbsp;</span>-->
+
+
+
+
               <div class="jp-no-solution">
                 <span>Error Update Require! </span>
                 To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
               </div>
+            </div>
             </div>
           </div>
           </div>
@@ -256,6 +272,11 @@ $token=$_SESSION['access_token'];
             <li class="list-group-item">
 
               Select music to upload: <input type="file" class="form-control" name="file" id="uploadsong" accept="audio/mpeg" >
+              <div class="progress">
+                <div class="progress-bar progress-bar-info" id="uploadpro" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="">
+                  <span class="sr-only"></span>
+                </div>
+              </div>
               <div class="uploaddiv">
                 <button type="submit" class="btn btn-success" id="uploadBtn"><span class="glyphicon glyphicon-upload"></span>Upload</button>
               </div>
