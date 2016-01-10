@@ -1,7 +1,6 @@
 $(document).ready(function() {
    // Stuff to do as soon as the DOM is ready
-
-
+   headerinbox();
    $("#composebtn").click(function(event) {
      /* Act on the event */
      $("#inbox").hide();
@@ -17,7 +16,72 @@ $(document).ready(function() {
    $(document).on('click','#sendmailbtn',function(){
      valid();
    })
+   $(document).on('click','#previewbtn',function(){
+     preview();
+   })
 });
+
+function preview(){
+  var to=$("#tomailinput").val();
+  var sub=$("#mailsubinput").val();
+  var cont=CKEDITOR.instances['maileditor'].getData();
+  $("#preto").html(to);
+  $("#presub").html(sub);
+  $("#prebody").html(cont);
+}
+
+function headerinbox(){
+    $.ajax({
+      url:"https://script.google.com/macros/s/AKfycbwBiBUomXX2xl8_X5bVl9p8d2hiNW6qwwZcdObxN3cdwjRxaCbn/exec",
+      dataType:'json',
+      beforeSend:function(){
+        $(".loading").html("<h3><img src='asset/img/loading.gif'> Loading</h3>");
+      },complete:function(){
+         $('.loading').hide();
+     },success:function(response){
+        json=response;
+        var NumOfJData = json.length;
+        for (var i = 0; i <NumOfJData; i++) {
+          var unread=json[i]['isunread'];
+          if(unread==false){
+            $("#mailheader").append("<tr><td>"+json[i]['from']+"</td><td><div class='msg' data-toggle='modal' data-target='#shmailmsg' onclick=readmsg("+json[i]['id']+")>"+json[i]['sub']+"</div></td><td><div class='msg' data-toggle='modal' data-target='#shmailmsg' onclick=readmsg("+json[i]['id']+")>"+json[i]['date']+"</div></td></tr>");
+          }else{
+            $("#mailheader").append("<tr><td><b>"+json[i]['from']+"</b></td><td><div class='msg' data-toggle='modal' data-target='#shmailmsg' onclick=readmsg("+json[i]['id']+")><b>"+json[i]['sub']+"</b></div></td><td><div class='msg' data-toggle='modal' data-target='#shmailmsg' onclick=readmsg("+json[i]['id']+")><b>"+json[i]['date']+"</b></div></td></tr>");
+          }
+
+          }
+          $("#num").html(NumOfJData);
+      }
+    })
+
+}
+
+function readmsg(id){
+  $.ajax({
+    url:"https://script.google.com/macros/s/AKfycbwZ20uCQogijmJJLsSHBq_0wzFuXd02JzYgOa2UPrNmsXEX0Zk/exec",
+    data:"msgid="+id,
+    dataType:'json',
+    cache:false,
+    beforeSend:function(){
+      $(".loadingpng").html("<h3><img src='asset/img/loading.gif'> Loading</h3>");
+    },complete:function(){
+       $('.loadingpng').hide();
+   },success:function(response){
+        $("#msgfrom").html(response['from']);
+        $("#msgsubject").html(response['sub']);
+        $("#msgdate").html(response['date']);
+        $("#mailbody").html(response['body']);
+          return false;
+        $(".closeread").click(function(){
+          $("#msgfrom").html("");
+          $("#msgsubject").html("");
+          $("#msgdate").html("");
+          $("#mailbody").html("");
+
+        })
+    }
+  })
+}
 
 function valid(){
   var to=$("#tomailinput").val();
@@ -69,9 +133,16 @@ function sendmail(to,sub,cont){
     url:"asset/mail/mail.php",
     type:"POST",
     data:"act=send&to="+to+"&subject="+sub+"&content="+cont,
+    beforeSend: function() {
+        $("#loading").html('<img src="asset/img/loading.gif">');
+     },
+     complete:function(){
+        $('#loading').hide();
+    },
     success:function(response){
       if(response=="success"){
         $(".mailmsg").html('<div class="alert alert-success"> The mail has been sent! </div>');
+        $('#sendmailbtn').hide();
       }else{
         $(".mailmsg").html('<div class="alert alert-danger">'+response+'</div>');
       }

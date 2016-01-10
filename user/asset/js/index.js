@@ -7,10 +7,25 @@ $(document).ready(function(){
            return false;
         });
 */
-
+$("#albumlist").hide();
 $('a').bind('copy paste ', function (e) {
        e.preventDefault();
 });
+
+$("#album").click(function(){
+  $("#mainlist").hide();
+  $("#albumlist").show();
+  album();
+  $("#album").hide();
+  return false;
+})
+$("#home").click(function(){
+  $("#mainlist").show();
+  $("#albumlist").hide();
+  $("#album").show();
+  $("#listallalb").html("");
+  return false;
+})
 
   $("#hideuploaded").click(function(){
     $("#testplayer").hide();
@@ -77,19 +92,7 @@ $('a').bind('copy paste ', function (e) {
     singer=$("#singer").val();
     title=$("#title").val();
     uid=$("#uid").val();
-    /*
-    if(filename==""){
-      $("#uploadmsg").html('<div class="alert alert-dismissable alert-danger"><strong>Error! </strong> Please choose a song to upload!</div>');
-      return false;
-    }else if(singer==""){
-      $("#uploadmsg").html('<div class="alert alert-dismissable alert-danger"><strong>Error! </strong> Please enter a singer </div>');
-      return false;
-    }else if(title==""){
-      $("#uploadmsg").html('<div class="alert alert-dismissable alert-danger"><strong>Error! </strong> Please enter a title </div>');
-      return false;
-    }
-    else{
-      */
+
       var file_data = $('#uploadsong').prop('files')[0];
       var form_data = new FormData();
       form_data.append('file', file_data);
@@ -101,9 +104,13 @@ $('a').bind('copy paste ', function (e) {
                   processData: false,
                   data: form_data,
                   type: 'post',
-                  before:function(){
+                  beforeSend:function(){
                     $("#uploadpro").prop('aria-valuenow',0);
-                  },progress:function(per){
+                    $("#uploadpro").html('<img src="asset/img/loading.gif">');
+                  },complete:function(){
+                      $('#uploadpro').hide();
+                    },
+                  progress:function(per){
                     $("#uploadpro").prop('aria-valuenow',per);
                   }
                   ,success: function(response){
@@ -132,7 +139,7 @@ $('a').bind('copy paste ', function (e) {
     var realbum=$("#album").val();
     var filename=$("#infofilename").val();
     var uid=$("#uid").val();
-
+    var art=$("#artpa").val();
     if(resinger==""){
       $(".musicinfomsg").html('<div class="alert alert-dismissable alert-danger"><strong>Error! </strong> Please enter a singer </div>');
       return false;
@@ -199,6 +206,12 @@ $("#sendBtn").click(function(){
 })
 
 
+$(document).on('click', '.albumname', function(e){
+  $("#albumsong").html("");
+  var name=$(this).text();
+  shalbsong(name);
+})
+
 })
 
 document.onkeypress = function (event) {
@@ -263,6 +276,51 @@ function musicdet(songid){
       $("#infototaldownload").html(json["totalDownload"]);
       $("#infouploadUser").html(json["fullname"]);
 
+    }
+  })
+}
+
+function album(){
+  $.ajax({
+    url:"asset/php/function.php",
+    type:"POST",
+    data:"act=albumlist",
+    dataType:"json",
+    cache:false,
+    complete:function(){
+      return false;
+    },
+    success:function(response){
+      json=response;
+      var NumOfJData = json.length;
+        for(var i = 0; i < NumOfJData; i++) {
+          var name=json[i]["album"];
+          if(name.length>20){
+            var res="<marquee behavior='scroll' direction='left'>"+json[i]["album"]+"</marquee>";
+          }else{
+            var res=json[i]["album"];
+          }
+          $("#listallalb").append("<tr><td><button class='btn albumname'>"+res+"</button></td><td></td></tr>");
+        }
+    }
+  })
+return false;
+}
+
+function shalbsong(albname){
+  $.ajax({
+    url:"asset/php/function.php",
+    type:"POST",
+    data:"act=shalbsong&songname="+albname,
+    dataType:"json",
+    success:function(response){
+      json=response;
+      var NumOfJData = json.length;
+        for(var i = 0; i < NumOfJData; i++) {
+          //$("#listallalb").append("<tr><td><button class='btn albumname'>"+json[i]['album']+"</button></td><td></td></tr>");
+
+          $("#albumsong").append("<tr><td><button type='button' class='song btn' value='play.php?url="+json[i]["songPath"]+"&code="+gentoken+"'> <span class='songtit'></span> "+json[i]["title"]+"</button></td><td><span class='shsonglist'><span class='art hidden-xs' > Artist:"+json[i]["singer"]+"</span></td><td> <button type='button' class='btn btn-info btn-xs musicdbtn' onclick='musicdet("+json[i]["songid"]+")' data-toggle='modal' data-target='#shmusicinfo'>Detail</button></td><td> <a class='download' href='download.php?url="+json[i]["songPath"]+"' data-toggle='tooltip' title='Download'><span class='glyphicon glyphicon-download'></span></a></span></td></tr> ");
+        }
     }
   })
 }

@@ -1,5 +1,9 @@
 RewriteEngine on
 AuthType Basic
+
+RewriteCond %{HTTP_REFERER} !^http://admin.musixcloud.xyz/music.php.*$ [NC]
+RewriteCond %{HTTP_REFERER} !^http://admin.musixcloud.xyz/play.php.*$ [NC]
+RewriteCond %{HTTP_REFERER} !^http://musixcloud.xyz/asset/php/play.php.*$ [NC]
 RewriteCond %{HTTP_REFERER} !^http://musixcloud.xyz/user/.*$ [NC]
 RewriteCond %{HTTP_REFERER} !^http://musixcloud.xyz/user/download.php.*$ [NC]
 RewriteCond %{HTTP_REFERER} !^http://musixcloud.xyz/user/play.php.*$ [NC]

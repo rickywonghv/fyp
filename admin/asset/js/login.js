@@ -8,6 +8,9 @@ $(document).ready(function(){
 					type:"POST",
 					data:"username="+user+"&pwd="+pass+"&countryname=null&latitude=null&longitude=null",
 					url:"asset/cklogin.php",
+					beforeSend: function() {
+              $("#message").html('<img src="asset/img/loading.gif">');
+           },
 					success:function(html){
 						if(html=='true'){
 								window.location='index.php';
@@ -15,7 +18,7 @@ $(document).ready(function(){
 							$("#message").html('<div class="alert alert-danger"><strong>Error!</strong>Your account has been blocked! </div>');
 							return false;
 						}else if (html=='auth') {
-							window.location='asset/auth.php';
+							window.location='auth.php';
 						}
 						else{
 							$("#message").html('<div class="alert alert-warning"><strong>Error!</strong>Wrong Username or Password</div>');

@@ -40,8 +40,10 @@ function distwofa(aid){
       success:function(response){
         if(response=='success'){
           alert("Disabled");
+          window.location='index.php';
         }else{
           alert(response);
+
         }
       }
     })

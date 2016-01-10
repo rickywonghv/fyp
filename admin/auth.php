@@ -1,3 +1,9 @@
+<?php
+session_start();
+if(!isset($_SESSION['secret'])){
+  header("Location:login.php");
+}
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -11,12 +17,22 @@
     <script src="https://www.google.com/jsapi"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link href="asset/css/login.css" rel="stylesheet" type="text/css">
+    <script src="https://www.google.com/jsapi"></script>
+    <link rel="stylesheet" href="asset/css/bootstrap.min.css">
+    <link rel="stylesheet" href="asset/css/bootstrap-theme.min.css">
+    <script src="asset/js/authlogin.js" charset="utf-8"></script>
     <link rel="icon" href="favicon.ico">
     <title>MusixCloud Dashboard Login</title>
     <!--[if lt IE 9]>
       <script src="https://cdn.jsdelivr.net/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://cdn.jsdelivr.net/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $("#code").focus();
+      });
+
+    </script>
   </head>
   <body>
       <div class="navbar navbar-default navbar-static-top">
@@ -44,12 +60,14 @@
           <div class="container">
               <div class="row">
                   <div class="col-md-6">
-                      <h1 class="text-muted"><i class="fa fa-tachometer"></i> Musix Cloud</h1>
+                      <h1 class="text-muted"><i class="fa fa-tachometer"></i> MusixCloud</h1>
                       <h3 class="text-muted">Admin Dashboard Login</h3>
-                      <h3 class="text-muted">2 Factor Authentication</h3>
-                      <form class='form-inline form-horizontal ' role="form" action="asset/auth/login.php" method="POST">
-                        <input type="text" name="code" class="form-control input-block input-lg" placeholder="Please enter the 6 digit">
-                      <button type="submit" class="btn btn-block btn-info btn-lg">Confirm</button>
+                      <h3 class="text-muted">2-step Authentication</h3>
+                      <form class='form-inline form-horizontal ' id="authform" role="form" action="" method="POST">
+                        <input type="text" name="code" id="code" class="form-control input-block input-lg" placeholder="Please enter the 6 digit">
+                      <button type="button" id="authsub" class="btn btn-block btn-info btn-lg">Confirm</button>
+                      <a href="" data-toggle="modal" data-target="#another">Another authentication method</a>
+
                       </form>
                       <div id="message"></div>
                   </div>
@@ -91,5 +109,22 @@
               </div>
           </div>
       </footer>
+      <div class="modal fade" id="another" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id=""></h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary"></button>
+            </div>
+          </div>
+        </div>
+      </div>
     </body>
 </html>

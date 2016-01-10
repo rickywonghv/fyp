@@ -96,7 +96,7 @@ foreach ($_SESSION as $k=>$v) {
                 <div class="row">
                     <div class="col-md-12 text-center">
                         <h1 class="text-inverse">MusixCloud</h1>
-                        <p class="text-inverse">Lorem ipsum dolor sit amet, consectetur adipisici eli.</p>
+                        <p class="text-inverse">For the Musix People.</p>
                         <br>
                         <br>
                         <span class="spanfbBtn">
@@ -115,14 +115,10 @@ foreach ($_SESSION as $k=>$v) {
                     <div class="col-md-6">
                         <h1 class="text-primary">About Us</h1>
 
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-                            ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
-                            dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies
-                            nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
-                            Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In
-                            enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum
-                            felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus
-                            elementum semper nisi.</p>
+                        <p>In Hong Kong , many potential music creator or singer want to share their work of music like covering or composing , however , there is difficult to find the platform which is suitable for them to creating . Therefore , A music sharing platform should be developed for the Hong Kong users .
+                        </p>
+                        <p>Nowadays , many platform provided music upload and sharing function , but not many Hong Kong people use them . It is because of the habit and the ability of them .
+                        </p>
                     </div>
                 </div>
 
@@ -199,7 +195,7 @@ foreach ($_SESSION as $k=>$v) {
         <div class="section" id="contact"> <div class="container"> <div class="row"> <div class="col-md-12"> <h1 class="text-center">Contact Us</h1> </div></div><div class="row"> <div class="col-md-offset-3 col-md-6"> <form role="form"> <div class="form-group">
           <div class="input-group"> <input type="text" class="form-control" placeholder="Enter your email"> <span class="input-group-btn"> <a class="btn btn-success" type="submit">Go</a> </span> </div></div></form> </div></div></div></div>
 
-        <footer class="section section-primary"> <div class="container"> <div class="row"> <div class="col-sm-6"> <h1>MusixCloud</h1> <p>Lorem ipsum dolor sit amet, consectetur adipisici elit, <br>sed eiusmod tempor incidunt ut labore et dolore magna aliqua. <br>Ut enim ad minim veniam, quis nostrud</p></div><div class="col-sm-6"> <p class="text-info text-right"> <br><br></p><div class="row">
+        <footer class="section section-primary"> <div class="container"> <div class="row"> <div class="col-sm-6"> <h1><img height="90" alt="Brand" src="asset/img/logo.png"> MusixCloud</h1> <p>Change your habit and the ability</p></div><div class="col-sm-6"> <p class="text-info text-right"> <br><br></p><div class="row">
 </div><div class="row"> <div class="col-md-12 text-right">  <a href="#"><i class="fa fa-3x fa-fw fa-twitter text-inverse"></i></a> <a href="#"><i class="fa fa-3x fa-fw fa-facebook text-inverse"></i></a>  </div></div></div></div></div></footer>
 
   </body>

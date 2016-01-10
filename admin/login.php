@@ -22,6 +22,12 @@
         <script src="asset/js/login.js"></script>
         <link rel="icon" href="favicon.ico">
         <title>MusixCloud Dashboard Login</title>
+        <script type="text/javascript">
+          $(document).ready(function() {
+              $("#username").focus();
+          });
+
+        </script>
     </head>
     <body>
         <div class="navbar navbar-default navbar-static-top">

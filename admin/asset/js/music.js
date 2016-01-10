@@ -10,7 +10,7 @@ $(document).ready(function(){
 						}else{
 							var NumOfJData = json.length;
 							for(var i = 0; i < NumOfJData; i++) {
-								$("#listmusic").append("<tr><td>"+json[i]["songid"]+"</td><td>"+json[i]["title"]+"</td><td>"+json[i]["singer"]+"</td><td>"+json[i]["uploadDateTime"]+"</td><td>"+json[i]["totalPlay"]+"</td><td>"+json[i]["totalDownload"]+"</td><td><button id='mdetailbtn' class='btn btn-info' data-toggle='modal' data-target='#mdetailmodal' onclick=mdetail("+json[i]["songid"]+")>Detail</button></td><td><button id='musicdelbtn' class='btn btn-danger' onclick='musicdel("+json[i]["songid"]+")'>Delete</button></td><tr>");
+								$("#listmusic").append("<tr><td>"+json[i]["songid"]+"</td><td><button class='song btn' value='play.php?url="+json[i]['songPath']+"' >"+json[i]["title"]+"</button></td><td>"+json[i]["singer"]+"</td><td>"+json[i]["uploadDateTime"]+"</td><td>"+json[i]["totalPlay"]+"</td><td>"+json[i]["totalDownload"]+"</td><td><button id='mdetailbtn' class='btn btn-info' data-toggle='modal' data-target='#mdetailmodal' onclick=mdetail("+json[i]["songid"]+")>Detail</button></td><td><button id='musicdelbtn' class='btn btn-danger' onclick='musicdel("+json[i]["songid"]+")'>Delete</button></td><tr>");
 							}
 						}
 		}

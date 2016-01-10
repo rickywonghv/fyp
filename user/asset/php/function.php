@@ -21,6 +21,50 @@ if($_GET['act']=="cpwd"){
   musicinfo($_POST['songid']);
 }elseif($_POST['act']=="sdmsg"){
   sdmsg($_SESSION['uid'],$_POST['subject'],$_POST['content']);
+}elseif($_POST['act']=="albumlist"){
+  albumlist();
+}elseif($_POST['act']=="shalbsong"&&isset($_POST['songname'])){
+  shsongbyname($_POST['songname']);
+}
+
+function shsongbyname($songname){
+  include 'db.php';
+  $sql="SELECT music.songid,music.title, music.songPath, music.singer FROM music INNER JOIN user ON music.userid=user.userid WHERE music.album=?";
+  //$stmt=mysqli_query($conn,"SET NAMES UTF8");
+  $stmt=$conn->prepare($sql);
+  $stmt->bind_param("s",$songname);
+  $stmt->execute();
+  $data = $stmt->get_result();
+     $result = array();
+     while($row = $data->fetch_assoc()) {
+          $result[] = $row;
+      }
+      echo json_encode($result,JSON_UNESCAPED_UNICODE);
+}
+
+function albumlist(){
+  include 'db.php';
+  if($_SESSION['type']===1){
+    $sql="SELECT DISTINCT music.album FROM music INNER JOIN user ON music.userid=user.userid where music.album!='' or music.album!=null and user.type=1";
+    $stmt=$conn->prepare($sql);
+    $stmt->execute();
+    $data = $stmt->get_result();
+       $result = array();
+       while($row = $data->fetch_assoc()) {
+            $result[] = $row;
+        }
+        echo json_encode($result,JSON_UNESCAPED_UNICODE);
+  }elseif($_SESSION['type']===2){
+    $sql="SELECT DISTINCT music.album FROM music INNER JOIN user ON music.userid=user.userid where music.album!='' or music.album!=null and user.type=2";
+    $stmt=$conn->prepare($sql);
+    $stmt->execute();
+    $data = $stmt->get_result();
+       $result = array();
+       while($row = $data->fetch_assoc()) {
+            $result[] = $row;
+        }
+        echo json_encode($result,JSON_UNESCAPED_UNICODE);
+  }
 }
 
 function cpwd($npwd,$conpwd){
@@ -60,7 +104,7 @@ function viewprofile($uid){
 function shownsong($userid){
   include 'db.php';
   session_start();
-  $sql="select title,songPath from music where userid=?";
+  $sql="select title,songPath,songid from music where userid=?";
   //$stmt=mysqli_query($conn,"SET NAMES UTF8");
   $stmt=$conn->prepare($sql);
   $stmt->bind_param("i",$userid);

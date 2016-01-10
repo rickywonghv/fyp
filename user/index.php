@@ -37,7 +37,7 @@ $token=$_SESSION['access_token'];
     <link rel="stylesheet" href="asset/css/style.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="asset/player/css/style.css" media="screen" title="no title" charset="utf-8">
     <script type="text/javascript" src="asset/jplayer/jquery.jplayer.js" charset="UTF-8"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jplayer/2.9.2/add-on/jplayer.playlist.js" charset="UTF-8"></script>
+    <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jplayer/2.9.2/add-on/jplayer.playlist.js" charset="UTF-8"></script>-->
     <script src="asset/js/player.js" charset="utf-8"></script>
     <script type="text/javascript" src="asset/js/public.js"></script>
     <link rel="icon" href="../asset/img/favicon.ico">
@@ -63,7 +63,10 @@ $token=$_SESSION['access_token'];
         </div>
         <div class="collapse navbar-collapse" id="navbar-ex-collapse">
           <ul class="nav navbar-nav">
-
+            <li><a class="btn" id="home"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+            <li>
+              <a class="btn" id="album"><span class="glyphicon glyphicon-cd"></span> Album</a>
+            </li>
             <li>
               <a href="" data-toggle="modal" data-target="#viewpromodal" onclick='vpro(<?php echo $_SESSION["uid"]?>);' > <span class="glyphicon glyphicon-user"></span> Profile</a>
             </li>
@@ -95,6 +98,7 @@ $token=$_SESSION['access_token'];
             ?>
           </div>
         </div>
+        <div id="mainlist">
         <div class="col-md-4" id="testplayer">
              <ul id="playlist" class="list-group">
                <li class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-music"></span> Your uploaded Music <button type="button" class="close" id="hideuploaded">&times;</button></li>
@@ -117,6 +121,35 @@ $token=$_SESSION['access_token'];
           </div>
         </div>
       </div>
+      <div id="albumlist">
+        <div class="col-md-4">
+          <table class='table table-striped table-hover table-condensed'>
+            <thead>
+              <tr>
+                <th>Album</th>
+              </tr>
+            </thead>
+            <tbody id="listallalb"></tbody>
+          </table>
+        </div>
+        <div class="col-md-8">
+          <div id="">
+            <img src="asset/img/cd.png" id="albumart" width="150px" height="150px" alt="" />
+          </div>
+          <table class='table table-striped table-hover table-condensed'>
+            <thead>
+              <tr>
+                <th align="left">Song</th><th align="right">Artist</th><th align="right">Detail</th><th align="right">
+                  Download
+                </th>
+              </tr>
+            </thead>
+            <tbody id="albumsong"> <tr><td><h3><span class="glyphicon glyphicon-cd"></span> Please Select an album!</h3><td></tr></tbody>
+          </table>
+        </div>
+      </div>
+      </div>
+
       <!--player-->
       <div class="nav  navbar-fixed-bottom col-xl-12 player">
         <div class="player">
@@ -297,6 +330,7 @@ $token=$_SESSION['access_token'];
           <h4 class="modal-title" id="">Music Information</h4>
         </div>
         <div class="modal-body">
+          <form class="" method="post" enctype="multipart/form-data" accept-charset="utf-8">
           <input type="hidden" id="uid" value="<?php echo $_SESSION["uid"]?>">
           <input type="hidden" id="album" value="">
           <input type="hidden" id="infofilename" value="">
@@ -312,6 +346,11 @@ $token=$_SESSION['access_token'];
             <span class="input-group-addon">Genre</span>
             <input type="text" class="form-control" placeholder="Enter genre">
           </div>
+          <div class="input-group">
+            <span class="input-group-addon">Album Cover</span>
+            <input type="file" class="form-control" id="artpa" placeholder="">
+
+          </div>
           <div class="musicinfomsg">
 
           </div>
@@ -319,6 +358,7 @@ $token=$_SESSION['access_token'];
         <div class="modal-footer" id="infofooter">
 
           <button type="button" class="btn btn-primary" id="musicinfoBtn">Confirm</button>
+          </form>
         </div>
       </div>
     </div>

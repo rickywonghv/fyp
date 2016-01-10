@@ -49,37 +49,57 @@
 			<div class="mheader" style="padding-left:15px;">
 				<h3><span class="glyphicon glyphicon-envelope"></span> Mail</h3>
 			</div>
-			<div class="col-xs-12 col-sm-3 col-md-3" >
+			<div class="col-xs-12 col-sm-2 col-md-2" >
 				<ul class="list-group">
-					<li class='list-group-item'><a href="#compose" id="composebtn"><span class="glyphicon glyphicon-edit"></span> Compose</a></li>
-					<li class='list-group-item'><a href="#inbox" id="inboxbtn"><span class="glyphicon glyphicon-envelope"></span> Inbox</a></li>
-					<li class='list-group-item'><a href="#">fvsd</a></li>
+					<li class='list-group-item'><span class="btn mailbtn" id="composebtn" ><span class="glyphicon glyphicon-edit"></span> Compose</span></li>
+					<li class='list-group-item'><span class="btn mailbtn" id="inboxbtn"><span class="glyphicon glyphicon-envelope"></span> Inbox</span></li>
 				</ul>
 			</div>
 			<div class="container">
-				<div class="col-xs-12 col-sm-9">
+				<div class="col-xs-12 col-sm-10">
 
 			<div class="">
 				<section id="inbox">
 					<h4>Inbox</h4>
+					<div class="">
+						You have <span id="num"></span> emails.
+					</div>
 					<table class='table table-hover table-condensed'>
 					  <thead>
 					    <tr>
 					      <th>From</th>
 								<th>Subject</th>
 								<th>Date</th>
-								<th>Time</th>
+
 					    </tr>
 					  </thead>
-					  <tbody>
-					    <tr>
-					      <td>vkskdm</td>
-								<td>dsvsd</td>
-								<td>gng</td>
-								<td>gng</td>
-					    </tr>
+					  <tbody id="mailheader">
+							<div class="loading">
+
+							</div>
 					  </tbody>
 					</table>
+					<div class="modal fade" id="shmailmsg" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <button type="button" class="close closeread" data-dismiss="modal" aria-hidden="true">&times;</button>
+					        <h4 class="modal-title" id=""><span id="msgsubject"></span></h4>
+					      </div>
+					      <div class="modal-body">
+									<div class="loadingpng">
+									</div>
+									<div class=""><b>From:</b> <span id="msgfrom"></span></div>
+									<div class=""><b>Date:</b> <span id="msgdate"></span></div>
+									<div class=""><b>Body:</b></div>
+									<div id="mailbody"></div>
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-default closeread" data-dismiss="modal">Close</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>
 				</section>
 				<section id="compose" hidden>
 					<div class="">
@@ -89,7 +109,8 @@
 						<div class="body">
 							<form class="form-group" method="post" enctype="multipart/form-data">
 								<div class="">
-									<button type='button' id="sendmailbtn" class='btn btn-success '><span class="glyphicon glyphicon-send"></span> Send</button>
+									<button type='button' id="sendmailbtn" class='btn btn-success '> <span id="loading"></span> <span class="glyphicon glyphicon-send"></span> Send</button>
+									<button type='button' id="previewbtn" data-toggle="modal" data-target="#preview" class='btn btn-default'><i class="fa fa-eye"></i> Preview</button>
 
 								</div>
 
@@ -111,6 +132,28 @@
 										<div class="mailmsg inp"></div>
 							</form>
 						</div>
+					</div>
+
+					<div class="modal fade" id="preview" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					        <h4 class="modal-title" id="">Preview Email</h4>
+					      </div>
+					      <div class="modal-body">
+									<div id=""><b>To: </b><span id="preto"></span></div>
+					        <div id=""><b>Subject: </b><span id="presub"></span></div>
+									<div class=""><b>Body:</b></div>
+									<div id="prebody"></div>
+
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					        <button type="button" class="btn btn-primary"></button>
+					      </div>
+					    </div>
+					  </div>
 					</div>
 				</section>
 			</div>

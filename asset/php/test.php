@@ -1,24 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
+<?php
+include '../config/db.php';
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/3.1.0/octicons.min.css">
-
-    <!--[if lt IE 9]>
-      <script src="https://cdn.jsdelivr.net/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-
-
-    <script src="https://cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <button type='button' class='btn btn-info btn-xs musicdbtn' onclick='musicdet("++")' data-toggle='modal' data-target='#shmusicinfo'>Detail</button>
-  </body>
-</html>
+$sql="SELECT music.songid,music.title, music.songPath, music.singer FROM music INNER JOIN user ON music.userid=user.userid WHERE user.type=1";
+$stmt=mysqli_query($conn,"SET NAMES UTF8");
+$stmt=$conn->prepare($sql);
+$stmt->execute();
+$stmt->bind_result($songid, $title,$songPath,$singer);
+$array= array();
+while ($stmt->fetch()) {
+    $array[]= array('id' =>$songid ,'singer'=>$singer ,'title'=>$title,'path'=>'http://musixcloud.xyz/asset/php/play.php?url='.$songPath);
+      //'path'=>'http://musixcloud.xyz/asset/php/play.php?url='.$songPath
+    $songjson=json_encode($array,JSON_UNESCAPED_UNICODE);
+}
+print_r($songjson);
+?>

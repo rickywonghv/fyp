@@ -10,9 +10,23 @@ $(document).ready(function() {
      success:function(response){
        json=response;
        var NumOfJData = json.length;
-       $("#pubmusic").append("<li class='list-group-item'><button type='button' class='song btn' value='play.php?url="+json[0]["songPath"]+"&code="+gentoken+"'><span class='songtit'></span> "+json[0]["title"]+"</button> <span class='art hidden-xs'>Artist:"+json[0]["singer"]+"</span> <button type='button' class='btn btn-info btn-xs musicdbtn' onclick='musicdet("+json[0]["songid"]+")' data-toggle='modal' data-target='#shmusicinfo'>Detail</button> <a  class='download' href='download.php?url="+json[0]["songPath"]+"' data-toggle='tooltip' title='Download'><span class='glyphicon glyphicon-download'></span></a></li>");
-         for(var i = 1; i < NumOfJData; i++) {
-           $("#pubmusic").append("<li class='list-group-item'><button type='button' class='song btn' value='play.php?url="+json[i]["songPath"]+"&code="+gentoken+"'> <span class='songtit'></span> "+json[i]["title"]+"</button><span class='art hidden-xs' > Artist:"+json[i]["singer"]+"</span> <button type='button' class='btn btn-info btn-xs musicdbtn' onclick='musicdet("+json[i]["songid"]+")' data-toggle='modal' data-target='#shmusicinfo'>Detail</button> <a class='download' href='download.php?url="+json[i]["songPath"]+"' data-toggle='tooltip' title='Download'><span class='glyphicon glyphicon-download'></span></a></li>");
+         for(var i = 0; i < NumOfJData; i++) {
+           var name=json[i]["title"];
+           if(name.length>10){
+             var res="<marquee behavior='scroll' direction='left'>"+json[i]["title"]+"</marquee>";
+           }else{
+             var res=json[i]["title"];
+           }
+           var arts=json[i]["singer"];
+           if(arts==null){
+             var reart='null';
+           }else if(name.length>10){
+             var reart="<span class='hidden'>"+json[i]["singer"]+"</span>";
+           }else{
+             var reart=json[i]["singer"];
+           }
+
+           $("#pubmusic").append("<li class='list-group-item'><button type='button' class='song btn' value='play.php?url="+json[i]["songPath"]+"&code="+gentoken+"'> <span class='songtit'></span> "+res+"</button><span class='shsonglist'><span class='art hidden-xs' > "+reart+"</span> <button type='button' class='btn btn-info btn-xs musicdbtn' onclick='musicdet("+json[i]["songid"]+")' data-toggle='modal' data-target='#shmusicinfo'>Detail</button> <a class='download' href='download.php?url="+json[i]["songPath"]+"' data-toggle='tooltip' title='Download'><span class='glyphicon glyphicon-download'></span></a></span></li>");
 
          }
      }
@@ -26,9 +40,22 @@ $(document).ready(function() {
      success:function(response){
        json=response;
        var NumOfJData = json.length;
-       $("#premusic").append("<li class='list-group-item'><button type='button' class='song btn' value='play.php?url="+json[0]["songPath"]+"&code="+gentoken+"'><span class='songtit'></span> "+json[0]["title"]+"</button> <span class='art hidden-xs'>Artist:"+json[0]["singer"]+"</span> <button type='button' class='btn btn-info btn-xs musicdbtn' onclick='musicdet("+json[0]["songid"]+")' data-toggle='modal' data-target='#shmusicinfo'>Detail</button> <a  class='download' href='download.php?url="+json[0]["songPath"]+"' data-toggle='tooltip' title='Download'><span class='glyphicon glyphicon-download'></span></a></li>");
-         for(var i = 1; i < NumOfJData; i++) {
-           $("#premusic").append("<li class='list-group-item'><button type='button' class='song btn' value='play.php?url="+json[i]["songPath"]+"&code="+gentoken+"'><span class='songtit'></span> "+json[i]["title"]+"</button><span class='art hidden-xs'> Artist:"+json[i]["singer"]+"</span> <button type='button' class='btn btn-info btn-xs musicdbtn' onclick='musicdet("+json[i]["songid"]+")' data-toggle='modal' data-target='#shmusicinfo'>Detail</button> <a class='download' href='download.php?url="+json[i]["songPath"]+"' data-toggle='tooltip' title='Download'><span class='glyphicon glyphicon-download'></span></a></li>");
+         for(var i = 0; i < NumOfJData; i++) {
+           var name=json[i]["title"];
+           if(name.length>10){
+             var res="<marquee behavior='scroll' direction='left'>"+json[i]["title"]+"</marquee>";
+           }else{
+             var res=json[i]["title"];
+           }
+           var arts=json[i]["singer"];
+           if(arts==null){
+             var reart='null';
+           }else if(name.length>10){
+             var reart="<span class='hidden'>"+json[i]["singer"]+"</span>";
+           }else{
+             var reart=json[i]["singer"];
+           }
+           $("#premusic").append("<li class='list-group-item'><button type='button' class='song btn' value='play.php?url="+json[i]["songPath"]+"&code="+gentoken+"'><span class='songtit'></span> "+res+"</button> <span class='shsonglist'><span class='art hidden-xs'> "+reart+"</span> <button type='button' class='btn btn-info btn-xs musicdbtn' onclick='musicdet("+json[i]["songid"]+")' data-toggle='modal' data-target='#shmusicinfo'>Detail</button> <a class='download' href='download.php?url="+json[i]["songPath"]+"' data-toggle='tooltip' title='Download'><span class='glyphicon glyphicon-download'></span></a></li>");
 
          }
      }

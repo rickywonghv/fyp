@@ -5,18 +5,55 @@ $email=$_POST['email'];
 $name=$_POST['name'];
 $fbgender=$_POST['gender'];
 $mobtoken=$_POST['token'];
+$senduid=$_POST['uid'];
 if($_POST['action']==md5('profile')){
   viewprofile($mobtoken);
 }
-//if($fbuid==null){
-//  $error="false";
-//  printf(json_encode(array('error'=>$error)));
-//}
 elseif($_POST['action']==md5('login')){
   login($fbuid,$email,$name,$fbgender,$mobtoken);
 }
 elseif ($_POST['action']==md5('albumlist')) {
-  albumlist($mobtoken);
+  albumlist($mobtoken,$senduid);
+}
+elseif($_POST['action']==md5('users')&&isset($mobtoken)){
+  users();
+}
+elseif($_POST['action']==md5('listsong')&&isset($mobtoken)){
+  listsong($mobtoken);
+}
+
+function listsong($mobtoken){
+  include '../config/db.php';
+    $sql="select type from user where uToken=?";
+    $stmt=$conn->prepare($sql);
+    $stmt->bind_param("s",$mobtoken);
+    $stmt->execute();
+    $stmt->bind_result($retype);
+    $stmt->fetch();
+    if($retype==1){
+      $sql="SELECT music.songid,music.title, music.songPath, music.singer FROM music INNER JOIN user ON music.userid=user.userid WHERE user.type=1";
+      $stmt=mysqli_query($conn,"SET NAMES UTF8");
+      $stmt=$conn->prepare($sql);
+      $stmt->execute();
+      $stmt->bind_result($songid, $title,$songPath,$singer);
+      $array= array();
+      while ($stmt->fetch()) {
+          $array[]= array('id' =>$songid ,'singer'=>$singer ,'title'=>$title,'path'=>'http://musixcloud.xyz/asset/php/play.php?url='.$songPath);
+          $songjson=json_encode($array,JSON_UNESCAPED_UNICODE);
+      }
+      print_r($songjson);
+    }elseif($retype==2){
+      $sql="SELECT music.songid,music.title, music.songPath, music.singer FROM music INNER JOIN user ON music.userid=user.userid WHERE user.type=2";
+      $stmt=mysqli_query($conn,"SET NAMES UTF8");
+      $stmt=$conn->prepare($sql);
+      $stmt->execute();
+      $stmt->bind_result($songid, $title,$songPath,$singer);
+      $array= array();
+      while ($stmt->fetch()) {
+          $array[]= array('id' =>$songid ,'singer'=>$singer ,'title'=>$title,'path'=>'http://musixcloud.xyz/asset/php/play.php?url='.$songPath);
+          $songjson=json_encode($array,JSON_UNESCAPED_UNICODE);
+      }
+    }
 }
 function login($fbuid,$email,$name,$fbgender,$mobtoken){
   session_start();
@@ -59,7 +96,7 @@ function login($fbuid,$email,$name,$fbgender,$mobtoken){
         $stmt=$conn->prepare($query);
         $stmt->bind_param("s",$fbuid);
         $stmt->execute();
-        $stmt->bind_result($reuid,$refbuid,$refbemail,$repwd,$retype,$refullname,$regender,$redob,$reintro,$reexpdate,$reregdate,$reregip,$rtoken);
+        $stmt->bind_result($reuid,$refbuid,$refbemail,$repwd,$retype,$refullname,$regender,$redob,$reintro,$reexpdate,$reregdate,$reregip,$rtoken,$block);
         $stmt->fetch();
         if($rtoken!=$mobtoken){
           include '../config/db.php';
@@ -100,7 +137,23 @@ function viewprofile($mobtoken){
   }
 }
 
-function albumlist($mobtoken){
+function users(){
+  include '../config/db.php';
+  $sql="select userid,fullname from user";
+  $stmt=$conn->prepare($sql);
+  $stmt=bind_param("i",$senduid);
+  $stmt->execute();
+  $data = $stmt->get_result();
+       $result = array();
+       while($row = $data->fetch_assoc()) {
+
+            $result[] = $row;
+            echo json_encode($result,JSON_UNESCAPED_UNICODE);
+        }
+
+}
+
+function listall($mobtoken){
   include '../config/db.php';
   $sql="select type from user where uToken=?";
   if($stmt=$conn->prepare($sql)){
@@ -109,11 +162,44 @@ function albumlist($mobtoken){
     $stmt->bind_result($retype);
     $stmt->fetch();
     if($retype==1){
-      $sql="SELECT music.title, music.songPath,music.album  FROM music INNER JOIN user ON music.userid=user.userid WHERE user.type=1 and music.album!=''";
-      $stmt=$conn->prepare($sql);
-      $stmt->execute();
+      $sql="select ";
+    }
+}
 
+function albumlist($mobtoken,$senduid){
+  include '../config/db.php';
+  $sql="select type from user where uToken=?";
+  if($stmt=$conn->prepare($sql)){
+    $stmt->bind_param('s',$mobtoken);
+    $stmt->execute();
+    $stmt->bind_result($retype);
+    $stmt->fetch();
+    if($retype==1){
+      $sql="SELECT music.title, music.songPath,music.album  FROM music INNER JOIN user ON music.userid=user.userid WHERE user.type=1 and music.album!='' and user.userid=?";
+      $stmt=$conn->prepare($sql);
+      $stmt=bind_param("i",$senduid);
+      $stmt->execute();
+      $data = $stmt->get_result();
+    	     $result = array();
+    	     while($row = $data->fetch_assoc()) {
+
+    	          $result[] = $row;
+                echo json_encode($result,JSON_UNESCAPED_UNICODE);
+    	      }
+
+    }elseif ($retype==2) {
+      $sql="SELECT music.title, music.songPath,music.album  FROM music INNER JOIN user ON music.userid=user.userid WHERE user.type=2 and music.album!=''and user.userid=?";
+      $stmt=$conn->prepare($sql);
+      $stmt=bind_param("i",$senduid);
+      $stmt->execute();
+      $data = $stmt->get_result();
+           $result = array();
+           while($row = $data->fetch_assoc()) {
+
+                $result[] = $row;
+                echo json_encode($result,JSON_UNESCAPED_UNICODE);
+            }
     }
   }
-}
+}}
  ?>

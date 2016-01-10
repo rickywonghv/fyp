@@ -128,7 +128,7 @@ div.jp-controls-holder {
     position:absolute;
     top: -3px;
     right: -12px;
-    background:url("http://orig06.deviantart.net/f85b/f/2012/102/1/a/volume_button_thing__by_aztrogfx-d4vwemn.png") no-repeat center;
+    /*background:url("http://orig06.deviantart.net/f85b/f/2012/102/1/a/volume_button_thing__by_aztrogfx-d4vwemn.png") no-repeat center;*/
 
     /*background: rgb(142, 81, 77) no-repeat center;*/
     width: 16px;
@@ -172,7 +172,7 @@ div.jp-controls-holder {
     float:right;
     margin-top: 13px;
     margin-right: 10px;
-    
+
     width:70px;
     height:10px;
     cursor: pointer;
@@ -194,6 +194,10 @@ div.jp-controls-holder {
         0px 1px 0px rgba(255,255,255,.4);
 }
 
+.shsonglist{
+  float:right;
+}
+
 .jp-volume-bar-value {
     background: transparent;
     width:0px;
@@ -210,4 +214,7 @@ background:url("http://orig06.deviantart.net/f85b/f/2012/102/1/a/volume_button_t
     /*background: rgb(142, 81, 77);*/
     width: 11px;
     height: 10px;
+}
+.albumname{
+
 }

@@ -9,7 +9,6 @@ $ga = new PHPGangsta_GoogleAuthenticator();
 
 $checkResult = $ga->verifyCode($_SESSION['secret'], $_POST['code'], 2);    // 2 = 2*30sec clock tolerance
 if ($checkResult) {
-    //echo 'OK';
     include '../db.php';
     $sql="select adminid,username,password,type,auth from admin where auth=?";
     $stmt=$conn->prepare($sql);
@@ -20,8 +19,12 @@ if ($checkResult) {
     $_SESSION['username']=$reuser;
     $_SESSION['aid']=$adminid;
     $_SESSION['type']=$type;
-    header('Location:../../index.php');
+    //echo 'success';
+    $arrayName = array('stat' =>"success",'aid'=>$adminid );
+    echo json_encode($arrayName);
 } else {
-    echo 'fail';
+    //echo 'fail';
+    $arrayName = array('stat' =>"fail");
+    echo json_encode($arrayName);
 }
 ?>
