@@ -23,7 +23,8 @@
 				<li><a href="adminmessage.php"><span class="glyphicon glyphicon-envelope"></span> Admin Message <span class="badge adminmsgbadge">';
 
 			echo unreadadminmsg($_SESSION['username']).'</span></a></li>
-			<li><a href="mail.php"><i class="fa fa-envelope"></i> Mail</a></li>';
+			<li><a href="mail.php"><i class="fa fa-envelope"></i> Mail</a></li>
+			<li><a href="file.php"><i class="fa fa-file"></i> Files</a></li>';
 	}elseif($_SESSION['type']=='admin'){
 		echo '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">';
 		echo '<li><a href="index.php"><span class="glyphicon glyphicon-home"></span> Home</a></li>
@@ -39,7 +40,8 @@
 		</li>
 		<li><a href="music.php"><span class="glyphicon glyphicon-headphones"></span> Music</a></li>
 		<li><a href="adminmessage.php"><span class="glyphicon glyphicon-envelope"></span> Admin Message <span class="badge adminmsgbadge">';
-		echo unreadadminmsg($_SESSION['username']).'</span></a></li>';
+		echo unreadadminmsg($_SESSION['username']).'</span></a></li>
+		<li><a href="file.php"><i class="fa fa-file"></i> Files</a></li>';
 	}else{
 		echo '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">';
 		echo '<li><a href="index.php"><span class="glyphicon glyphicon-home"></span> Home</a></li>

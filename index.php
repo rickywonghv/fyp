@@ -110,7 +110,7 @@ foreach ($_SESSION as $k=>$v) {
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
-                        <img src="http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png" class="img-responsive">
+                        <img src="asset/img/index.jpg" class="img-responsive">
                     </div>
                     <div class="col-md-6">
                         <h1 class="text-primary">About Us</h1>

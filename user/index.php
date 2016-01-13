@@ -42,6 +42,17 @@ $token=$_SESSION['access_token'];
     <script type="text/javascript" src="asset/js/public.js"></script>
     <link rel="icon" href="../asset/img/favicon.ico">
     <script src="ckeditor/ckeditor.js" charset="utf-8"></script>
+    <script type="text/javascript">
+
+    function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+    vars[key] = value;
+    });
+    return vars;
+    }
+
+    </script>
     <title>MusixCloud User Panel</title>
   </head>
   <body oncontextmenu="false" oncopy="return false" oncut="return false">
@@ -63,15 +74,15 @@ $token=$_SESSION['access_token'];
         </div>
         <div class="collapse navbar-collapse" id="navbar-ex-collapse">
           <ul class="nav navbar-nav">
-            <li><a class="btn" id="home"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+            <li><a class="" id="home"><span class="glyphicon glyphicon-home" ></span> Home</a></li>
             <li>
-              <a class="btn" id="album"><span class="glyphicon glyphicon-cd"></span> Album</a>
+              <a class="" id="album"><span class="glyphicon glyphicon-cd"></span> Album</a>
             </li>
             <li>
               <a href="" data-toggle="modal" data-target="#viewpromodal" onclick='vpro(<?php echo $_SESSION["uid"]?>);' > <span class="glyphicon glyphicon-user"></span> Profile</a>
             </li>
             <li><a onclick='vpro(<?php echo $_SESSION["uid"]?>);' data-toggle="modal" data-target="#uploadmodal"><span class="glyphicon glyphicon-cloud-upload"></span> Upload</a></li>
-            <?php if($_SESSION['type']==2){echo '<li><a href="editor">Audio Editor</a></li>';} ?>
+            <?php if($_SESSION['type']==2){echo '<li><a href="https://editor.musixcloud.xyz"><span class="glyphicon glyphicon-scissors"></span> Editor</a></li>';} ?>
             <li>
               <a href="" data-toggle="modal" data-target="#settingmodal"><span class="glyphicon glyphicon-list-alt"></span> Setting</a>
             </li>
@@ -108,14 +119,14 @@ $token=$_SESSION['access_token'];
         </div>
         <div class="col-md-4">
           <ul class="list-group" id='permium'>
-            <li class="list-group-item list-group-item-danger"><span class="glyphicon glyphicon-music"></span> Permium Music  </li>
+            <li class="list-group-item list-group-item-danger"><span class="glyphicon glyphicon-music"></span> Music List  </li>
             <span id="premusic"></span>
           </ul>
         </div>
         <div class="col-md-4" id="freeplay">
           <div class="pubmusic">
             <ul id="playlist" class="list-group">
-              <li class="list-group-item list-group-item-warning">Free Music</li>
+              <li class="list-group-item list-group-item-warning">Hot Music</li>
               <span id="pubmusic"></span>
             </ul>
           </div>
@@ -136,16 +147,18 @@ $token=$_SESSION['access_token'];
           <div id="">
             <img src="asset/img/cd.png" id="albumart" width="150px" height="150px" alt="" />
           </div>
+          <div class="table-responsive">
           <table class='table table-striped table-hover table-condensed'>
             <thead>
               <tr>
-                <th align="left">Song</th><th align="right">Artist</th><th align="right">Detail</th><th align="right">
+                <th align="left">Song</th><th align="right" class="hidden-xs">Artist</th><th align="right">Detail</th><th align="right">
                   Download
                 </th>
               </tr>
             </thead>
             <tbody id="albumsong"> <tr><td><h3><span class="glyphicon glyphicon-cd"></span> Please Select an album!</h3><td></tr></tbody>
           </table>
+        </div>
         </div>
       </div>
       </div>
@@ -186,13 +199,6 @@ $token=$_SESSION['access_token'];
                   <div class="jp-volume-bar-value"><span class="handle"></span></div>
               </div>
             </div>
-
-
-              <!--<span class="jp-duration" role="timer" aria-label="duration">&nbsp;</span>-->
-
-
-
-
               <div class="jp-no-solution">
                 <span>Error Update Require! </span>
                 To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
@@ -304,12 +310,12 @@ $token=$_SESSION['access_token'];
           <ul class="list-group">
             <li class="list-group-item">
 
-              Select music to upload: <input type="file" class="form-control" name="file" id="uploadsong" accept="audio/mpeg" >
-              <div class="progress">
-                <div class="progress-bar progress-bar-info" id="uploadpro" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="">
-                  <span class="sr-only"></span>
+              Select music to upload: <input type="file" class="form-control" name="file" id="uploadsong" accept="audio/mpeg">
+
+                <div  id="uploadpro">
+
                 </div>
-              </div>
+
               <div class="uploaddiv">
                 <button type="submit" class="btn btn-success" id="uploadBtn"><span class="glyphicon glyphicon-upload"></span>Upload</button>
               </div>
@@ -347,8 +353,13 @@ $token=$_SESSION['access_token'];
             <input type="text" class="form-control" placeholder="Enter genre">
           </div>
           <div class="input-group">
+            <span class="input-group-addon">Album</span>
+            <input type="text" class="form-control" id="albumname" placeholder="Enter Album Name">
+
+          </div>
+          <div class="input-group">
             <span class="input-group-addon">Album Cover</span>
-            <input type="file" class="form-control" id="artpa" placeholder="">
+            <input type="file" class="form-control" id="artpa" placeholder="" accept="image/*" name="file">
 
           </div>
           <div class="musicinfomsg">
@@ -373,6 +384,7 @@ $token=$_SESSION['access_token'];
         </div>
         <div class="modal-body">
           <div class="list-group">
+              <a  class="list-group-item" id="shinfoimg" align="center"><img src="" align="center" id="infoimg" alt="" width="150px" height="150px"/></a>
 					    <a  class="list-group-item"><b>Song ID:</b><span id="infosongid"></span></a>
 					    <a  class="list-group-item"><b>Song Name:</b><span id="infosongname"></span></a>
 							<a  class="list-group-item"><b>Upload User:</b><span id="infouploadUser"></span></a>
@@ -431,7 +443,12 @@ $token=$_SESSION['access_token'];
     </div>
   </div>
 </div>
-
+  <script type="text/javascript">
+  var uploadget = getUrlVars()["act"];
+  if(uploadget==="upload"){
+    $("#uploadmodal").modal({backdrop: 'static',keyboard: false,show:true});
+  }
+  </script>
   </body>
 
 </html>

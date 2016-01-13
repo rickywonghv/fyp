@@ -34,10 +34,6 @@ $("#home").click(function(){
   })
 
 
-  if($("#gentype").val()!=2){
-    $("#permium").hide();
-    $("#freeplay").prop('class','col-md-8');
-  }
   $("#settingchpwd").click(function(){
     $("#settingmodal").modal("hide");
     $("#chpwdmodal").modal("show");
@@ -106,7 +102,7 @@ $("#home").click(function(){
                   type: 'post',
                   beforeSend:function(){
                     $("#uploadpro").prop('aria-valuenow',0);
-                    $("#uploadpro").html('<img src="asset/img/loading.gif">');
+                    $("#uploadpro").html('<h4><img src="asset/img/loading.gif"> Uploading</h4>');
                   },complete:function(){
                       $('#uploadpro').hide();
                     },
@@ -139,30 +135,71 @@ $("#home").click(function(){
     var realbum=$("#album").val();
     var filename=$("#infofilename").val();
     var uid=$("#uid").val();
-    var art=$("#artpa").val();
+    var artpa= $("#artpa").val();
     if(resinger==""){
       $(".musicinfomsg").html('<div class="alert alert-dismissable alert-danger"><strong>Error! </strong> Please enter a singer </div>');
       return false;
     }else if(retitle==""){
       $(".musicinfomsg").html('<div class="alert alert-dismissable alert-danger"><strong>Error! </strong> Please enter a title </div>');
       return false;
-    }else{
-      $.ajax({
-        url:"asset/php/uploadid.php",
-        type:"POST",
-        data:"title="+retitle+"&singer="+resinger+"&uid="+uid+"&path="+filename+"&album="+realbum,
-        success:function(res){
-          $("#musicinfomsg").html('<div class="alert alert-dismissable alert-success"><strong>Upload Successful! </strong>  has been upload! </div>');
-          $("#musicinfoBtn").hide();
-          $("#infofooter").html('<button type="button" class="btn btn-default infomusicclose" data-dismiss="modal">Close</button>');
-          $(".infomusicclose").click(function(){
-            window.location='index.php';
-          })
-          return false;
-        }
-      })
-      return false;
-    }
+    }else if(artpa!=""){
+        var file_data = $('#artpa').prop('files')[0];
+        var form_data = new FormData();
+        form_data.append('pic', file_data);
+        $.ajax({
+                    url: "asset/php/uploadsrt.php",
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: form_data,
+                    type: 'post',
+                    dataType:"json",
+                    success:function(response){
+                      if(response['FileName']=="notsupp"){
+                        $(".musicinfomsg").html('<div class="alert alert-dismissable alert-danger"><strong>Error! </strong>'+response+'</div>');
+                        return false;
+                      }else if (response['FileName']=="size") {
+                        $(".musicinfomsg").html('<div class="alert alert-dismissable alert-danger"><strong>Error! </strong> Your image is too big, we are only support smaller than 500kb.</div>');
+                        return false;
+                      }
+                      else{
+                        var artpath=response['FileName'];
+                          $.ajax({
+                            url:"asset/php/uploadid.php",
+                            type:"POST",
+                            data:"title="+retitle+"&singer="+resinger+"&uid="+uid+"&path="+filename+"&album="+realbum+"&artpath="+artpath,
+                            success:function(res){
+                              $("#musicinfomsg").html('<div class="alert alert-dismissable alert-success"><strong>Upload Successful! </strong>  has been upload! </div>');
+                              $("#musicinfoBtn").hide();
+                              $("#infofooter").html('<button type="button" class="btn btn-default infomusicclose" data-dismiss="modal">Close</button>');
+
+                              $(".infomusicclose").click(function(){
+                                window.location='index.php';
+                              })
+                              return false;
+                            }
+                          })
+
+                      }
+
+                    }
+                  });
+      }else{
+        $.ajax({
+          url:"asset/php/uploadid.php",
+          type:"POST",
+          data:"title="+retitle+"&singer="+resinger+"&uid="+uid+"&path="+filename+"&album="+realbum,
+          success:function(res){
+            $("#musicinfomsg").html('<div class="alert alert-dismissable alert-success"><strong>Upload Successful! </strong>  has been upload! </div>');
+            $("#musicinfoBtn").hide();
+            $("#infofooter").html('<button type="button" class="btn btn-default infomusicclose" data-dismiss="modal">Close</button>');
+            $(".infomusicclose").click(function(){
+              window.location='index.php';
+            })
+            return false;
+          }
+        })
+      }
 
   })
 
@@ -259,7 +296,17 @@ function musicdet(songid){
     data:"act=musicdet&songid="+songid,
     dataType:"json",
     success:function(response){
-      var json=response[0]
+      var json=response[0];
+      if(json["artPath"]==null){
+        $("#infoimg").attr("src","asset/img/cd.png");
+      }else{
+        $("#infoimg").attr("src","upload/albumart/"+json["artPath"]);
+      }
+      /*
+      if(){
+        $("#infoimg").attr("src","upload/albumart/"+json["artPath"]);
+      }*/
+
       $("#musicinfotitle").html(json["title"]);
       $("#infosongid").html(json["songid"]);
       $("#infosongname").html(json["title"]);
@@ -323,4 +370,51 @@ function shalbsong(albname){
         }
     }
   })
+}
+
+$(document).on("change","#uploadsong",function(){
+  checkFile();
+})
+$(document).on("change","#artpa",function(){
+  checkimg();
+})
+
+function checkFile(e) {
+  var file_data = $('#uploadsong').prop('files')[0];
+  var form_data = new FormData();
+  form_data.append('file', file_data);
+  var file=file_data;
+      var sFileName = file.name;
+      var sFileExtension = sFileName.split('.')[sFileName.split('.').length - 1].toLowerCase();
+      var iFileSize = file.size;
+      var iConvert = (file.size / 10485760).toFixed(2);
+
+      if (!(sFileExtension === "mp3") || iFileSize > 10485760) {
+          txt = "File type : " + sFileExtension + "\n\n";
+          txt += "Size: " + iConvert + " MB \n\n";
+          txt += "Please make sure your file is in mp3 format and less than 10 MB.\n\n";
+          alert(txt);
+          return false;
+      }
+
+}
+
+function checkimg(e) {
+  var file_data = $('#artpa').prop('files')[0];
+  var form_data = new FormData();
+  form_data.append('file', file_data);
+  var file=file_data;
+      var sFileName = file.name;
+      var sFileExtension = sFileName.split('.')[sFileName.split('.').length - 1].toLowerCase();
+      var iFileSize = file.size;
+      var iConvert = (file.size / 5485760).toFixed(2);
+
+      if (!(sFileExtension === "png"||sFileExtension === "jpg"||sFileExtension === "jpeg") || iFileSize > 5485760) {
+          txt = "File type : " + sFileExtension + "\n\n";
+          txt += "Size: " + iConvert + " MB \n\n";
+          txt += "Please make sure your file is in png,jpg,jpeg format and less than 5 MB.\n\n";
+          alert(txt);
+          return false;
+      }
+
 }

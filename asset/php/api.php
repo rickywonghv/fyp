@@ -53,6 +53,7 @@ function listsong($mobtoken){
           $array[]= array('id' =>$songid ,'singer'=>$singer ,'title'=>$title,'path'=>'http://musixcloud.xyz/asset/php/play.php?url='.$songPath);
           $songjson=json_encode($array,JSON_UNESCAPED_UNICODE);
       }
+      print_r($songjson);
     }
 }
 function login($fbuid,$email,$name,$fbgender,$mobtoken){

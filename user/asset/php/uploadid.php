@@ -16,7 +16,7 @@ date_default_timezone_set("Asia/Hong_Kong");
   $genre=$_POST['genre'];
   $comment=null;
   $copyright=null;
-  $artPath=null;
+  $artPath=$_POST['artpath'];
   $lyrics=null;
   $songPath=$_POST['path'];
   $uploadDateTime=date("Y-m-d H:i:s");

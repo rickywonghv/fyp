@@ -25,6 +25,8 @@ if($_GET['act']=="cpwd"){
   albumlist();
 }elseif($_POST['act']=="shalbsong"&&isset($_POST['songname'])){
   shsongbyname($_POST['songname']);
+}elseif($_POST['act']=="hotsong"){
+  hotsong();
 }
 
 function shsongbyname($songname){
@@ -136,7 +138,7 @@ function presong(){
   include 'db.php';
   session_start();
   if($_SESSION['type']==2){
-    $sql="SELECT music.songid,music.title, music.songPath, music.singer FROM music INNER JOIN user ON music.userid=user.userid WHERE user.type=2";
+    $sql="SELECT music.songid,music.title, music.songPath, music.singer FROM music INNER JOIN user ON music.userid=user.userid";
     //$stmt=mysqli_query($conn,"SET NAMES UTF8");
     $stmt=$conn->prepare($sql);
     $stmt->execute();
@@ -148,6 +150,35 @@ function presong(){
         echo json_encode($result);
   }
 
+}
+
+function hotsong(){
+  include 'db.php';
+  session_start();
+  if($_SESSION['type']==2){
+    $sql="SELECT music.songid,music.title, music.songPath, music.singer FROM music INNER JOIN user ON music.userid=user.userid where music.totalPlay>20";
+    //$stmt=mysqli_query($conn,"SET NAMES UTF8");
+    $stmt=$conn->prepare($sql);
+    $stmt->execute();
+    $data = $stmt->get_result();
+       $result = array();
+       while($row = $data->fetch_assoc()) {
+            $result[] = $row;
+        }
+        echo json_encode($result);
+  }
+  if($_SESSION['type']==1){
+    $sql="SELECT music.songid,music.title, music.songPath, music.singer FROM music INNER JOIN user ON music.userid=user.userid where music.totalPlay>20 and user.userid=1";
+    //$stmt=mysqli_query($conn,"SET NAMES UTF8");
+    $stmt=$conn->prepare($sql);
+    $stmt->execute();
+    $data = $stmt->get_result();
+       $result = array();
+       while($row = $data->fetch_assoc()) {
+            $result[] = $row;
+        }
+        echo json_encode($result);
+  }
 }
 
 function musicinfo($id){

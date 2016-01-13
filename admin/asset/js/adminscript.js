@@ -35,9 +35,13 @@ $(document).ready(function(){
 							url:'asset/addadmin.php',
 							success:function(response){
 								if(response=='success'){
-									$('#success').html('<div class="alert alert-success"><strong>Success!</strong>Add Successfully.</div>');
+									$('#response').html('<div class="alert alert-success"><strong>Success!</strong>Add Successfully.</div>');
 									window.location='admin.php';
-								}else{
+								}else if(response=="shortpass"){
+									$('#response').html('<div class="alert alert-warning"><strong>Warning!</strong>Password is too short! Password length should more than 7 !</div>');
+									return false;
+								}
+								else{
 									$('#response').html('<div class="alert alert-warning"><strong>Warning!</strong>This admin exist already! </div>');
 									return false;
 								}

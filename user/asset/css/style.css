@@ -44,6 +44,7 @@ body > .container {
 }
 .song{
   position: relative;
+  max-width: 100px
 }
 
 .song.btn{
@@ -57,7 +58,10 @@ body > .container {
   text-decoration: none;
 }
 
-
+#shinfoimg{
+  margin:auto;
+  padding:auto;
+}
 
 
 div.jp-controls-holder {

@@ -5,10 +5,10 @@ if(isset($_GET['url'])){
   /*
 
   */
-
+$file = '../../user/upload/files/'.$_GET['url'];
   $ua = strtolower($_SERVER['HTTP_USER_AGENT']);
 if(stripos($ua,'android') !== false) {
-  $file = '../../user/upload/files/'.$_GET['url'];
+
 
   if (file_exists($file)) {
       //header('Content-Description: File Transfer');
@@ -32,6 +32,7 @@ if(stripos($ua,'android') !== false) {
 }else{
   header('X-Pad: avoid browser bug');
   header('Location:upload/files/'.$_GET['url']);
+
 }
 
 
